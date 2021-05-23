@@ -10,7 +10,9 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    socketTCP.cpp
+    socketTCP.cpp \
+    fball.cpp \
+    mainmenu.cpp
 LIBS += -lsfml-audio
 LIBS += -lsfml-graphics
 LIBS += -lsfml-network
@@ -30,4 +32,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 QMAKE_CXXFLAGS += -std=gnu++14
 
 HEADERS += \
-    socketTCP.h
+    socketTCP.h \
+    fball.h \
+    mainmenu.h

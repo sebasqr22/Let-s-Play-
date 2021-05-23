@@ -1,0 +1,22 @@
+#ifndef BALL_H
+#define BALL_H
+
+
+class Ball
+{
+private:
+    float Pos_x;
+    float Pos_y;
+public:
+    Ball();
+    void set_Position(float x, float y);
+    float get_PositionX();
+    float get_PositionY();
+    void moveI();
+    void moveII();
+    void moveIII();
+    void moveIV();
+    void moveFast(int component, int quad);
+};
+
+#endif // BALL_H

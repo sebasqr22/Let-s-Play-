@@ -2,6 +2,8 @@
 #include <SFML/Network.hpp>
 #include <iostream>
 #include <socketTCP.h>
+#include <fball.h>
+
 using namespace std;
 using namespace sf;
 
@@ -11,7 +13,7 @@ int main()
     //RenderWindow window(VideoMode(800, 560), "SFML tutorial : part 1",Style::Close | Style::Resize);
 
     RectangleShape rects[88];
-    int i = 20, j = 7, l = 0, jump = 0;
+    int i = 26, j = 7, l = 0, jump = 0;
     const sf::Color colorArray[9]={Color::Cyan, Color::Blue, Color::Green, Color::Red, Color::Yellow, Color::Black, Color::White, Color::Magenta, Color::Cyan };
     srand(time(NULL));
     for (l; l<sizeof(rects) / sizeof(rects[0]); l++){
@@ -73,8 +75,8 @@ int main()
         Clock clock;
 
         // Create a green circle with a radius of 100. pixels
-        CircleShape teamPlayer(25.f);
-        teamPlayer.setPosition(300.f,200.f);
+        CircleShape teamPlayer(34.f);
+        teamPlayer.setPosition(296.f,211.f);
         //teamPlayer.setFillColor(Color::Red);
         CircleShape Ball(25.f);
         //Ball.setFillColor(Color(22,34,677,255));
@@ -86,7 +88,7 @@ int main()
         //player.setOrigin(50.0f,50.0f);
         RectangleShape backg(Vector2f(800.f,560.f));
         RectangleShape arrow(Vector2f(35.f,75.f));
-
+        RectangleShape force(Vector2f(35,130));
 
 
 
@@ -102,7 +104,7 @@ int main()
         playerTexture.loadFromFile("Imags/Im1.jpeg");
 
         Texture teamTexture;
-        teamTexture.loadFromFile("Imags/Barca1.png");
+        teamTexture.loadFromFile("Imags/playerBlue.png");
 
         Texture arrowTexture;
         arrowTexture.loadFromFile("Imags/flecha.png");
@@ -113,20 +115,29 @@ int main()
         Texture ballTexture;
         ballTexture.loadFromFile("Imags/bola.png");
 
+        Texture forceTexture;
+        forceTexture.loadFromFile("Imags/fuerza3.png");
+
         player.setTexture(&playerTexture);
         backg.setTexture(&Background);
         teamPlayer.setTexture(&teamTexture);
         arrow.setTexture(&arrowTexture);
         Ball.setTexture(&ballTexture);
         mySprite.setTexture(arrowTexture);
-
+        force.setTexture(&forceTexture);
 
         // VARIABLES
         bool selected = false;
+        int moving = 0;
+        Vector2i T2mousePos;
+        int counterM = 0;
+
+        FBall fball;
 
         // Main loop, while the window is open
         while (window.isOpen())
         {
+            Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
 
             // Event loop
             Event event;
@@ -159,20 +170,69 @@ int main()
                     //}
 
                     auto translated_pos = window.mapPixelToCoords(mousePos); // Mouse position translated into world coordinates
-                    if(teamPlayer.getGlobalBounds().contains(translated_pos)){
+                    if (selected==true){
+                        switch((int)arrow.getRotation()){
+                            case 0:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 360;
+                                break;
+                            case 90:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 90;
+                                break;
+                            case 180:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 180;
+                                break;
+                            case 270:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 270;
+                                break;
+
+                            case 315:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 4;
+                                break;
+                            case 45:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 3;
+                                break;
+                            case 135:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 2;
+                                break;
+                            case 225:
+                                selected = false;
+                                T2mousePos = Mouse::getPosition(window);
+                                moving = 1;
+                                break;
+                        }
+                    } else if(teamPlayer.getGlobalBounds().contains(translated_pos)){
 
 
-                        Ball.setPosition((float)mousePos.x+25,(float)mousePos.y);
 
-                        arrow.setPosition((float)Ball.getPosition().x-40,(float)Ball.getPosition().y+10);
+
+                        fball.set_Position((float)teamPlayer.getPosition().x+9,(float)teamPlayer.getPosition().y+9); // 9 = 34 - 25
+
+                        Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
+
+                        arrow.setPosition((float)teamPlayer.getPosition().x+34,(float)teamPlayer.getPosition().y+34);
+
                         selected = true;
-                        arrow.rotate(15.f);
+                        //arrow.rotate(45.f);
 
 
 
                         ///////////////////////////////////////////// COMENTAR ESTO TAMBIEN PARA NO EJECUTAR LA CONEXION
                         //getline(cin, text);
-                        text = " mensaje ";
+                        text = "mensaje";
                         socket.send(text.c_str(), text.length() + 1);
                         mode = "r";
                         if(mode=="r") {
@@ -201,10 +261,75 @@ int main()
             }
 
             if (selected == true){
-
-
+                Vector2i TmousePos = Mouse::getPosition(window);
+                if (TmousePos.x > arrow.getPosition().x-34 && TmousePos.x < arrow.getPosition().x+34 && TmousePos.y > arrow.getPosition().y){
+                    arrow.setRotation(0);
+                }else if(TmousePos.x > arrow.getPosition().x-34 && TmousePos.x < arrow.getPosition().x+34 && TmousePos.y < arrow.getPosition().y){
+                    arrow.setRotation(180);
+                }else if(TmousePos.y > arrow.getPosition().y-34 && TmousePos.y < arrow.getPosition().y+34 && TmousePos.x < arrow.getPosition().x){
+                    arrow.setRotation(90);
+                }else if(TmousePos.y > arrow.getPosition().y-34 && TmousePos.y < arrow.getPosition().y+34 && TmousePos.x > arrow.getPosition().x){
+                    arrow.setRotation(270);
+                }else if(TmousePos.x > arrow.getPosition().x && TmousePos.y > arrow.getPosition().y){
+                    arrow.setRotation(315);
+                } else if(TmousePos.x < arrow.getPosition().x && TmousePos.y > arrow.getPosition().y){
+                    arrow.setRotation(45);
+                } else if(TmousePos.x < arrow.getPosition().x && TmousePos.y < arrow.getPosition().y){
+                    arrow.setRotation(135);
+                } else if(TmousePos.x > arrow.getPosition().x && TmousePos.y < arrow.getPosition().y){
+                    arrow.setRotation(225);
+                }
 
             }
+
+            /////////////////////////////// MOVIMIENTO DE LA BOLA //////////////////////////////////////////
+            if (moving% 90 == 0 && moving != 0){
+                if (counterM!=300){
+                    fball.moveHV(moving);
+                    counterM+=1;
+                } else {
+                    moving = 0;
+                    counterM=0;
+                }
+            } else if (moving == 4){
+                if (counterM!=400){
+                    fball.moveIV();
+                    counterM+=1;
+                } else {
+                    moving = 0;
+                    counterM=0;
+                }
+            } else if (moving == 3){
+                if (counterM!=400){
+                    fball.moveIII();
+                    counterM+=1;
+                } else {
+                    moving = 0;
+                    counterM=0;
+                }
+            } else if (moving == 2){
+                if (counterM!=400){
+                    fball.moveII();
+                    counterM+=1;
+                } else {
+                    moving = 0;
+                    counterM=0;
+                }
+            } else if (moving == 1){
+                if (counterM!=400){
+                    fball.moveI();
+                    counterM+=1;
+                } else {
+                    moving = 0;
+                    counterM=0;
+                }
+            }
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 
             /*
             if(mode=="r") {
@@ -287,7 +412,7 @@ int main()
             window.draw(arrow);
             window.draw(Ball);
             //window.draw(mySprite);
-
+            window.draw(force);
             window.display();
         }
 

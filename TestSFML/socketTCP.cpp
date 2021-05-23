@@ -41,8 +41,9 @@ SocketTCP::SocketTCP(bool connectionType)
             this->socket.receive(this->buffer, sizeof(this->buffer), this->received);
             if (received>0){
                 cout << "Received: " << this->buffer << endl;
+                string  msgR = this->buffer;
 
-                if (this->buffer == "mensaje"){
+                if (msgR == "mensaje"){
                     cout << "funciona" << endl;
                 }
 

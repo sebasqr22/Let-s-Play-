@@ -51,9 +51,13 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = main.cpp \
-		socketTCP.cpp 
+		socketTCP.cpp \
+		fball.cpp \
+		mainmenu.cpp 
 OBJECTS       = main.o \
-		socketTCP.o
+		socketTCP.o \
+		fball.o \
+		mainmenu.o
 DIST          = ../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../Qt5.9.1/5.9.1/gcc_64/mkspecs/common/unix.conf \
 		../Qt5.9.1/5.9.1/gcc_64/mkspecs/common/linux.conf \
@@ -231,8 +235,12 @@ DIST          = ../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/exceptions.prf \
 		../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/yacc.prf \
 		../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/lex.prf \
-		TestSFML.pro socketTCP.h main.cpp \
-		socketTCP.cpp
+		TestSFML.pro socketTCP.h \
+		fball.h \
+		mainmenu.h main.cpp \
+		socketTCP.cpp \
+		fball.cpp \
+		mainmenu.cpp
 QMAKE_TARGET  = TestSFML
 DESTDIR       = 
 TARGET        = TestSFML
@@ -618,8 +626,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents socketTCP.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp socketTCP.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents socketTCP.h fball.h mainmenu.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp socketTCP.cpp fball.cpp mainmenu.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -665,11 +673,18 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
-main.o: main.cpp socketTCP.h
+main.o: main.cpp socketTCP.h \
+		fball.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 socketTCP.o: socketTCP.cpp socketTCP.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socketTCP.o socketTCP.cpp
+
+fball.o: fball.cpp fball.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fball.o fball.cpp
+
+mainmenu.o: mainmenu.cpp mainmenu.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainmenu.o mainmenu.cpp
 
 ####### Install
 
