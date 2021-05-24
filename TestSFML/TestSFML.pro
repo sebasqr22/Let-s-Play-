@@ -10,6 +10,8 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
+    creadorMatriz.cpp \
+    cuadro.cpp \
     socketTCP.cpp \
     fball.cpp \
     mainmenu.cpp
