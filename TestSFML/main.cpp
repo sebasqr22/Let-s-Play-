@@ -3,14 +3,21 @@
 #include <iostream>
 #include <socketTCP.h>
 #include <fball.h>
+#include <player.h>
 
 using namespace std;
 using namespace sf;
 
 
-int main()
+
+int BPGame(String Splayers, String Sgoal)
 {
     //RenderWindow window(VideoMode(800, 560), "SFML tutorial : part 1",Style::Close | Style::Resize);
+    string splayers = Splayers;
+    string sgoal = Sgoal;
+    int players = atoi(splayers.c_str());
+    int goal = atoi(sgoal.c_str());
+
 
     RectangleShape rects[88];
     int i = 26, j = 7, l = 0, jump = 0;
@@ -20,7 +27,30 @@ int main()
         rects[l].setFillColor(colorArray[rand()%9]);
     }
 
+    float randomX[11] = {26,94,162,230,298,366,434,502,570,638,706};
+    float randomY[8] = {7,75,143,211,279,347,415,483};
 
+
+
+    /// TEAMS ///
+    CircleShape circles[players];
+    Texture team2Texture;
+    team2Texture.loadFromFile("Imags/playerRed.png");
+    for (int k = 0; k<players; k++)
+    {
+       circles[k].setRadius(34.f);
+       circles[k].setTexture(&team2Texture);
+    }
+
+    Player totalPlayers[players];
+    for (int k = 0; k<players; k++)
+    {
+       totalPlayers[k].set_Position(randomX[rand()%11],randomY[rand()%8]);
+       cout << totalPlayers[k].get_PositionX() << endl;
+
+       circles[k].setPosition(totalPlayers[k].get_PositionX(),totalPlayers[k].get_PositionY());
+    }
+    /// TEAMS ///
 
 
     string mode;
@@ -67,7 +97,7 @@ int main()
 
 
         // Create a new 200x200 pixels window with a title
-        RenderWindow window(VideoMode(800, 560), "SFML tutorial : part 1",Style::Close | Style::Resize);
+        RenderWindow window(VideoMode(800, 560), "Let's Play",Style::Close | Style::Resize);
         //RenderWindow mainMenu(VideoMode(500, 350), "SFML tutorial : part 1",Style::Close);
 
 
@@ -118,6 +148,8 @@ int main()
         Texture forceTexture;
         forceTexture.loadFromFile("Imags/fuerza3.png");
 
+
+
         player.setTexture(&playerTexture);
         backg.setTexture(&Background);
         teamPlayer.setTexture(&teamTexture);
@@ -131,6 +163,8 @@ int main()
         int moving = 0;
         Vector2i T2mousePos;
         int counterM = 0;
+        bool wall = false;
+
 
         FBall fball;
 
@@ -281,49 +315,120 @@ int main()
                 }
 
             }
-
+            //cout << moving << endl;
+            //cout << wall << endl;
             /////////////////////////////// MOVIMIENTO DE LA BOLA //////////////////////////////////////////
-            if (moving% 90 == 0 && moving != 0){
-                if (counterM!=300){
-                    fball.moveHV(moving);
-                    counterM+=1;
+            if (wall == true && moving<5){
+
+                if (moving == 2){
+                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
+                    moving = 3;
+
+                } else if (moving == 3){
+                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
+                    moving = 4;
+
+                } else if (moving == 1){
+                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
+                    moving = 4;
+
+                } else if (moving == 4){
+                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
+                    moving = 3;
+                }
+
+                wall = false;
+
+            } else if (moving% 90 == 0 && moving != 0){
+                if (counterM!=600){
+                    if (wall==true){
+                        if (moving == 180){
+                            fball.moveHV(360);
+                        } else if (moving == 360){
+                            fball.moveHV(180);
+                        } else if (moving == 90){
+                            fball.moveHV(270);
+                        } else if (moving == 270){
+                            fball.moveHV(90);
+                        }
+                        counterM+=1;
+
+
+                    } else if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
+                        wall = true;
+
+                    } else {
+                        fball.moveHV(moving);
+                        counterM+=1;
+                    }
+
                 } else {
                     moving = 0;
                     counterM=0;
+                    wall = false;
                 }
+            //// CUARTO
             } else if (moving == 4){
-                if (counterM!=400){
-                    fball.moveIV();
-                    counterM+=1;
+                if (counterM!=600){
+                    if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
+
+                        wall = true;
+                    } else {
+                        fball.moveIV();
+                        counterM+=1;
+                    }
                 } else {
                     moving = 0;
                     counterM=0;
+
+
                 }
+            //// TERCER
             } else if (moving == 3){
-                if (counterM!=400){
-                    fball.moveIII();
-                    counterM+=1;
+                if (counterM!=600){
+                    if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
+
+                        wall = true;
+                    } else {
+                        fball.moveIII();
+                        counterM+=1;
+                    }
                 } else {
                     moving = 0;
                     counterM=0;
+
                 }
+            //// SEGUNDO
             } else if (moving == 2){
-                if (counterM!=400){
-                    fball.moveII();
-                    counterM+=1;
+                if (counterM!=600){
+                    if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
+                        wall = true;
+                    } else {
+                        fball.moveII();
+                        counterM+=1;
+                    }
                 } else {
                     moving = 0;
                     counterM=0;
+
                 }
+            //// PRIMER
             } else if (moving == 1){
-                if (counterM!=400){
-                    fball.moveI();
-                    counterM+=1;
+                if (counterM!=600){
+                    if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
+
+                        wall = true;
+                    } else {
+                        fball.moveI();
+                        counterM+=1;
+                    }
                 } else {
                     moving = 0;
                     counterM=0;
+
                 }
             }
+
 
 
 
@@ -405,6 +510,12 @@ int main()
             j = 7;
             jump = 0;
 
+            for (int k = 0; k<players; k++)
+            {
+               window.draw(circles[k]);
+
+            }
+
 
 
             window.draw(teamPlayer);
@@ -421,5 +532,153 @@ int main()
 
     }
     return 0;
+
+}
+
+int BPselectionMenu(){
+
+    RectangleShape menuBackg(Vector2f(500.f,400.f));
+
+    Texture menuBackground;
+    menuBackground.loadFromFile("Imags/bpMenu.png");
+
+    menuBackg.setTexture(&menuBackground);
+
+
+    RenderWindow mainMenu(VideoMode(500, 400), "Let's Play MENU",Style::Close | Style::Resize);
+
+    Font font;
+    if (font.loadFromFile("Fonts/ThanksBunnyFree.ttf")){
+        cout << "Font loaded" << endl;
+    }
+    String players;
+    Text textPlayers(players,font,30);
+    textPlayers.setColor(Color::Black);
+    textPlayers.setPosition(232.f,174.f);
+
+    String goal;
+    Text textGoal(goal,font,30);
+    textGoal.setColor(Color::Black);
+    textGoal.setPosition(232.f,221.f);
+
+    /// VARIABLES ///
+    bool write1 = false;
+    bool write2 = false;
+
+    while (mainMenu.isOpen())
+    {
+
+        // Event loop
+        Event event;
+        while (mainMenu.pollEvent(event))
+        {
+            //window.setKeyRepeatEnabled(false);
+            switch (event.type)
+            {
+            case Event::TextEntered:
+                if (write1 == true){
+
+                    if (event.text.unicode >= 32 && event.text.unicode <=126){
+                        players += (char)event.text.unicode;
+                    } else if (event.text.unicode == 8 && players.getSize() > 0){
+                        players.erase(players.getSize() - 1, players.getSize());
+                    }
+                    textPlayers.setString(players);
+                    break;
+
+                } else if (write2 == true){
+
+                    if (event.text.unicode >= 32 && event.text.unicode <=126){
+                        goal += (char)event.text.unicode;
+                    } else if (event.text.unicode == 8 && goal.getSize() > 0){
+                        goal.erase(goal.getSize() - 1, goal.getSize());
+                    }
+                    textGoal.setString(goal);
+                    break;
+                }
+
+            case Event::Closed:
+                mainMenu.close();
+                break;
+            case Event::MouseButtonPressed:
+                cout << 1 << endl;
+
+                Vector2i mousePos = Mouse::getPosition(mainMenu);
+
+                cout << mousePos.x << " " << mousePos.y << endl;
+                if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 176 && mousePos.y < 209){
+                    write1 = true;
+                    write2 = false;
+                } else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 223 && mousePos.y < 258){
+                    write2 = true;
+                    write1 = false;
+
+                } else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 272 && mousePos.y < 308){
+                    write2 = true;
+                    write1 = false;
+                    mainMenu.close();
+                    return BPGame(players, goal);
+
+                } else {
+                    write1 = false;
+                    write2 = false;
+                }
+                break;
+
+            }
+
+        }
+
+        mainMenu.clear();
+        mainMenu.draw(menuBackg);
+        mainMenu.draw(textPlayers);
+        mainMenu.draw(textGoal);
+        mainMenu.display();
+    }
+
+}
+
+int main(){
+
+    RectangleShape menuBackg(Vector2f(570.f,400.f));
+
+    Texture menuBackground;
+    menuBackground.loadFromFile("Imags/mainMenu.png");
+
+    menuBackg.setTexture(&menuBackground);
+
+
+    RenderWindow mainMenu(VideoMode(570, 400), "Let's Play MENU",Style::Close | Style::Resize);
+    while (mainMenu.isOpen())
+    {
+
+        // Event loop
+        Event event;
+        while (mainMenu.pollEvent(event))
+        {
+            //window.setKeyRepeatEnabled(false);
+            switch (event.type)
+            {
+            case Event::Closed:
+                mainMenu.close();
+                break;
+            case Event::MouseButtonPressed:
+                cout << 1 << endl;
+
+                Vector2i mousePos = Mouse::getPosition(mainMenu);
+
+                //cout << mousePos.x << " " << mousePos.y << endl;
+                if (mousePos.x > 372 &&  mousePos.x < 500 && mousePos.y > 90 && mousePos.y < 170){
+                    mainMenu.close();
+                    return BPselectionMenu();
+                }
+            }
+
+        }
+
+        mainMenu.clear();
+        mainMenu.draw(menuBackg);
+        mainMenu.display();
+    }
 
 }

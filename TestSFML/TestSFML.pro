@@ -10,11 +10,10 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 SOURCES += main.cpp \
-    creadorMatriz.cpp \
-    cuadro.cpp \
     socketTCP.cpp \
     fball.cpp \
-    mainmenu.cpp
+    mainmenu.cpp \
+    player.cpp
 LIBS += -lsfml-audio
 LIBS += -lsfml-graphics
 LIBS += -lsfml-network
@@ -36,4 +35,5 @@ QMAKE_CXXFLAGS += -std=gnu++14
 HEADERS += \
     socketTCP.h \
     fball.h \
-    mainmenu.h
+    mainmenu.h \
+    player.h
