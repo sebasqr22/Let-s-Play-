@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     socketTCP.cpp \
     fball.cpp \
     mainmenu.cpp \
-    player.cpp
+    player.cpp \
+    strength.cpp
 LIBS += -lsfml-audio
 LIBS += -lsfml-graphics
 LIBS += -lsfml-network
@@ -36,4 +37,5 @@ HEADERS += \
     socketTCP.h \
     fball.h \
     mainmenu.h \
-    player.h
+    player.h \
+    strength.h

@@ -23,42 +23,87 @@ int BPGame(String Splayers, String Sgoal)
     int i = 26, j = 7, l = 0, jump = 0;
     const sf::Color colorArray[9]={Color::Cyan, Color::Blue, Color::Green, Color::Red, Color::Yellow, Color::Black, Color::White, Color::Magenta, Color::Cyan };
     srand(time(NULL));
+
     for (l; l<sizeof(rects) / sizeof(rects[0]); l++){
+        rects[l].setSize(sf::Vector2f(67,67));
         rects[l].setFillColor(colorArray[rand()%9]);
+        rects[l].setPosition(i, j);
+        i += 68;
+        jump++;
+        if (jump==11){
+            j+=68;
+            i = 26;
+            jump=0;
+        }
+
     }
 
-    float randomX[11] = {26,94,162,230,298,366,434,502,570,638,706};
-    float randomY[8] = {7,75,143,211,279,347,415,483};
 
 
+    // 26
+    //
 
     /// TEAMS ///
+    float randomX[11] = {26,94,162,230,298,366,434,502,570,638,706};
+    float randomX1[4] = {94,162,230,298};
+    float randomX2[4] = {434,502,570,638};
+    float randomY[9] = {7,75,143,211,279,347,415,483,279};
+
     CircleShape circles[players];
+    Texture team1Texture;
+    team1Texture.loadFromFile("Imags/playerBlue.png");
     Texture team2Texture;
     team2Texture.loadFromFile("Imags/playerRed.png");
     for (int k = 0; k<players; k++)
     {
-       circles[k].setRadius(34.f);
-       circles[k].setTexture(&team2Texture);
+        circles[k].setRadius(34.f);
+        if (k < players/2){
+
+            circles[k].setTexture(&team1Texture);
+        } else {
+            circles[k].setTexture(&team2Texture);;
+        }
     }
 
     Player totalPlayers[players];
     for (int k = 0; k<players; k++)
     {
-       totalPlayers[k].set_Position(randomX[rand()%11],randomY[rand()%8]);
-       cout << totalPlayers[k].get_PositionX() << endl;
+        if (k < players/2) {
+            totalPlayers[k].set_Team(1);
+            if ( k==0 || k%2==0 ) {
+                totalPlayers[k].set_Position(randomX1[rand()%4],randomY[rand()%9]);
 
-       circles[k].setPosition(totalPlayers[k].get_PositionX(),totalPlayers[k].get_PositionY());
+                circles[k].setPosition(totalPlayers[k].get_PositionX(),totalPlayers[k].get_PositionY());
+            } else {
+                totalPlayers[k].set_Position(randomX2[rand()%4],randomY[rand()%9]);
+
+                circles[k].setPosition(totalPlayers[k].get_PositionX(),totalPlayers[k].get_PositionY());
+            }
+
+        } else if (k >= players/2) {
+            totalPlayers[k].set_Team(2);
+            if ( k==0 || k%2==0 ) {
+                totalPlayers[k].set_Position(randomX1[rand()%4],randomY[rand()%9]);
+
+                circles[k].setPosition(totalPlayers[k].get_PositionX(),totalPlayers[k].get_PositionY());
+            } else {
+                totalPlayers[k].set_Position(randomX2[rand()%4],randomY[rand()%9]);
+
+                circles[k].setPosition(totalPlayers[k].get_PositionX(),totalPlayers[k].get_PositionY());
+            }
+
+        }
+
     }
     /// TEAMS ///
 
 
     string mode;
 
-    bool runMode = 0;
+    bool runMode = 1;
     if (runMode==1){
 
-        SocketTCP sokket(runMode);
+        SocketTCP sokket(runMode, rects);
 
     } else {
 
@@ -97,7 +142,7 @@ int BPGame(String Splayers, String Sgoal)
 
 
         // Create a new 200x200 pixels window with a title
-        RenderWindow window(VideoMode(800, 560), "Let's Play",Style::Close | Style::Resize);
+        RenderWindow window(VideoMode(800, 620), "Let's Play",Style::Close | Style::Resize);
         //RenderWindow mainMenu(VideoMode(500, 350), "SFML tutorial : part 1",Style::Close);
 
 
@@ -119,6 +164,8 @@ int BPGame(String Splayers, String Sgoal)
         RectangleShape backg(Vector2f(800.f,560.f));
         RectangleShape arrow(Vector2f(35.f,75.f));
         RectangleShape force(Vector2f(35,130));
+        force.setPosition(280,573);
+        force.setRotation(90);
 
 
 
@@ -321,20 +368,40 @@ int BPGame(String Splayers, String Sgoal)
             if (wall == true && moving<5){
 
                 if (moving == 2){
-                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
-                    moving = 3;
+                    if (fball.get_PositionY()<=4.f){
+                        fball.set_Position(fball.get_PositionX(),fball.get_PositionY()+1);
+                        moving = 3;
+                    } else if (fball.get_PositionX()<=25.f){
+                        fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY());
+                        moving = 1;
+                    }
 
                 } else if (moving == 3){
-                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
-                    moving = 4;
+                    if (fball.get_PositionY()>=505.f){
+                        fball.set_Position(fball.get_PositionX(),fball.get_PositionY()-1);
+                        moving = 2;
+                    } else if (fball.get_PositionX()<=25.f){
+                        fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY());
+                        moving = 4;
+                    }
 
                 } else if (moving == 1){
-                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
-                    moving = 4;
+                    if (fball.get_PositionY()<=4.f){
+                        fball.set_Position(fball.get_PositionX(),fball.get_PositionY()+1);
+                        moving = 4;
+                    } else if (fball.get_PositionX()>=727.f){
+                        fball.set_Position(fball.get_PositionX()-1,fball.get_PositionY());
+                        moving = 2;
+                    }
 
                 } else if (moving == 4){
-                    fball.set_Position(fball.get_PositionX()+1,fball.get_PositionY()+1);
-                    moving = 3;
+                    if (fball.get_PositionY()>=505.f){
+                        fball.set_Position(fball.get_PositionX(),fball.get_PositionY()-1);
+                        moving = 1;
+                    } else if (fball.get_PositionX()>=727.f){
+                        fball.set_Position(fball.get_PositionX()-1,fball.get_PositionY());
+                        moving = 3;
+                    }
                 }
 
                 wall = false;
@@ -493,22 +560,10 @@ int BPGame(String Splayers, String Sgoal)
             window.clear();
             window.draw(backg);
 
-            for (l;l<sizeof(rects) / sizeof(rects[0]);l++){
-                rects[l].setSize(sf::Vector2f(67,67));
-                rects[l].setPosition(i, j);
+            for (l=0;l<sizeof(rects) / sizeof(rects[0]);l++){
                 window.draw(rects[l]);
-                jump++;
-                i += 68;
-                if (jump==11){
-                    j+=68;
-                    i = 26;
-                    jump=0;
-                }
             }
-            l=0;
-            i = 26;
-            j = 7;
-            jump = 0;
+
 
             for (int k = 0; k<players; k++)
             {
@@ -597,10 +652,12 @@ int BPselectionMenu(){
                     break;
                 }
 
+
             case Event::Closed:
                 mainMenu.close();
                 break;
             case Event::MouseButtonPressed:
+                string splayers = players;
                 cout << 1 << endl;
 
                 Vector2i mousePos = Mouse::getPosition(mainMenu);
@@ -613,7 +670,7 @@ int BPselectionMenu(){
                     write2 = true;
                     write1 = false;
 
-                } else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 272 && mousePos.y < 308){
+                } else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 272 && mousePos.y < 308 && atoi(splayers.c_str()) <= 20 && atoi(splayers.c_str())%2==0){
                     write2 = true;
                     write1 = false;
                     mainMenu.close();
@@ -673,7 +730,6 @@ int main(){
                     return BPselectionMenu();
                 }
             }
-
         }
 
         mainMenu.clear();
