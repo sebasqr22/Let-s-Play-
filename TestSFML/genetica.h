@@ -6,7 +6,9 @@
 #include <time.h>
 using namespace std;
 
-
+/**
+ * @brief The GeneticA class Algoritmo Genetico para el Genetic Puzzle
+ */
 class GeneticA
 {
 public:

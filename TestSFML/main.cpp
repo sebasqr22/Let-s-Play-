@@ -10,6 +10,8 @@
 #include <socketTCP.h>
 #include <fball.h>
 #include <player.h>
+#include <imagen.h>
+#include <genetica.h>
 
 using namespace std;
 using namespace sf;

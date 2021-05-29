@@ -6,7 +6,9 @@
 #include "imagen.h"
 using namespace sf;
 using namespace std;
-
+/**
+ * @brief The Imagen class Clase de control de imagenes para el algoritmo genetico
+ */
 class Imagen
 {
 public:
