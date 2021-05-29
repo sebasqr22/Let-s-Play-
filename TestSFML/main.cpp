@@ -14,6 +14,118 @@
 using namespace std;
 using namespace sf;
 
+int GenericPuzzle(){
+
+    // Creación de la ventana
+    RectangleShape GPBackG(Vector2f(850.f,650.f));
+
+    Texture GPBackground;
+    GPBackground.loadFromFile("Imags/Genetic.png");
+
+    GPBackG.setTexture(&GPBackground);
+
+    RenderWindow Window(sf::VideoMode(850, 650), "Genetic Puzzle ");
+
+    Window.setKeyRepeatEnabled(false);
+
+
+
+    String nameI;
+    Text textimage;
+    textimage.setString(nameI);
+    textimage.setCharacterSize(20);
+    textimage.setColor(Color::Black);
+    textimage.setPosition(445.f,138.f);
+
+    //Variable de Escritura
+    bool writeNameI = true;
+
+    //Object Imagen
+
+    Imagen imag ;
+
+    // Main loop, while the window is open
+    while (Window.isOpen())
+    {
+        // Event loop
+        Event event;
+        while (Window.pollEvent(event))
+        {
+            switch (event.type)
+            {
+            case Event::TextEntered:
+                if (writeNameI == true)
+                {
+                    if (event.text.unicode >= 32 && event.text.unicode <=126){
+                    nameI += (char)event.text.unicode;
+                }
+                    else if (event.text.unicode == 8 && nameI.getSize() > 0)
+                    {
+                    nameI.erase(nameI.getSize() - 1, nameI.getSize());
+                    }
+                textimage.setString(nameI);
+                break;
+                }
+            case Event::Closed:
+                Window.close();
+                break;
+            case Event::MouseButtonPressed:
+                cout << 1 << endl;
+                Vector2i mousePos = Mouse::getPosition(Window);
+                cout << mousePos.x << " " << mousePos.y << endl;
+                if (mousePos.x > 441 &&  mousePos.x < 850 && mousePos.y > 121 && mousePos.y < 151)
+                {
+                    writeNameI = true;
+                }
+                else if (mousePos.x > 550 &&  mousePos.x < 742 && mousePos.y > 170  && mousePos.y < 205)
+                {
+                    writeNameI = false;
+                    nameI = "/home/rachel10/GenericPuzzle/Imagen.jpg";
+                    imag.ObtenerImagen(nameI);
+                    //Cargar la imagen
+                }
+                else if (mousePos.x > 595 &&  mousePos.x < 681 && mousePos.y > 288 && mousePos.y < 334)
+                {
+                    writeNameI = false;
+                    NULL;//Divivdir 4x4
+                }
+                else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 272 && mousePos.y < 308)
+                {
+                    writeNameI = false;
+                    NULL;//Divivdir 4x2
+                }
+                else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 272 && mousePos.y < 308)
+                {
+                    writeNameI = false;
+                    NULL;//Divivdir 4x6
+                }
+                else if (mousePos.x > 549 &&  mousePos.x < 739 && mousePos.y > 371 && mousePos.y < 411)
+                {
+                    writeNameI = false;
+                    NULL;//Llamar al algoritmo
+                }
+                else
+                {
+                    writeNameI = false;
+                    break;
+                }
+              }
+        }
+
+
+        Window.clear();
+        Window.draw(GPBackG);
+        Window.draw(textimage);
+        Sprite imagen;
+        imagen = imag.DibujarImagen();
+        Window.draw(imagen);
+        Window.display();
+    }
+    // End of application
+    return 0;
+
+
+}
 
 /**
  * @brief BPGame Metodo que inicializa el juego

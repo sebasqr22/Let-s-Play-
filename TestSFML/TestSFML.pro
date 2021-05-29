@@ -14,7 +14,9 @@ SOURCES += main.cpp \
     fball.cpp \
     mainmenu.cpp \
     player.cpp \
-    strength.cpp
+    strength.cpp \
+    genetica.cpp \
+    imagen.cpp
 LIBS += -lsfml-audio
 LIBS += -lsfml-graphics
 LIBS += -lsfml-network
@@ -38,4 +40,6 @@ HEADERS += \
     fball.h \
     mainmenu.h \
     player.h \
-    strength.h
+    strength.h \
+    imagen.h \
+    genetica.h
