@@ -5,7 +5,7 @@ digraph "mainmenu.cpp"
   node [fontname="Helvetica",fontsize="10",shape=record];
   Node1 [label="mainmenu.cpp",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Clase creadora del menu principal."];
   Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
-  Node2 [label="mainmenu.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$mainmenu_8h_source.html",tooltip=" "];
+  Node2 [label="mainmenu.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$mainmenu_8h.html",tooltip=" "];
   Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
   Node3 [label="SFML/Graphics.hpp",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
 }

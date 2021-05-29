@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['set_5fposition_39',['set_Position',['../class_f_ball.html#acd5fdd5c19dcd6ab434c2b10556fb4ce',1,'FBall::set_Position()'],['../class_player.html#a7d3e6af79a91258b3e90de72410fb210',1,'Player::set_Position(float x, float y)']]],
-  ['set_5fteam_40',['set_Team',['../class_player.html#a23bb0da0589b889bb00e9a2d0cb0a1f7',1,'Player']]],
-  ['setbola_41',['setBola',['../class_cuadro.html#a0393a50456f037fe29a10ceaa51d8a0d',1,'Cuadro']]],
-  ['setfueracancha_42',['setFueraCancha',['../class_cuadro.html#aeca47c7caefcfe89503c8f02a00e55b8',1,'Cuadro']]],
-  ['setposicion_43',['setPosicion',['../class_cuadro.html#a1a46720ce0a6a60f75a36646158f4fad',1,'Cuadro']]],
-  ['sockettcp_44',['SocketTCP',['../class_socket_t_c_p.html',1,'SocketTCP'],['../class_socket_t_c_p.html#a41d0e7c8760754b8ac4464bffe1a2c37',1,'SocketTCP::SocketTCP()']]],
-  ['sockettcp_2ecpp_45',['socketTCP.cpp',['../socket_t_c_p_8cpp.html',1,'']]],
-  ['strength_46',['Strength',['../class_strength.html',1,'']]]
+  ['path_50',['Path',['../class_socket_t_c_p.html#a2d225cc6fcb2cb91fb5ff5b0c59576e9',1,'SocketTCP']]],
+  ['player_51',['Player',['../class_player.html',1,'Player'],['../class_player.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8',1,'Player::Player()'],['../class_player.html#a4c481b6493f9e0d550377c0d99763c82',1,'Player::Player(float x, float y)']]],
+  ['player_2ecpp_52',['player.cpp',['../player_8cpp.html',1,'']]],
+  ['player_2eh_53',['player.h',['../player_8h.html',1,'']]],
+  ['poblacion_54',['poblacion',['../genetica_8cpp.html#a63481b9ab68db53ddfb69bb2814c9586',1,'genetica.cpp']]],
+  ['poblacioninicial_55',['PoblacionInicial',['../class_genetic_a.html#a72cd5db7b0bedbea0bd233e6aa1ac4e0',1,'GeneticA']]],
+  ['principal_56',['Principal',['../class_genetic_a.html#a1a30c78f3fc0a9c7c4acba9a3848c07f',1,'GeneticA']]],
+  ['printsolution_57',['printsolution',['../class_socket_t_c_p.html#aa1139ba2d061399be0d417b756488793',1,'SocketTCP']]],
+  ['prob_5fcruz_58',['prob_cruz',['../class_genetic_a.html#a686aacd91d682bacc7baae93e9f583cc',1,'GeneticA']]],
+  ['prob_5fmut_59',['prob_mut',['../class_genetic_a.html#a79481edc35a3d94c50bf67a7b0aac92d',1,'GeneticA']]],
+  ['ptexture_60',['pTexture',['../class_imagen.html#ad9aee570e2125d492709860efab795f3',1,'Imagen']]]
 ];

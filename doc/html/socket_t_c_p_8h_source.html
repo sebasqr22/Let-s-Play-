@@ -65,53 +65,57 @@ $(function() {
 <div class="title">socketTCP.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SOCKETTCP_H</span></div>
+<a href="socket_t_c_p_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SOCKETTCP_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SOCKETTCP_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;SFML/Network.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">using namespace </span>sf;</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_socket_t_c_p.html">SocketTCP</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordtype">bool</span> Path[20];</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    Vector3f matriz[8][11];</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordtype">int</span> solution[8][11];</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordtype">int</span> maze[8][11] = {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        {0,1,0,1,1,0,0,0,0,0,0},</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        {0,0,0,0,0,0,0,1,0,0,0},</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        {0,1,0,0,0,1,0,0,1,1,0},</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        {0,1,0,0,0,0,0,1,0,0,0},</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        {0,1,0,0,0,1,0,0,0,1,0},</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        {0,1,0,1,1,0,0,1,0,0,0},</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        {0,1,0,1,1,0,0,1,0,0,0},</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        {0,1,0,1,1,0,0,0,0,0,0}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    };</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    TcpSocket socket;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    IpAddress ip = IpAddress::getLocalAddress();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">char</span> buffer[2000];</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">size_t</span> received;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_socket_t_c_p.html#a0617aecbbe36f92da8d4d263146a9732">Backtracking</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> isEmpty(Vector2f position);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_socket_t_c_p.html#aa1139ba2d061399be0d417b756488793">printsolution</a>();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_socket_t_c_p.html#a0245240d5ef974be502cd385c7ae4c16">executeBacktracking</a>();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="class_socket_t_c_p.html#a41d0e7c8760754b8ac4464bffe1a2c37">SocketTCP</a>(<span class="keywordtype">bool</span> connectionType, RectangleShape rects[88]);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// SOCKETTCP_H</span></div>
-<div class="ttc" id="aclass_socket_t_c_p_html"><div class="ttname"><a href="class_socket_t_c_p.html">SocketTCP</a></div><div class="ttdef"><b>Definition:</b> socketTCP.h:8</div></div>
-<div class="ttc" id="aclass_socket_t_c_p_html_a0245240d5ef974be502cd385c7ae4c16"><div class="ttname"><a href="class_socket_t_c_p.html#a0245240d5ef974be502cd385c7ae4c16">SocketTCP::executeBacktracking</a></div><div class="ttdeci">int executeBacktracking()</div><div class="ttdoc">SocketTCP::executeBacktracking Metodo que ejecuta el backtracking.</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:81</div></div>
-<div class="ttc" id="aclass_socket_t_c_p_html_a0617aecbbe36f92da8d4d263146a9732"><div class="ttname"><a href="class_socket_t_c_p.html#a0617aecbbe36f92da8d4d263146a9732">SocketTCP::Backtracking</a></div><div class="ttdeci">int Backtracking(int r, int c)</div><div class="ttdoc">SocketTCP::Backtracking Aplicacion del backtracking.</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:41</div></div>
-<div class="ttc" id="aclass_socket_t_c_p_html_a41d0e7c8760754b8ac4464bffe1a2c37"><div class="ttname"><a href="class_socket_t_c_p.html#a41d0e7c8760754b8ac4464bffe1a2c37">SocketTCP::SocketTCP</a></div><div class="ttdeci">SocketTCP(bool connectionType, RectangleShape rects[88])</div><div class="ttdoc">SocketTCP::SocketTCP Metodo para la creacion del socket.</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:103</div></div>
-<div class="ttc" id="aclass_socket_t_c_p_html_aa1139ba2d061399be0d417b756488793"><div class="ttname"><a href="class_socket_t_c_p.html#aa1139ba2d061399be0d417b756488793">SocketTCP::printsolution</a></div><div class="ttdeci">void printsolution()</div><div class="ttdoc">SocketTCP::printsolution Imprime la solucion de la matriz.</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:18</div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_socket_t_c_p.html">SocketTCP</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#a2d225cc6fcb2cb91fb5ff5b0c59576e9">   15</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_socket_t_c_p.html#a2d225cc6fcb2cb91fb5ff5b0c59576e9">Path</a>[20];</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#ac78f6a8424a2555fe2ba11ec09795070">   19</a></span>&#160;    Vector3f <a class="code" href="class_socket_t_c_p.html#ac78f6a8424a2555fe2ba11ec09795070">matriz</a>[8][11];</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#aeb2cbdaf19ba66cf041081f0b4c805a7">   23</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_socket_t_c_p.html#aeb2cbdaf19ba66cf041081f0b4c805a7">solution</a>[8][11];</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#ae13d52a50db2ea45bb6097455031956b">   24</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_socket_t_c_p.html#ae13d52a50db2ea45bb6097455031956b">maze</a>[8][11] = {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        {0,1,0,1,1,0,0,0,0,0,0},</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {0,0,0,0,0,0,0,1,0,0,0},</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        {0,1,0,0,0,1,0,0,1,1,0},</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        {0,1,0,0,0,0,0,1,0,0,0},</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        {0,1,0,0,0,1,0,0,0,1,0},</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        {0,1,0,1,1,0,0,1,0,0,0},</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        {0,1,0,1,1,0,0,1,0,0,0},</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        {0,1,0,1,1,0,0,0,0,0,0}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    };</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#a4c36b9de422d507ac4976f3c77fa9588">   37</a></span>&#160;    TcpSocket <a class="code" href="class_socket_t_c_p.html#a4c36b9de422d507ac4976f3c77fa9588">socket</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#ada7cf28ce4e84b7d528d81e5ae580bc3">   41</a></span>&#160;    IpAddress <a class="code" href="class_socket_t_c_p.html#ada7cf28ce4e84b7d528d81e5ae580bc3">ip</a> = IpAddress::getLocalAddress();</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#a5066c7e1b117efecaca4585e0e8f912e">   45</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="class_socket_t_c_p.html#a5066c7e1b117efecaca4585e0e8f912e">buffer</a>[2000];</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#a0ab600d70cb6495ece92b00330618b7f">   49</a></span>&#160;    <span class="keywordtype">size_t</span> <a class="code" href="class_socket_t_c_p.html#a0ab600d70cb6495ece92b00330618b7f">received</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_socket_t_c_p.html#a0617aecbbe36f92da8d4d263146a9732">Backtracking</a>(<span class="keywordtype">int</span> r, <span class="keywordtype">int</span> c);</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_socket_t_c_p.html#af897f1fc673a72c8e355ff8d5202b242">   64</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_socket_t_c_p.html#af897f1fc673a72c8e355ff8d5202b242">isEmpty</a>(Vector2f position);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_socket_t_c_p.html#aa1139ba2d061399be0d417b756488793">printsolution</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="class_socket_t_c_p.html#a0245240d5ef974be502cd385c7ae4c16">executeBacktracking</a>();</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="class_socket_t_c_p.html#a41d0e7c8760754b8ac4464bffe1a2c37">SocketTCP</a>(<span class="keywordtype">bool</span> connectionType, RectangleShape rects[88]);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// SOCKETTCP_H</span></div>
+<div class="ttc" id="aclass_socket_t_c_p_html"><div class="ttname"><a href="class_socket_t_c_p.html">SocketTCP</a></div><div class="ttdoc">The SocketTCP class Clase Servidor encargada de las operaciones principales y manejo de algoritmos.</div><div class="ttdef"><b>Definition:</b> socketTCP.h:10</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_a0245240d5ef974be502cd385c7ae4c16"><div class="ttname"><a href="class_socket_t_c_p.html#a0245240d5ef974be502cd385c7ae4c16">SocketTCP::executeBacktracking</a></div><div class="ttdeci">int executeBacktracking()</div><div class="ttdoc">executeBacktracking ejecuta el Backtracking</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:81</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_a0617aecbbe36f92da8d4d263146a9732"><div class="ttname"><a href="class_socket_t_c_p.html#a0617aecbbe36f92da8d4d263146a9732">SocketTCP::Backtracking</a></div><div class="ttdeci">int Backtracking(int r, int c)</div><div class="ttdoc">Backtracking Algoritmo backtracking.</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:41</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_a0ab600d70cb6495ece92b00330618b7f"><div class="ttname"><a href="class_socket_t_c_p.html#a0ab600d70cb6495ece92b00330618b7f">SocketTCP::received</a></div><div class="ttdeci">size_t received</div><div class="ttdoc">received tamanio de mensaje recivido</div><div class="ttdef"><b>Definition:</b> socketTCP.h:49</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_a2d225cc6fcb2cb91fb5ff5b0c59576e9"><div class="ttname"><a href="class_socket_t_c_p.html#a2d225cc6fcb2cb91fb5ff5b0c59576e9">SocketTCP::Path</a></div><div class="ttdeci">bool Path[20]</div><div class="ttdoc">Path Ruta a eguir.</div><div class="ttdef"><b>Definition:</b> socketTCP.h:15</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_a41d0e7c8760754b8ac4464bffe1a2c37"><div class="ttname"><a href="class_socket_t_c_p.html#a41d0e7c8760754b8ac4464bffe1a2c37">SocketTCP::SocketTCP</a></div><div class="ttdeci">SocketTCP(bool connectionType, RectangleShape rects[88])</div><div class="ttdoc">SocketTCP Socket Servidor.</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:103</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_a4c36b9de422d507ac4976f3c77fa9588"><div class="ttname"><a href="class_socket_t_c_p.html#a4c36b9de422d507ac4976f3c77fa9588">SocketTCP::socket</a></div><div class="ttdeci">TcpSocket socket</div><div class="ttdoc">socket Soquet de conexion</div><div class="ttdef"><b>Definition:</b> socketTCP.h:37</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_a5066c7e1b117efecaca4585e0e8f912e"><div class="ttname"><a href="class_socket_t_c_p.html#a5066c7e1b117efecaca4585e0e8f912e">SocketTCP::buffer</a></div><div class="ttdeci">char buffer[2000]</div><div class="ttdoc">buffer Mensaje</div><div class="ttdef"><b>Definition:</b> socketTCP.h:45</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_aa1139ba2d061399be0d417b756488793"><div class="ttname"><a href="class_socket_t_c_p.html#aa1139ba2d061399be0d417b756488793">SocketTCP::printsolution</a></div><div class="ttdeci">void printsolution()</div><div class="ttdoc">printsolution Imprime el path solucion</div><div class="ttdef"><b>Definition:</b> socketTCP.cpp:18</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_ac78f6a8424a2555fe2ba11ec09795070"><div class="ttname"><a href="class_socket_t_c_p.html#ac78f6a8424a2555fe2ba11ec09795070">SocketTCP::matriz</a></div><div class="ttdeci">Vector3f matriz[8][11]</div><div class="ttdoc">matriz matriz de juego</div><div class="ttdef"><b>Definition:</b> socketTCP.h:19</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_ada7cf28ce4e84b7d528d81e5ae580bc3"><div class="ttname"><a href="class_socket_t_c_p.html#ada7cf28ce4e84b7d528d81e5ae580bc3">SocketTCP::ip</a></div><div class="ttdeci">IpAddress ip</div><div class="ttdoc">ip Direcion ip</div><div class="ttdef"><b>Definition:</b> socketTCP.h:41</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_ae13d52a50db2ea45bb6097455031956b"><div class="ttname"><a href="class_socket_t_c_p.html#ae13d52a50db2ea45bb6097455031956b">SocketTCP::maze</a></div><div class="ttdeci">int maze[8][11]</div><div class="ttdef"><b>Definition:</b> socketTCP.h:24</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_aeb2cbdaf19ba66cf041081f0b4c805a7"><div class="ttname"><a href="class_socket_t_c_p.html#aeb2cbdaf19ba66cf041081f0b4c805a7">SocketTCP::solution</a></div><div class="ttdeci">int solution[8][11]</div><div class="ttdoc">solution Matriz de solucion</div><div class="ttdef"><b>Definition:</b> socketTCP.h:23</div></div>
+<div class="ttc" id="aclass_socket_t_c_p_html_af897f1fc673a72c8e355ff8d5202b242"><div class="ttname"><a href="class_socket_t_c_p.html#af897f1fc673a72c8e355ff8d5202b242">SocketTCP::isEmpty</a></div><div class="ttdeci">bool isEmpty(Vector2f position)</div><div class="ttdoc">isEmpty Si un cuadro esta vacio</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

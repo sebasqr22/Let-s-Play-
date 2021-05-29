@@ -1,62 +1,70 @@
-\doxysection{Socket\+TCP Class Reference}
+\hypertarget{class_socket_t_c_p}{}\doxysection{Socket\+TCP Class Reference}
 \label{class_socket_t_c_p}\index{SocketTCP@{SocketTCP}}
+
+
+The \mbox{\hyperlink{class_socket_t_c_p}{Socket\+TCP}} class Clase Servidor encargada de las operaciones principales y manejo de algoritmos.  
+
+
+
+
+{\ttfamily \#include $<$socket\+TCP.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \textbf{ Backtracking} (int r, int c)
-\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::\+Backtracking}{p.}{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732} Aplicacion del backtracking. \end{DoxyCompactList}\item 
-\mbox{\label{class_socket_t_c_p_af897f1fc673a72c8e355ff8d5202b242}} 
-bool {\bfseries is\+Empty} (Vector2f position)
-\item 
-\mbox{\label{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793}} 
-void \textbf{ printsolution} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::printsolution}{p.}{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793} Imprime la solucion de la matriz. \end{DoxyCompactList}\item 
-\mbox{\label{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16}} 
-int \textbf{ execute\+Backtracking} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::execute\+Backtracking}{p.}{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16} Metodo que ejecuta el backtracking. \end{DoxyCompactList}\item 
-\textbf{ Socket\+TCP} (bool connection\+Type, Rectangle\+Shape rects[88])
-\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::\+Socket\+TCP}{p.}{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37} Metodo para la creacion del socket. \end{DoxyCompactList}\end{DoxyCompactItemize}
+int \mbox{\hyperlink{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732}{Backtracking}} (int r, int c)
+\begin{DoxyCompactList}\small\item\em Backtracking Algoritmo backtracking. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_socket_t_c_p_af897f1fc673a72c8e355ff8d5202b242}{is\+Empty}} (Vector2f position)
+\begin{DoxyCompactList}\small\item\em is\+Empty Si un cuadro esta vacio \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793}{printsolution}} ()
+\begin{DoxyCompactList}\small\item\em printsolution Imprime el path solucion \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16}{execute\+Backtracking}} ()
+\begin{DoxyCompactList}\small\item\em execute\+Backtracking ejecuta el Backtracking \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37}{Socket\+TCP}} (bool connection\+Type, Rectangle\+Shape rects\mbox{[}88\mbox{]})
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_socket_t_c_p}{Socket\+TCP}} Socket Servidor. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\label{class_socket_t_c_p_a2d225cc6fcb2cb91fb5ff5b0c59576e9}} 
-bool {\bfseries Path} [20]
+bool \mbox{\hyperlink{class_socket_t_c_p_a2d225cc6fcb2cb91fb5ff5b0c59576e9}{Path}} \mbox{[}20\mbox{]}
+\begin{DoxyCompactList}\small\item\em Path Ruta a eguir. \end{DoxyCompactList}\item 
+Vector3f \mbox{\hyperlink{class_socket_t_c_p_ac78f6a8424a2555fe2ba11ec09795070}{matriz}} \mbox{[}8\mbox{]}\mbox{[}11\mbox{]}
+\begin{DoxyCompactList}\small\item\em matriz matriz de juego \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_socket_t_c_p_aeb2cbdaf19ba66cf041081f0b4c805a7}{solution}} \mbox{[}8\mbox{]}\mbox{[}11\mbox{]}
+\begin{DoxyCompactList}\small\item\em solution Matriz de solucion \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_socket_t_c_p_ae13d52a50db2ea45bb6097455031956b}{maze}} \mbox{[}8\mbox{]}\mbox{[}11\mbox{]}
 \item 
-\mbox{\label{class_socket_t_c_p_ac78f6a8424a2555fe2ba11ec09795070}} 
-Vector3f {\bfseries matriz} [8][11]
-\item 
-\mbox{\label{class_socket_t_c_p_aeb2cbdaf19ba66cf041081f0b4c805a7}} 
-int {\bfseries solution} [8][11]
-\item 
-int {\bfseries maze} [8][11]
-\item 
-\mbox{\label{class_socket_t_c_p_a4c36b9de422d507ac4976f3c77fa9588}} 
-Tcp\+Socket {\bfseries socket}
-\item 
-\mbox{\label{class_socket_t_c_p_ada7cf28ce4e84b7d528d81e5ae580bc3}} 
-Ip\+Address {\bfseries ip} = Ip\+Address\+::get\+Local\+Address()
-\item 
-\mbox{\label{class_socket_t_c_p_a5066c7e1b117efecaca4585e0e8f912e}} 
-char {\bfseries buffer} [2000]
-\item 
-\mbox{\label{class_socket_t_c_p_a0ab600d70cb6495ece92b00330618b7f}} 
-size\+\_\+t {\bfseries received}
-\end{DoxyCompactItemize}
+Tcp\+Socket \mbox{\hyperlink{class_socket_t_c_p_a4c36b9de422d507ac4976f3c77fa9588}{socket}}
+\begin{DoxyCompactList}\small\item\em socket Soquet de conexion \end{DoxyCompactList}\item 
+Ip\+Address \mbox{\hyperlink{class_socket_t_c_p_ada7cf28ce4e84b7d528d81e5ae580bc3}{ip}} = Ip\+Address\+::get\+Local\+Address()
+\begin{DoxyCompactList}\small\item\em ip Direcion ip \end{DoxyCompactList}\item 
+char \mbox{\hyperlink{class_socket_t_c_p_a5066c7e1b117efecaca4585e0e8f912e}{buffer}} \mbox{[}2000\mbox{]}
+\begin{DoxyCompactList}\small\item\em buffer Mensaje \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_socket_t_c_p_a0ab600d70cb6495ece92b00330618b7f}{received}}
+\begin{DoxyCompactList}\small\item\em received tamanio de mensaje recivido \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_socket_t_c_p}{Socket\+TCP}} class Clase Servidor encargada de las operaciones principales y manejo de algoritmos. 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\label{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37}} 
+\mbox{\Hypertarget{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37}\label{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37}} 
 \index{SocketTCP@{SocketTCP}!SocketTCP@{SocketTCP}}
 \index{SocketTCP@{SocketTCP}!SocketTCP@{SocketTCP}}
-\doxysubsubsection{SocketTCP()}
-{\footnotesize\ttfamily Socket\+TCP\+::\+Socket\+TCP (\begin{DoxyParamCaption}\item[{bool}]{connection\+Type,  }\item[{Rectangle\+Shape}]{rects[88] }\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{SocketTCP()}{SocketTCP()}}
+{\footnotesize\ttfamily Socket\+TCP\+::\+Socket\+TCP (\begin{DoxyParamCaption}\item[{bool}]{connection\+Type,  }\item[{Rectangle\+Shape}]{rects\mbox{[}88\mbox{]} }\end{DoxyParamCaption})}
 
 
 
-\doxyref{Socket\+TCP\+::\+Socket\+TCP}{p.}{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37} Metodo para la creacion del socket. 
+\mbox{\hyperlink{class_socket_t_c_p}{Socket\+TCP}} Socket Servidor. 
+
+\mbox{\hyperlink{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37}{Socket\+TCP\+::\+Socket\+TCP}} Metodo para la creacion del socket.
 
 
 \begin{DoxyParams}{Parameters}
+{\em connection\+Type} & Tipo de conexion \\
+\hline
+{\em rects} & Array de rectangulos de la interfaz\\
+\hline
 {\em connection\+Type} & Tipo de conexion \\
 \hline
 {\em rects} & Array de rectangulos de la martiz \\
@@ -65,16 +73,28 @@ size\+\_\+t {\bfseries received}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\label{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732}} 
+\mbox{\Hypertarget{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732}\label{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732}} 
 \index{SocketTCP@{SocketTCP}!Backtracking@{Backtracking}}
 \index{Backtracking@{Backtracking}!SocketTCP@{SocketTCP}}
-\doxysubsubsection{Backtracking()}
+\doxysubsubsection{\texorpdfstring{Backtracking()}{Backtracking()}}
 {\footnotesize\ttfamily int Socket\+TCP\+::\+Backtracking (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
 
 
 
-\doxyref{Socket\+TCP\+::\+Backtracking}{p.}{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732} Aplicacion del backtracking. 
+Backtracking Algoritmo backtracking. 
 
+\mbox{\hyperlink{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732}{Socket\+TCP\+::\+Backtracking}} Aplicacion del backtracking.
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Fila en la matriz \\
+\hline
+{\em c} & Columna en la matriz \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+La solucion o path
+\end{DoxyReturn}
 
 \begin{DoxyParams}{Parameters}
 {\em r} & Cantidad filas \\
@@ -82,14 +102,87 @@ size\+\_\+t {\bfseries received}
 {\em c} & Cantidad columnas \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16}\label{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16}} 
+\index{SocketTCP@{SocketTCP}!executeBacktracking@{executeBacktracking}}
+\index{executeBacktracking@{executeBacktracking}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{executeBacktracking()}{executeBacktracking()}}
+{\footnotesize\ttfamily int Socket\+TCP\+::execute\+Backtracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+
+
+execute\+Backtracking ejecuta el Backtracking 
+
+\mbox{\hyperlink{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16}{Socket\+TCP\+::execute\+Backtracking}} Metodo que ejecuta el backtracking.
+
+\begin{DoxyReturn}{Returns}
+La solucion 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_socket_t_c_p_af897f1fc673a72c8e355ff8d5202b242}\label{class_socket_t_c_p_af897f1fc673a72c8e355ff8d5202b242}} 
+\index{SocketTCP@{SocketTCP}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily bool Socket\+TCP\+::is\+Empty (\begin{DoxyParamCaption}\item[{Vector2f}]{position }\end{DoxyParamCaption})}
+
+
+
+is\+Empty Si un cuadro esta vacio 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & Posicion en la matriz \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Si esta vacio o no 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793}\label{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793}} 
+\index{SocketTCP@{SocketTCP}!printsolution@{printsolution}}
+\index{printsolution@{printsolution}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{printsolution()}{printsolution()}}
+{\footnotesize\ttfamily void Socket\+TCP\+::printsolution (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+printsolution Imprime el path solucion 
+
+\mbox{\hyperlink{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793}{Socket\+TCP\+::printsolution}} Imprime la solucion de la matriz. 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\label{class_socket_t_c_p_ae13d52a50db2ea45bb6097455031956b}} 
+\mbox{\Hypertarget{class_socket_t_c_p_a5066c7e1b117efecaca4585e0e8f912e}\label{class_socket_t_c_p_a5066c7e1b117efecaca4585e0e8f912e}} 
+\index{SocketTCP@{SocketTCP}!buffer@{buffer}}
+\index{buffer@{buffer}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily char Socket\+TCP\+::buffer\mbox{[}2000\mbox{]}}
+
+
+
+buffer Mensaje 
+
+\mbox{\Hypertarget{class_socket_t_c_p_ada7cf28ce4e84b7d528d81e5ae580bc3}\label{class_socket_t_c_p_ada7cf28ce4e84b7d528d81e5ae580bc3}} 
+\index{SocketTCP@{SocketTCP}!ip@{ip}}
+\index{ip@{ip}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{ip}{ip}}
+{\footnotesize\ttfamily Ip\+Address Socket\+TCP\+::ip = Ip\+Address\+::get\+Local\+Address()}
+
+
+
+ip Direcion ip 
+
+\mbox{\Hypertarget{class_socket_t_c_p_ac78f6a8424a2555fe2ba11ec09795070}\label{class_socket_t_c_p_ac78f6a8424a2555fe2ba11ec09795070}} 
+\index{SocketTCP@{SocketTCP}!matriz@{matriz}}
+\index{matriz@{matriz}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{matriz}{matriz}}
+{\footnotesize\ttfamily Vector3f Socket\+TCP\+::matriz\mbox{[}8\mbox{]}\mbox{[}11\mbox{]}}
+
+
+
+matriz matriz de juego 
+
+\mbox{\Hypertarget{class_socket_t_c_p_ae13d52a50db2ea45bb6097455031956b}\label{class_socket_t_c_p_ae13d52a50db2ea45bb6097455031956b}} 
 \index{SocketTCP@{SocketTCP}!maze@{maze}}
 \index{maze@{maze}!SocketTCP@{SocketTCP}}
-\doxysubsubsection{maze}
-{\footnotesize\ttfamily int Socket\+TCP\+::maze[8][11]}
+\doxysubsubsection{\texorpdfstring{maze}{maze}}
+{\footnotesize\ttfamily int Socket\+TCP\+::maze\mbox{[}8\mbox{]}\mbox{[}11\mbox{]}}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
@@ -105,9 +198,49 @@ size\+\_\+t {\bfseries received}
 \DoxyCodeLine{    \}}
 
 \end{DoxyCode}
+\mbox{\Hypertarget{class_socket_t_c_p_a2d225cc6fcb2cb91fb5ff5b0c59576e9}\label{class_socket_t_c_p_a2d225cc6fcb2cb91fb5ff5b0c59576e9}} 
+\index{SocketTCP@{SocketTCP}!Path@{Path}}
+\index{Path@{Path}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{Path}{Path}}
+{\footnotesize\ttfamily bool Socket\+TCP\+::\+Path\mbox{[}20\mbox{]}}
+
+
+
+Path Ruta a eguir. 
+
+\mbox{\Hypertarget{class_socket_t_c_p_a0ab600d70cb6495ece92b00330618b7f}\label{class_socket_t_c_p_a0ab600d70cb6495ece92b00330618b7f}} 
+\index{SocketTCP@{SocketTCP}!received@{received}}
+\index{received@{received}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{received}{received}}
+{\footnotesize\ttfamily size\+\_\+t Socket\+TCP\+::received}
+
+
+
+received tamanio de mensaje recivido 
+
+\mbox{\Hypertarget{class_socket_t_c_p_a4c36b9de422d507ac4976f3c77fa9588}\label{class_socket_t_c_p_a4c36b9de422d507ac4976f3c77fa9588}} 
+\index{SocketTCP@{SocketTCP}!socket@{socket}}
+\index{socket@{socket}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{socket}{socket}}
+{\footnotesize\ttfamily Tcp\+Socket Socket\+TCP\+::socket}
+
+
+
+socket Soquet de conexion 
+
+\mbox{\Hypertarget{class_socket_t_c_p_aeb2cbdaf19ba66cf041081f0b4c805a7}\label{class_socket_t_c_p_aeb2cbdaf19ba66cf041081f0b4c805a7}} 
+\index{SocketTCP@{SocketTCP}!solution@{solution}}
+\index{solution@{solution}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{\texorpdfstring{solution}{solution}}
+{\footnotesize\ttfamily int Socket\+TCP\+::solution\mbox{[}8\mbox{]}\mbox{[}11\mbox{]}}
+
+
+
+solution Matriz de solucion 
+
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-socket\+TCP.\+h\item 
-\textbf{ socket\+TCP.\+cpp}\end{DoxyCompactItemize}
+\mbox{\hyperlink{socket_t_c_p_8h}{socket\+TCP.\+h}}\item 
+\mbox{\hyperlink{socket_t_c_p_8cpp}{socket\+TCP.\+cpp}}\end{DoxyCompactItemize}

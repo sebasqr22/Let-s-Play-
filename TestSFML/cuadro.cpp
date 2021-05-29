@@ -8,7 +8,7 @@ class Cuadro{
     int x1;
     int x2;
     int y1;
-    int y2;
+    int y2; //posicion
   public:
     /**
      * @brief setPosicion Establece la posicion del cuadro

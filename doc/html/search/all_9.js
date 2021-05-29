@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['player_34',['Player',['../class_player.html',1,'Player'],['../class_player.html#affe0cc3cb714f6deb4e62f0c0d3f1fd8',1,'Player::Player()'],['../class_player.html#a4c481b6493f9e0d550377c0d99763c82',1,'Player::Player(float x, float y)']]],
-  ['player_2ecpp_35',['player.cpp',['../player_8cpp.html',1,'']]],
-  ['poblacioninicial_36',['PoblacionInicial',['../class_genetic_a.html#a72cd5db7b0bedbea0bd233e6aa1ac4e0',1,'GeneticA']]],
-  ['principal_37',['Principal',['../class_genetic_a.html#a1a30c78f3fc0a9c7c4acba9a3848c07f',1,'GeneticA']]],
-  ['printsolution_38',['printsolution',['../class_socket_t_c_p.html#aa1139ba2d061399be0d417b756488793',1,'SocketTCP']]]
+  ['obtenerimagen_47',['ObtenerImagen',['../class_imagen.html#a0c402fa55349a22498e3f3017fedf512',1,'Imagen']]],
+  ['obtenermejor_48',['obtenerMejor',['../class_genetic_a.html#af1802cfe6f8817498cd94605c448edd7',1,'GeneticA']]],
+  ['obtenerpuntuacion_49',['obtenerPuntuacion',['../class_genetic_a.html#a7d7cbc5d4732129b0d5e0a7f1ab34f76',1,'GeneticA']]]
 ];

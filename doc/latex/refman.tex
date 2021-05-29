@@ -116,6 +116,22 @@
   \newunicodechar{²}{${}^{2}$}% Superscript two
   \newunicodechar{³}{${}^{3}$}% Superscript three
   % Hyperlinks
+    % Hyperlinks (required, but should be loaded last)
+    \ifpdf
+      \usepackage[pdftex,pagebackref=true]{hyperref}
+    \else
+      \ifxetex
+        \usepackage[pagebackref=true]{hyperref}
+      \else
+        \usepackage[ps2pdf,pagebackref=true]{hyperref}
+      \fi
+    \fi
+    \hypersetup{%
+      colorlinks=true,%
+      linkcolor=blue,%
+      citecolor=blue,%
+      unicode%
+    }
   % Custom commands used by the header
   % Custom commands
   \newcommand{\clearemptydoublepage}{%
@@ -134,6 +150,12 @@
 \begin{document}
   \raggedbottom
   % Titlepage & ToC
+    % To avoid duplicate page anchors due to reuse of same numbers for
+    % the index (be it as roman numbers)
+    \hypersetup{pageanchor=false,
+                bookmarksnumbered=true,
+                pdfencoding=unicode
+               }
   \pagenumbering{alph}
   \begin{titlepage}
   \vspace*{7cm}
@@ -148,6 +170,8 @@
   \tableofcontents
   \clearemptydoublepage
   \pagenumbering{arabic}
+  % re-enable anchors again
+  \hypersetup{pageanchor=true}
 %--- Begin generated contents ---
 \chapter{Class Index}
 \input{annotated}
@@ -163,13 +187,22 @@
 \input{class_socket_t_c_p}
 \input{class_strength}
 \chapter{File Documentation}
+\input{cuadro_8cpp}
 \input{fball_8cpp}
+\input{fball_8h}
 \input{genetica_8cpp}
+\input{genetica_8h}
 \input{imagen_8cpp}
+\input{imagen_8h}
 \input{main_8cpp}
 \input{mainmenu_8cpp}
+\input{mainmenu_8h}
 \input{player_8cpp}
+\input{player_8h}
 \input{socket_t_c_p_8cpp}
+\input{socket_t_c_p_8h}
+\input{strength_8cpp}
+\input{strength_8h}
 %--- End generated contents ---
 % Index
   \backmatter

@@ -1,106 +1,190 @@
-\doxysection{FBall Class Reference}
+\hypertarget{class_f_ball}{}\doxysection{FBall Class Reference}
 \label{class_f_ball}\index{FBall@{FBall}}
+
+
+The \mbox{\hyperlink{class_f_ball}{FBall}} class encargada del movimiento del balon.  
+
+
+
+
+{\ttfamily \#include $<$fball.\+h$>$}
+
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\label{class_f_ball_a2620ba292ec2bcdda349cfc951ca4c2f}} 
-\textbf{ FBall} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::\+FBall}{p.}{class_f_ball_a2620ba292ec2bcdda349cfc951ca4c2f} Constructor de la clase. \end{DoxyCompactList}\item 
-void \textbf{ set\+\_\+\+Position} (float x, float y)
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::set\+\_\+\+Position}{p.}{class_f_ball_acd5fdd5c19dcd6ab434c2b10556fb4ce} Metodo para establecer la posicion. \end{DoxyCompactList}\item 
-float \textbf{ get\+\_\+\+PositionX} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::get\+\_\+\+PositionX}{p.}{class_f_ball_ae8ee3ea0ddaf5eb23dec85bbde7c393c} Retorna la posicion en eje x. \end{DoxyCompactList}\item 
-float \textbf{ get\+\_\+\+PositionY} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::get\+\_\+\+PositionY}{p.}{class_f_ball_ac221aae47682e0428a92d88cca99723f} Obtener posicion en eje y. \end{DoxyCompactList}\item 
-\mbox{\label{class_f_ball_a79b6d173b1c113ee1934acef7a0189a2}} 
-void \textbf{ moveI} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::moveI}{p.}{class_f_ball_a79b6d173b1c113ee1934acef7a0189a2} Establece el movimiento de tipo 1 de una bola. \end{DoxyCompactList}\item 
-\mbox{\label{class_f_ball_a7115ab930ef3a50c93ea26574e1892a9}} 
-void \textbf{ move\+II} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::move\+II}{p.}{class_f_ball_a7115ab930ef3a50c93ea26574e1892a9} Establece el movimiento de tipo 2 de una bola. \end{DoxyCompactList}\item 
-\mbox{\label{class_f_ball_aad1c7587f114fc68f8826f9ef0f9cc3b}} 
-void \textbf{ move\+III} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::move\+III}{p.}{class_f_ball_aad1c7587f114fc68f8826f9ef0f9cc3b} Establece el movimiento de tipo 3 de una bola. \end{DoxyCompactList}\item 
-\mbox{\label{class_f_ball_a538fe4734eb8f9f7d1b9d5d978640569}} 
-void \textbf{ move\+IV} ()
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::move\+IV}{p.}{class_f_ball_a538fe4734eb8f9f7d1b9d5d978640569} Establece el movimiento de tipo 4 de una bola. \end{DoxyCompactList}\item 
-void \textbf{ move\+HV} (int angle)
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::move\+HV}{p.}{class_f_ball_ae09cc59983ad98017a2c60148ccbeaf9} Establece el movimiento de tipo 5 de una bola. \end{DoxyCompactList}\item 
-void \textbf{ move\+Fast} (int component, int quad)
-\begin{DoxyCompactList}\small\item\em \doxyref{FBall\+::move\+Fast}{p.}{class_f_ball_af159313d315e667bb17a012b9c499ad7} Establece el movimiento de tipo rapido de una bola. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{class_f_ball_a2620ba292ec2bcdda349cfc951ca4c2f}{FBall}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_f_ball}{FBall}} Constructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_ball_acd5fdd5c19dcd6ab434c2b10556fb4ce}{set\+\_\+\+Position}} (float x, float y)
+\begin{DoxyCompactList}\small\item\em set\+\_\+\+Position asignar posicion al balon \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_f_ball_ae8ee3ea0ddaf5eb23dec85bbde7c393c}{get\+\_\+\+PositionX}} ()
+\begin{DoxyCompactList}\small\item\em get\+\_\+\+PositionX Obtener posicion x de la bola \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_f_ball_ac221aae47682e0428a92d88cca99723f}{get\+\_\+\+PositionY}} ()
+\begin{DoxyCompactList}\small\item\em get\+\_\+\+PositionY Obtener posicion y de la bola \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_ball_a79b6d173b1c113ee1934acef7a0189a2}{moveI}} ()
+\begin{DoxyCompactList}\small\item\em moveI Mover primer cuadrante \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_ball_a7115ab930ef3a50c93ea26574e1892a9}{move\+II}} ()
+\begin{DoxyCompactList}\small\item\em move\+II Mover segundo cuadrante \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_ball_aad1c7587f114fc68f8826f9ef0f9cc3b}{move\+III}} ()
+\begin{DoxyCompactList}\small\item\em move\+III Mover tercer cuadrante \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_ball_a538fe4734eb8f9f7d1b9d5d978640569}{move\+IV}} ()
+\begin{DoxyCompactList}\small\item\em move\+IV Mover cuarto cuadrante \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_ball_ae09cc59983ad98017a2c60148ccbeaf9}{move\+HV}} (int angle)
+\begin{DoxyCompactList}\small\item\em move\+HV Mover por angulo cuadrantal \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_f_ball_af159313d315e667bb17a012b9c499ad7}{move\+Fast}} (int component, int quad)
+\begin{DoxyCompactList}\small\item\em move\+Fast Moverse mas rapido en alguna direccion \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{class_f_ball}{FBall}} class encargada del movimiento del balon. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_f_ball_a2620ba292ec2bcdda349cfc951ca4c2f}\label{class_f_ball_a2620ba292ec2bcdda349cfc951ca4c2f}} 
+\index{FBall@{FBall}!FBall@{FBall}}
+\index{FBall@{FBall}!FBall@{FBall}}
+\doxysubsubsection{\texorpdfstring{FBall()}{FBall()}}
+{\footnotesize\ttfamily FBall\+::\+FBall (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_f_ball}{FBall}} Constructor. 
+
+\mbox{\hyperlink{class_f_ball_a2620ba292ec2bcdda349cfc951ca4c2f}{FBall\+::\+FBall}} Constructor de la clase. 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\label{class_f_ball_ae8ee3ea0ddaf5eb23dec85bbde7c393c}} 
+\mbox{\Hypertarget{class_f_ball_ae8ee3ea0ddaf5eb23dec85bbde7c393c}\label{class_f_ball_ae8ee3ea0ddaf5eb23dec85bbde7c393c}} 
 \index{FBall@{FBall}!get\_PositionX@{get\_PositionX}}
 \index{get\_PositionX@{get\_PositionX}!FBall@{FBall}}
-\doxysubsubsection{get\_PositionX()}
+\doxysubsubsection{\texorpdfstring{get\_PositionX()}{get\_PositionX()}}
 {\footnotesize\ttfamily float FBall\+::get\+\_\+\+PositionX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-\doxyref{FBall\+::get\+\_\+\+PositionX}{p.}{class_f_ball_ae8ee3ea0ddaf5eb23dec85bbde7c393c} Retorna la posicion en eje x. 
+get\+\_\+\+PositionX Obtener posicion x de la bola 
+
+\mbox{\hyperlink{class_f_ball_ae8ee3ea0ddaf5eb23dec85bbde7c393c}{FBall\+::get\+\_\+\+PositionX}} Retorna la posicion en eje x.
 
 \begin{DoxyReturn}{Returns}
+Posicion x de la bola
+
 Posicion en eje x 
 \end{DoxyReturn}
-\mbox{\label{class_f_ball_ac221aae47682e0428a92d88cca99723f}} 
+\mbox{\Hypertarget{class_f_ball_ac221aae47682e0428a92d88cca99723f}\label{class_f_ball_ac221aae47682e0428a92d88cca99723f}} 
 \index{FBall@{FBall}!get\_PositionY@{get\_PositionY}}
 \index{get\_PositionY@{get\_PositionY}!FBall@{FBall}}
-\doxysubsubsection{get\_PositionY()}
+\doxysubsubsection{\texorpdfstring{get\_PositionY()}{get\_PositionY()}}
 {\footnotesize\ttfamily float FBall\+::get\+\_\+\+PositionY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-\doxyref{FBall\+::get\+\_\+\+PositionY}{p.}{class_f_ball_ac221aae47682e0428a92d88cca99723f} Obtener posicion en eje y. 
+get\+\_\+\+PositionY Obtener posicion y de la bola 
+
+\mbox{\hyperlink{class_f_ball_ac221aae47682e0428a92d88cca99723f}{FBall\+::get\+\_\+\+PositionY}} Obtener posicion en eje y.
 
 \begin{DoxyReturn}{Returns}
+Posicion y de la bola
+
 Posicion en el eje y 
 \end{DoxyReturn}
-\mbox{\label{class_f_ball_af159313d315e667bb17a012b9c499ad7}} 
+\mbox{\Hypertarget{class_f_ball_af159313d315e667bb17a012b9c499ad7}\label{class_f_ball_af159313d315e667bb17a012b9c499ad7}} 
 \index{FBall@{FBall}!moveFast@{moveFast}}
 \index{moveFast@{moveFast}!FBall@{FBall}}
-\doxysubsubsection{moveFast()}
+\doxysubsubsection{\texorpdfstring{moveFast()}{moveFast()}}
 {\footnotesize\ttfamily void FBall\+::move\+Fast (\begin{DoxyParamCaption}\item[{int}]{component,  }\item[{int}]{quad }\end{DoxyParamCaption})}
 
 
 
-\doxyref{FBall\+::move\+Fast}{p.}{class_f_ball_af159313d315e667bb17a012b9c499ad7} Establece el movimiento de tipo rapido de una bola. 
+move\+Fast Moverse mas rapido en alguna direccion 
+
+\mbox{\hyperlink{class_f_ball_af159313d315e667bb17a012b9c499ad7}{FBall\+::move\+Fast}} Establece el movimiento de tipo rapido de una bola.
 
 
 \begin{DoxyParams}{Parameters}
+{\em component} & Componente x o y \\
+\hline
+{\em quad} & Cuadrante\\
+\hline
 {\em component} & Componente a mover \\
 \hline
 {\em quad} & Posicion en matriz \\
 \hline
 \end{DoxyParams}
-\mbox{\label{class_f_ball_ae09cc59983ad98017a2c60148ccbeaf9}} 
+\mbox{\Hypertarget{class_f_ball_ae09cc59983ad98017a2c60148ccbeaf9}\label{class_f_ball_ae09cc59983ad98017a2c60148ccbeaf9}} 
 \index{FBall@{FBall}!moveHV@{moveHV}}
 \index{moveHV@{moveHV}!FBall@{FBall}}
-\doxysubsubsection{moveHV()}
+\doxysubsubsection{\texorpdfstring{moveHV()}{moveHV()}}
 {\footnotesize\ttfamily void FBall\+::move\+HV (\begin{DoxyParamCaption}\item[{int}]{angle }\end{DoxyParamCaption})}
 
 
 
-\doxyref{FBall\+::move\+HV}{p.}{class_f_ball_ae09cc59983ad98017a2c60148ccbeaf9} Establece el movimiento de tipo 5 de una bola. 
+move\+HV Mover por angulo cuadrantal 
+
+\mbox{\hyperlink{class_f_ball_ae09cc59983ad98017a2c60148ccbeaf9}{FBall\+::move\+HV}} Establece el movimiento de tipo 5 de una bola.
 
 
 \begin{DoxyParams}{Parameters}
+{\em angle} & angulo cuadrantal\\
+\hline
 {\em angle} & Angulo de movimiento \\
 \hline
 \end{DoxyParams}
-\mbox{\label{class_f_ball_acd5fdd5c19dcd6ab434c2b10556fb4ce}} 
+\mbox{\Hypertarget{class_f_ball_a79b6d173b1c113ee1934acef7a0189a2}\label{class_f_ball_a79b6d173b1c113ee1934acef7a0189a2}} 
+\index{FBall@{FBall}!moveI@{moveI}}
+\index{moveI@{moveI}!FBall@{FBall}}
+\doxysubsubsection{\texorpdfstring{moveI()}{moveI()}}
+{\footnotesize\ttfamily void FBall\+::moveI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+moveI Mover primer cuadrante 
+
+\mbox{\hyperlink{class_f_ball_a79b6d173b1c113ee1934acef7a0189a2}{FBall\+::moveI}} Establece el movimiento de tipo 1 de una bola. \mbox{\Hypertarget{class_f_ball_a7115ab930ef3a50c93ea26574e1892a9}\label{class_f_ball_a7115ab930ef3a50c93ea26574e1892a9}} 
+\index{FBall@{FBall}!moveII@{moveII}}
+\index{moveII@{moveII}!FBall@{FBall}}
+\doxysubsubsection{\texorpdfstring{moveII()}{moveII()}}
+{\footnotesize\ttfamily void FBall\+::move\+II (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+move\+II Mover segundo cuadrante 
+
+\mbox{\hyperlink{class_f_ball_a7115ab930ef3a50c93ea26574e1892a9}{FBall\+::move\+II}} Establece el movimiento de tipo 2 de una bola. \mbox{\Hypertarget{class_f_ball_aad1c7587f114fc68f8826f9ef0f9cc3b}\label{class_f_ball_aad1c7587f114fc68f8826f9ef0f9cc3b}} 
+\index{FBall@{FBall}!moveIII@{moveIII}}
+\index{moveIII@{moveIII}!FBall@{FBall}}
+\doxysubsubsection{\texorpdfstring{moveIII()}{moveIII()}}
+{\footnotesize\ttfamily void FBall\+::move\+III (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+move\+III Mover tercer cuadrante 
+
+\mbox{\hyperlink{class_f_ball_aad1c7587f114fc68f8826f9ef0f9cc3b}{FBall\+::move\+III}} Establece el movimiento de tipo 3 de una bola. \mbox{\Hypertarget{class_f_ball_a538fe4734eb8f9f7d1b9d5d978640569}\label{class_f_ball_a538fe4734eb8f9f7d1b9d5d978640569}} 
+\index{FBall@{FBall}!moveIV@{moveIV}}
+\index{moveIV@{moveIV}!FBall@{FBall}}
+\doxysubsubsection{\texorpdfstring{moveIV()}{moveIV()}}
+{\footnotesize\ttfamily void FBall\+::move\+IV (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+move\+IV Mover cuarto cuadrante 
+
+\mbox{\hyperlink{class_f_ball_a538fe4734eb8f9f7d1b9d5d978640569}{FBall\+::move\+IV}} Establece el movimiento de tipo 4 de una bola. \mbox{\Hypertarget{class_f_ball_acd5fdd5c19dcd6ab434c2b10556fb4ce}\label{class_f_ball_acd5fdd5c19dcd6ab434c2b10556fb4ce}} 
 \index{FBall@{FBall}!set\_Position@{set\_Position}}
 \index{set\_Position@{set\_Position}!FBall@{FBall}}
-\doxysubsubsection{set\_Position()}
+\doxysubsubsection{\texorpdfstring{set\_Position()}{set\_Position()}}
 {\footnotesize\ttfamily void FBall\+::set\+\_\+\+Position (\begin{DoxyParamCaption}\item[{float}]{x,  }\item[{float}]{y }\end{DoxyParamCaption})}
 
 
 
-\doxyref{FBall\+::set\+\_\+\+Position}{p.}{class_f_ball_acd5fdd5c19dcd6ab434c2b10556fb4ce} Metodo para establecer la posicion. 
+set\+\_\+\+Position asignar posicion al balon 
+
+\mbox{\hyperlink{class_f_ball_acd5fdd5c19dcd6ab434c2b10556fb4ce}{FBall\+::set\+\_\+\+Position}} Metodo para establecer la posicion.
 
 
 \begin{DoxyParams}{Parameters}
+{\em x} & Posicion x de la bola \\
+\hline
+{\em y} & Posicion y de la bola\\
+\hline
 {\em x} & Posicion en el eje x \\
 \hline
 {\em y} & Posicion en el eje y \\
@@ -110,5 +194,5 @@ Posicion en el eje y
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-fball.\+h\item 
-\textbf{ fball.\+cpp}\end{DoxyCompactItemize}
+\mbox{\hyperlink{fball_8h}{fball.\+h}}\item 
+\mbox{\hyperlink{fball_8cpp}{fball.\+cpp}}\end{DoxyCompactItemize}

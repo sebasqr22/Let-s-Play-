@@ -1,4 +1,4 @@
-\doxysection{fball.\+cpp File Reference}
+\hypertarget{fball_8cpp}{}\doxysection{fball.\+cpp File Reference}
 \label{fball_8cpp}\index{fball.cpp@{fball.cpp}}
 
 
@@ -13,4 +13,4 @@ Include dependency graph for fball.\+cpp\+:
 \doxysubsection{Detailed Description}
 Clase que contiene las funcionalidades de la pelota. 
 
-@title \doxyref{FBall}{p.}{class_f_ball} 
+@title \mbox{\hyperlink{class_f_ball}{FBall}} 
