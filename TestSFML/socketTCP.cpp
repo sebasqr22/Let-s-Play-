@@ -1,3 +1,8 @@
+/**
+  *@file socketTCP.cpp
+  * @title socketTCP
+  * @brief Clase para crear los sockets
+*/
 #include "socketTCP.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -6,6 +11,10 @@ using namespace std;
 int filas = 8;
 int columnas = 11;
 //function to print the solution matrix
+
+/**
+ * @brief SocketTCP::printsolution Imprime la solucion de la matriz
+ */
 void SocketTCP::printsolution()
 {
     int i,j;
@@ -24,6 +33,11 @@ void SocketTCP::printsolution()
 
 //function to solve the maze
 //using backtracking
+/**
+ * @brief SocketTCP::Backtracking Aplicacion del backtracking
+ * @param r Cantidad filas
+ * @param c Cantidad columnas
+ */
 int SocketTCP::Backtracking(int r, int c)
 {
     //if destination is reached, maze is solved
@@ -61,7 +75,9 @@ int SocketTCP::Backtracking(int r, int c)
     return 0;
 
 }
-
+/**
+ * @brief SocketTCP::executeBacktracking Metodo que ejecuta el backtracking
+ */
 int SocketTCP::executeBacktracking(){
     //making all elements of the solution matrix 0
     int i,j;
@@ -79,7 +95,11 @@ int SocketTCP::executeBacktracking(){
     return 0;
 }
 
-
+/**
+ * @brief SocketTCP::SocketTCP Metodo para la creacion del socket
+ * @param connectionType Tipo de conexion
+ * @param rects Array de rectangulos de la martiz
+ */
 SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88])
 {
     int k = 0;

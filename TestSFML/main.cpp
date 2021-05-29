@@ -1,3 +1,9 @@
+/**
+  *@file main.cpp
+  * @title Main
+  * @brief Clase que inicializa los principales elementos del juego
+*/
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include <iostream>
@@ -9,7 +15,11 @@ using namespace std;
 using namespace sf;
 
 
-
+/**
+ * @brief BPGame Metodo que inicializa el juego
+ * @param Splayers string de jugadores
+ * @param Sgoal string del sgoal
+ */
 int BPGame(String Splayers, String Sgoal)
 {
     //RenderWindow window(VideoMode(800, 560), "SFML tutorial : part 1",Style::Close | Style::Resize);
@@ -589,7 +599,9 @@ int BPGame(String Splayers, String Sgoal)
     return 0;
 
 }
-
+/**
+ * @brief BPselectionMenu Metodo que crea el menu de seleccion
+ */
 int BPselectionMenu(){
 
     RectangleShape menuBackg(Vector2f(500.f,400.f));
@@ -694,7 +706,10 @@ int BPselectionMenu(){
     }
 
 }
-
+/**
+ * @brief main Inicializa los principales parametros
+ * @return
+ */
 int main(){
 
     RectangleShape menuBackg(Vector2f(570.f,400.f));
