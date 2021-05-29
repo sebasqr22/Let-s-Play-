@@ -1,0 +1,113 @@
+\doxysection{Socket\+TCP Class Reference}
+\label{class_socket_t_c_p}\index{SocketTCP@{SocketTCP}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ Backtracking} (int r, int c)
+\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::\+Backtracking}{p.}{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732} Aplicacion del backtracking. \end{DoxyCompactList}\item 
+\mbox{\label{class_socket_t_c_p_af897f1fc673a72c8e355ff8d5202b242}} 
+bool {\bfseries is\+Empty} (Vector2f position)
+\item 
+\mbox{\label{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793}} 
+void \textbf{ printsolution} ()
+\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::printsolution}{p.}{class_socket_t_c_p_aa1139ba2d061399be0d417b756488793} Imprime la solucion de la matriz. \end{DoxyCompactList}\item 
+\mbox{\label{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16}} 
+int \textbf{ execute\+Backtracking} ()
+\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::execute\+Backtracking}{p.}{class_socket_t_c_p_a0245240d5ef974be502cd385c7ae4c16} Metodo que ejecuta el backtracking. \end{DoxyCompactList}\item 
+\textbf{ Socket\+TCP} (bool connection\+Type, Rectangle\+Shape rects[88])
+\begin{DoxyCompactList}\small\item\em \doxyref{Socket\+TCP\+::\+Socket\+TCP}{p.}{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37} Metodo para la creacion del socket. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_socket_t_c_p_a2d225cc6fcb2cb91fb5ff5b0c59576e9}} 
+bool {\bfseries Path} [20]
+\item 
+\mbox{\label{class_socket_t_c_p_ac78f6a8424a2555fe2ba11ec09795070}} 
+Vector3f {\bfseries matriz} [8][11]
+\item 
+\mbox{\label{class_socket_t_c_p_aeb2cbdaf19ba66cf041081f0b4c805a7}} 
+int {\bfseries solution} [8][11]
+\item 
+int {\bfseries maze} [8][11]
+\item 
+\mbox{\label{class_socket_t_c_p_a4c36b9de422d507ac4976f3c77fa9588}} 
+Tcp\+Socket {\bfseries socket}
+\item 
+\mbox{\label{class_socket_t_c_p_ada7cf28ce4e84b7d528d81e5ae580bc3}} 
+Ip\+Address {\bfseries ip} = Ip\+Address\+::get\+Local\+Address()
+\item 
+\mbox{\label{class_socket_t_c_p_a5066c7e1b117efecaca4585e0e8f912e}} 
+char {\bfseries buffer} [2000]
+\item 
+\mbox{\label{class_socket_t_c_p_a0ab600d70cb6495ece92b00330618b7f}} 
+size\+\_\+t {\bfseries received}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\label{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37}} 
+\index{SocketTCP@{SocketTCP}!SocketTCP@{SocketTCP}}
+\index{SocketTCP@{SocketTCP}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{SocketTCP()}
+{\footnotesize\ttfamily Socket\+TCP\+::\+Socket\+TCP (\begin{DoxyParamCaption}\item[{bool}]{connection\+Type,  }\item[{Rectangle\+Shape}]{rects[88] }\end{DoxyParamCaption})}
+
+
+
+\doxyref{Socket\+TCP\+::\+Socket\+TCP}{p.}{class_socket_t_c_p_a41d0e7c8760754b8ac4464bffe1a2c37} Metodo para la creacion del socket. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em connection\+Type} & Tipo de conexion \\
+\hline
+{\em rects} & Array de rectangulos de la martiz \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732}} 
+\index{SocketTCP@{SocketTCP}!Backtracking@{Backtracking}}
+\index{Backtracking@{Backtracking}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{Backtracking()}
+{\footnotesize\ttfamily int Socket\+TCP\+::\+Backtracking (\begin{DoxyParamCaption}\item[{int}]{r,  }\item[{int}]{c }\end{DoxyParamCaption})}
+
+
+
+\doxyref{Socket\+TCP\+::\+Backtracking}{p.}{class_socket_t_c_p_a0617aecbbe36f92da8d4d263146a9732} Aplicacion del backtracking. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Cantidad filas \\
+\hline
+{\em c} & Cantidad columnas \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\label{class_socket_t_c_p_ae13d52a50db2ea45bb6097455031956b}} 
+\index{SocketTCP@{SocketTCP}!maze@{maze}}
+\index{maze@{maze}!SocketTCP@{SocketTCP}}
+\doxysubsubsection{maze}
+{\footnotesize\ttfamily int Socket\+TCP\+::maze[8][11]}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{        \{0,1,0,1,1,0,0,0,0,0,0\},}
+\DoxyCodeLine{        \{0,0,0,0,0,0,0,1,0,0,0\},}
+\DoxyCodeLine{        \{0,1,0,0,0,1,0,0,1,1,0\},}
+\DoxyCodeLine{        \{0,1,0,0,0,0,0,1,0,0,0\},}
+\DoxyCodeLine{        \{0,1,0,0,0,1,0,0,0,1,0\},}
+\DoxyCodeLine{        \{0,1,0,1,1,0,0,1,0,0,0\},}
+\DoxyCodeLine{        \{0,1,0,1,1,0,0,1,0,0,0\},}
+\DoxyCodeLine{        \{0,1,0,1,1,0,0,0,0,0,0\}}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+socket\+TCP.\+h\item 
+\textbf{ socket\+TCP.\+cpp}\end{DoxyCompactItemize}

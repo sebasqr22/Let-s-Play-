@@ -1,3 +1,8 @@
+/**
+  *@file imagen.cpp
+  * @title Imagen
+  * @brief Clase para el manejo de la imagen del segundo juego
+*/
 #include "imagen.h"
 #include <iostream>
 #include <string>
@@ -5,11 +10,17 @@
 #include "imagen.h"
 using namespace sf;
 using namespace std;
-
+/**
+ * @brief Imagen::Imagen Constrcutor de la clase imagen
+ */
 Imagen::Imagen()
 {
     Sprite imagen;
 }
+/**
+ * @brief Imagen::ObtenerImagen Obtiene una imagen
+ * @param Nimagen nombre de la imagen
+ */
 void Imagen::ObtenerImagen(String Nimagen)
 {
   this->nameI = Nimagen;
@@ -17,7 +28,9 @@ void Imagen::ObtenerImagen(String Nimagen)
 
 
 }
-
+/**
+ * @brief Imagen::CargarImagen Metodo para cargar una imagen
+ */
 void Imagen::CargarImagen()
 {
     if (!pTexture.loadFromFile(nameI/*, sf::IntRect(100,0,100,150)*/))
@@ -27,6 +40,9 @@ void Imagen::CargarImagen()
      this->imagen.setPosition(25,25);
 
 }
+/**
+ * @brief Imagen::DivisionImagen4x4 Realiza una division de una imagen
+ */
 String Imagen::DivisionImagen4x4()
 {
     enum Fila {First,Second,Third,Quarte};
@@ -34,7 +50,10 @@ String Imagen::DivisionImagen4x4()
 
     NULL;
 }
-
+/**
+ * @brief Imagen::DibujarImagen Metodo para realizar el dibujo de una imagen
+ * @return Imagen dibujada
+ */
 Sprite Imagen::DibujarImagen()
 {
     return this->imagen;

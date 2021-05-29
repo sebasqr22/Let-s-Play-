@@ -1,0 +1,120 @@
+\doxysection{GeneticA Class Reference}
+\label{class_genetic_a}\index{GeneticA@{GeneticA}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_genetic_a_aa1fc1e32d8c24e9a91ccc09318b71c9d}} 
+\textbf{ GeneticA} ()
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::\+GeneticA}{p.}{class_genetic_a_aa1fc1e32d8c24e9a91ccc09318b71c9d} Costrcutor principal de la clase. \end{DoxyCompactList}\item 
+\mbox{\label{class_genetic_a_a72cd5db7b0bedbea0bd233e6aa1ac4e0}} 
+void \textbf{ Poblacion\+Inicial} ()
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::\+Poblacion\+Inicial}{p.}{class_genetic_a_a72cd5db7b0bedbea0bd233e6aa1ac4e0} Define la poblacion inicial. \end{DoxyCompactList}\item 
+\mbox{\label{class_genetic_a_a2c0e95cc8d0bd32da5f7f92c44e9a295}} 
+void \textbf{ mostrar\+Poblacion} ()
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::mostrar\+Poblacion}{p.}{class_genetic_a_a2c0e95cc8d0bd32da5f7f92c44e9a295} Metodo para mostrar la poblacion del algoritmo. \end{DoxyCompactList}\item 
+int \textbf{ obtener\+Puntuacion} (vector$<$ int $>$ individuo)
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::obtener\+Puntuacion}{p.}{class_genetic_a_a7d7cbc5d4732129b0d5e0a7f1ab34f76} Mostrar la puntuacion del jugador. \end{DoxyCompactList}\item 
+void \textbf{ mutacion} (vector$<$ int $>$ \&individuo)
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::mutacion}{p.}{class_genetic_a_a6ec0c34baa133c68d6eef73eac5ef69b} Metodo para realizar una mutacion. \end{DoxyCompactList}\item 
+void \textbf{ Cruzamiento} (int indice\+\_\+padre1, int indice\+\_\+padre2, vector$<$ int $>$ \&hijo)
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::\+Cruzamiento}{p.}{class_genetic_a_a8283b2ad8c76a37ec4de66bd25c3df7c} Metodo para gener un cruzamiento. \end{DoxyCompactList}\item 
+int \textbf{ obtener\+Mejor} ()
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::obtener\+Mejor}{p.}{class_genetic_a_af1802cfe6f8817498cd94605c448edd7} Obtiene el indice del mejor individuo de la poblacion. \end{DoxyCompactList}\item 
+\mbox{\label{class_genetic_a_a1a30c78f3fc0a9c7c4acba9a3848c07f}} 
+int \textbf{ Principal} ()
+\begin{DoxyCompactList}\small\item\em \doxyref{Genetic\+A\+::\+Principal}{p.}{class_genetic_a_a1a30c78f3fc0a9c7c4acba9a3848c07f} Metodo principal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\label{class_genetic_a_ae9dfd5f874cae2232a4ec0723e800c48}} 
+int {\bfseries tam\+\_\+genes}
+\item 
+\mbox{\label{class_genetic_a_a1e4d95a46970db65b8793b8a1df848d2}} 
+int {\bfseries tam\+\_\+pob}
+\item 
+\mbox{\label{class_genetic_a_aa23a5813d71486d9de6bd6ecf4597a8e}} 
+int {\bfseries tam\+\_\+torneo}
+\item 
+\mbox{\label{class_genetic_a_a34686e7444f3610aa13acf4403e8f39e}} 
+int {\bfseries generaciones}
+\item 
+\mbox{\label{class_genetic_a_a79481edc35a3d94c50bf67a7b0aac92d}} 
+double {\bfseries prob\+\_\+mut}
+\item 
+\mbox{\label{class_genetic_a_a686aacd91d682bacc7baae93e9f583cc}} 
+double {\bfseries prob\+\_\+cruz}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\label{class_genetic_a_a8283b2ad8c76a37ec4de66bd25c3df7c}} 
+\index{GeneticA@{GeneticA}!Cruzamiento@{Cruzamiento}}
+\index{Cruzamiento@{Cruzamiento}!GeneticA@{GeneticA}}
+\doxysubsubsection{Cruzamiento()}
+{\footnotesize\ttfamily void Genetic\+A\+::\+Cruzamiento (\begin{DoxyParamCaption}\item[{int}]{indice\+\_\+padre1,  }\item[{int}]{indice\+\_\+padre2,  }\item[{vector$<$ int $>$ \&}]{hijo }\end{DoxyParamCaption})}
+
+
+
+\doxyref{Genetic\+A\+::\+Cruzamiento}{p.}{class_genetic_a_a8283b2ad8c76a37ec4de66bd25c3df7c} Metodo para gener un cruzamiento. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indice\+\_\+padre1} & Padre 1 \\
+\hline
+{\em indice\+\_\+padre2} & Padre 2 \\
+\hline
+{\em hijo} & Individuo hijo de Padre 1 y Padre 2 \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_genetic_a_a6ec0c34baa133c68d6eef73eac5ef69b}} 
+\index{GeneticA@{GeneticA}!mutacion@{mutacion}}
+\index{mutacion@{mutacion}!GeneticA@{GeneticA}}
+\doxysubsubsection{mutacion()}
+{\footnotesize\ttfamily void Genetic\+A\+::mutacion (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{individuo }\end{DoxyParamCaption})}
+
+
+
+\doxyref{Genetic\+A\+::mutacion}{p.}{class_genetic_a_a6ec0c34baa133c68d6eef73eac5ef69b} Metodo para realizar una mutacion. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em individuo} & Individuo a realizar la mutacion \\
+\hline
+\end{DoxyParams}
+\mbox{\label{class_genetic_a_af1802cfe6f8817498cd94605c448edd7}} 
+\index{GeneticA@{GeneticA}!obtenerMejor@{obtenerMejor}}
+\index{obtenerMejor@{obtenerMejor}!GeneticA@{GeneticA}}
+\doxysubsubsection{obtenerMejor()}
+{\footnotesize\ttfamily int Genetic\+A\+::obtener\+Mejor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxyref{Genetic\+A\+::obtener\+Mejor}{p.}{class_genetic_a_af1802cfe6f8817498cd94605c448edd7} Obtiene el indice del mejor individuo de la poblacion. 
+
+\begin{DoxyReturn}{Returns}
+Individuo con mejor indice de la poblacion 
+\end{DoxyReturn}
+\mbox{\label{class_genetic_a_a7d7cbc5d4732129b0d5e0a7f1ab34f76}} 
+\index{GeneticA@{GeneticA}!obtenerPuntuacion@{obtenerPuntuacion}}
+\index{obtenerPuntuacion@{obtenerPuntuacion}!GeneticA@{GeneticA}}
+\doxysubsubsection{obtenerPuntuacion()}
+{\footnotesize\ttfamily int Genetic\+A\+::obtener\+Puntuacion (\begin{DoxyParamCaption}\item[{vector$<$ int $>$}]{individuo }\end{DoxyParamCaption})}
+
+
+
+\doxyref{Genetic\+A\+::obtener\+Puntuacion}{p.}{class_genetic_a_a7d7cbc5d4732129b0d5e0a7f1ab34f76} Mostrar la puntuacion del jugador. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em individuo} & Jugador con calificacion \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Sumatoria de puntos 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+genetica.\+h\item 
+\textbf{ genetica.\+cpp}\end{DoxyCompactItemize}

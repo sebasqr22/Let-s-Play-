@@ -1,10 +1,18 @@
+/**
+  *@file genetica.cpp
+  * @title Genetica
+  * @brief Clase con el algoritmo genetico
+*/
+
 #include "genetica.h"
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
 using namespace std;
-
+/**
+ * @brief GeneticA::GeneticA Costrcutor principal de la clase
+ */
 GeneticA::GeneticA()
 {
     // Variables de algoritmo genético
@@ -18,7 +26,9 @@ GeneticA::GeneticA()
  }
 // poblacion
 vector<vector<int> > poblacion;
-
+/**
+ * @brief GeneticA::PoblacionInicial Define la poblacion inicial
+ */
 void GeneticA::PoblacionInicial()
 {
     for(int i = 0; i < tam_pob; i++)
@@ -34,7 +44,9 @@ void GeneticA::PoblacionInicial()
         poblacion.push_back(individuo); //inserta en el vector  población
     }
 }
-
+/**
+ * @brief GeneticA::mostrarPoblacion Metodo para mostrar la poblacion del algoritmo
+ */
 void GeneticA::mostrarPoblacion()
 {
     for(int i = 0; i < tam_pob; i++)
@@ -46,6 +58,11 @@ void GeneticA::mostrarPoblacion()
 }
 
 // devuelve la puntuación del individuo
+/**
+ * @brief GeneticA::obtenerPuntuacion Mostrar la puntuacion del jugador
+ * @param individuo Jugador con calificacion
+ * @return Sumatoria de puntos
+ */
 int GeneticA::obtenerPuntuacion(vector<int> individuo)
 {
     // la puntuación es la suma de los valores de los genes
@@ -58,6 +75,10 @@ int GeneticA::obtenerPuntuacion(vector<int> individuo)
 
 
 // realización de mutacion
+/**
+ * @brief GeneticA::mutacion Metodo para realizar una mutacion
+ * @param individuo Individuo a realizar la mutacion
+ */
 void GeneticA::mutacion(vector<int>& individuo)
 {
     //elige un gen al azar en el rango [0, tam_genes - 1]
@@ -68,6 +89,12 @@ void GeneticA::mutacion(vector<int>& individuo)
         individuo[gene] = 1;
 }
 // realización de los cruces
+/**
+ * @brief GeneticA::Cruzamiento Metodo para gener un cruzamiento
+ * @param indice_padre1 Padre 1
+ * @param indice_padre2 Padre 2
+ * @param hijo Individuo hijo de Padre 1 y Padre 2
+ */
 void GeneticA::Cruzamiento(int indice_padre1, int indice_padre2, vector<int>& hijo)
 {
     // elige un punto al azar en el rango [0, tam_genes - 1]
@@ -80,6 +107,10 @@ void GeneticA::Cruzamiento(int indice_padre1, int indice_padre2, vector<int>& hi
 }
 
 // devuelve el índice del mejor individuo de la población
+/**
+ * @brief GeneticA::obtenerMejor Obtiene el indice del mejor individuo de la poblacion
+ * @return Individuo con mejor indice de la poblacion
+ */
 int GeneticA::obtenerMejor()
 {
     int indice_mejor = 0;
@@ -97,7 +128,9 @@ int GeneticA::obtenerMejor()
 
     return indice_mejor;
 }
-
+/**
+ * @brief GeneticA::Principal Metodo principal
+ */
 int GeneticA::Principal()
 {
 srand(time(NULL));
