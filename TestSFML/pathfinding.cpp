@@ -5,17 +5,16 @@
 using namespace std;
 
 class path{
-public:
+private:
     int h1;
     int h2;
     int h3;
-    int costeDia = 2;
 
     bool finalizado = false;
     int i_final = 4;
     int j_final = 10;
 
-    int i_actual = 0;
+    int i_actual = 7;
     int j_actual = 0;
 
     int hTemp = 0;
@@ -24,19 +23,17 @@ public:
     int i_h = 0;
     int j_h = 0;
 
-    int ocupados[100][100];
-
     string resultados;
 
     int matriz[8][11] = { //0 representa paso libre, 1 ocupado
-      {0,0,1,0,0,0,0,0,0,0,0},
-        {0,0,1,0,0,0,0,0,0,0,0},
+      {0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0},
         {0,0,0,0,0,0,0,0,0,0,0}, //aqui
         {0,0,0,0,0,0,0,0,0,0,0},
-        {0,0,0,1,0,0,0,0,0,0,0},
-        {0,0,1,1,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0},
+        {0,0,0,0,0,0,0,0,0,0,0},
     };
     int mover(){
         int heu = 0;
@@ -132,6 +129,24 @@ public:
             h3 = hTemp;
         }
     }
+    int calcularHespe(int pos){
+        if(pos == 2){
+            if(i_actual != 0 && i_actual != 3){ //hacia arriba
+                i_h = i_actual - 1;
+                j_h = j_actual;
+                hTemp = mover();
+                return hTemp;
+            }
+        }
+        else if(pos == 3){
+            if(i_actual != 7){ //hacia abajo
+                i_h = i_actual + 1;
+                j_h = j_actual;
+                hTemp = mover();
+                return hTemp;
+            }
+        }
+    }
 
     int determinarMenor(int type){
         int menor;
@@ -166,6 +181,9 @@ public:
         if(i_actual == 3 && j_actual == 10){
             return 1;
         }
+        if(matriz[i_actual][j_actual + 1] != 0){
+            return -1;
+        }
         if(menor != 0){
             return menor;
         }
@@ -188,7 +206,7 @@ public:
         cout << "ACTUAL: " + to_string(i_actual) + "," + to_string(j_actual) << endl;
 
     }
-
+public:
     void calcular(){
         resultados += to_string(i_actual) + "," + to_string(j_actual) + "|";
         while(finalizado == false){
@@ -200,23 +218,73 @@ public:
                 resultados = "NO";
                 break;
             }
-            if(i_actual == 3 && j_actual == 10){
-                i_actual ++;
-            }
-            else if (i_actual == 5 && j_actual == 10){
-                i_actual --;
+            if(menor == -1){
+                int temp =  calcularHespe(2);
+                int temp2 = calcularHespe(3);
+
+                if(temp2 != 0 && temp != 0){
+                    if(temp2 < temp){
+                        if(matriz[i_actual+1][j_actual] == 0){
+                            i_actual ++;
+                        }
+                        else{
+                            resultados = "NO";
+                            break;
+                        }
+                    }
+                    else{
+                        if(matriz[i_actual-1][j_actual] == 0){
+                            i_actual --;
+                        }
+                        else{
+                            resultados = "NO";
+                            break;
+                        }
+                    }
+                }
+                else if(temp2 != 0){
+                    if(matriz[i_actual+1][j_actual] == 0){
+                            i_actual ++;
+                        }
+                        else{
+                            resultados = "NO";
+                            break;
+                        }
+                }
+                else if(temp != 0){
+                    if(matriz[i_actual-1][j_actual] == 0){
+                            i_actual --;
+                        }
+                        else{
+                            resultados = "NO";
+                            break;
+                        }
+                }
+                else{
+                    resultados = "NO";
+                    break;
+                }
             }
             else{
-                if (menor == h1){
-                j_actual ++;
+                if(i_actual == 3 && j_actual == 10){
+                i_actual ++;
                 }
-                else if(menor == h2 and i_actual != 3){
+                else if (i_actual == 5 && j_actual == 10){
                     i_actual --;
                 }
                 else{
-                    i_actual += 1;
+                    if (menor == h1){
+                    j_actual ++;
+                    }
+                    else if(menor == h2 and i_actual != 3){
+                        i_actual --;
+                    }
+                    else{
+                        i_actual += 1;
+                    }
                 }
             }
+
 
             cout << "AVANZA: " + to_string(i_actual) + "," + to_string(j_actual) << endl;
             resultados += to_string(i_actual) + "," + to_string(j_actual) + "|";
