@@ -16,6 +16,7 @@ private:
      * @brief img Imagen que demuestra la potencia
      */
     string img;
+    int pxls;
 
 public:
     /**
@@ -36,10 +37,12 @@ public:
      * @brief set_Img Asignar una imagen a la barra de potencia
      * @param msg
      */
-    void set_Img(string msg);
-    //int set_Value(int value);
+    void set_Img(string img);
+    void set_Pxls(int units);
+    int get_Value();
     //void updateImg(int value);
-    //void set_Img(string msg);
+    string get_Img();
+    int get_Pxls();
 };
 
 #endif // STRENGTH_H

@@ -48,6 +48,12 @@ public:
      */
     size_t received;
 
+    int obstacles[20];
+
+    int Algoriythm;
+
+    Vector2i posBacktracking;
+
 public:
     /**
      * @brief Backtracking Algoritmo backtracking
@@ -70,13 +76,13 @@ public:
      * @brief executeBacktracking ejecuta el Backtracking
      * @return La solucion
      */
-    int executeBacktracking();
+    void executeBacktracking(int a, int b);
     /**
      * @brief SocketTCP Socket Servidor
      * @param connectionType Tipo de conexion
      * @param rects Array de rectangulos de la interfaz
      */
-    SocketTCP(bool connectionType, RectangleShape rects[88]);
+    SocketTCP(bool connectionType, RectangleShape rects[88], int Mode);
 
 
 };

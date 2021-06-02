@@ -12,6 +12,7 @@
 #include <player.h>
 #include <imagen.h>
 #include <genetica.h>
+#include <strength.h>
 
 using namespace std;
 using namespace sf;
@@ -134,7 +135,7 @@ int GenericPuzzle(){
  * @param Splayers string de jugadores
  * @param Sgoal string del sgoal
  */
-int BPGame(String Splayers, String Sgoal)
+int BPGame(String Splayers, String Sgoal, int Mode)
 {
     //RenderWindow window(VideoMode(800, 560), "SFML tutorial : part 1",Style::Close | Style::Resize);
     string splayers = Splayers;
@@ -144,6 +145,7 @@ int BPGame(String Splayers, String Sgoal)
 
 
     RectangleShape rects[88];
+    bool notEmpty[88];
     int i = 26, j = 7, l = 0, jump = 0;
     const sf::Color colorArray[9]={Color::Cyan, Color::Blue, Color::Green, Color::Red, Color::Yellow, Color::Black, Color::White, Color::Magenta, Color::Cyan };
     srand(time(NULL));
@@ -219,15 +221,17 @@ int BPGame(String Splayers, String Sgoal)
         }
 
     }
+
+
     /// TEAMS ///
 
 
     string mode;
 
-    bool runMode = 1;
+    bool runMode = 0;
     if (runMode==1){
 
-        SocketTCP sokket(runMode, rects);
+        SocketTCP sokket(runMode, rects, Mode);
 
     } else {
 
@@ -247,14 +251,31 @@ int BPGame(String Splayers, String Sgoal)
         char buffer[2000];
         size_t received;
 
-        string text = "Connected to: ";
+        string text;// = "Connected to: ";
         //string mode;
-        socket.connect(ip,8000);
-        text += "Client";
+        socket.connect(ip,8080);
+        //text += "Client";
         mode = "r";
+
+
+
+        text = "";
+
+        for (int i = 0; i<88; i++){
+
+            for (int j = 0; j<players; j++){
+                if (circles[j].getPosition() == rects[i].getPosition()){
+                    notEmpty[i] = 1;
+                    cout << "Obstacle :" << notEmpty[i] << endl;
+                    string s = to_string(i)+".";
+                    text+=s;
+                }
+            }
+        }
         socket.send(text.c_str(), text.length() + 1);
         socket.receive(buffer, sizeof(buffer), received);
         cout << buffer << endl;
+        cout << text << endl;
         /////////////////////////////////// COMENTAR ESTO PARA NO EJECUTAR LA CONEXION //////////////
 
 
@@ -273,13 +294,19 @@ int BPGame(String Splayers, String Sgoal)
         Time time;
         Clock clock;
 
+
+        FBall fball;
         // Create a green circle with a radius of 100. pixels
         CircleShape teamPlayer(34.f);
-        teamPlayer.setPosition(296.f,211.f);
+
+        teamPlayer.setPosition(circles[0].getPosition());
         //teamPlayer.setFillColor(Color::Red);
         CircleShape Ball(25.f);
         //Ball.setFillColor(Color(22,34,677,255));
 
+        fball.set_Position((float)teamPlayer.getPosition().x+9,(float)teamPlayer.getPosition().y+9); // 9 = 34 - 25
+
+        Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
 
 
         RectangleShape player(Vector2f(100.f,150.f));
@@ -288,9 +315,10 @@ int BPGame(String Splayers, String Sgoal)
         RectangleShape backg(Vector2f(800.f,560.f));
         RectangleShape arrow(Vector2f(35.f,75.f));
         RectangleShape force(Vector2f(35,130));
-        force.setPosition(280,573);
+        force.setPosition(170,573);
         force.setRotation(90);
-
+        Strength strengthBar;
+        strengthBar.set_Value(3);
 
 
 
@@ -318,6 +346,10 @@ int BPGame(String Splayers, String Sgoal)
 
         Texture forceTexture;
         forceTexture.loadFromFile("Imags/fuerza3.png");
+        Texture forceTexture2;
+        forceTexture2.loadFromFile("Imags/fuerza2.png");
+        Texture forceTexture3;
+        forceTexture3.loadFromFile("Imags/fuerza.png");
 
 
 
@@ -327,7 +359,25 @@ int BPGame(String Splayers, String Sgoal)
         arrow.setTexture(&arrowTexture);
         Ball.setTexture(&ballTexture);
         mySprite.setTexture(arrowTexture);
-        force.setTexture(&forceTexture);
+        force.setTexture(&forceTexture3);
+
+        Font font;
+        font.loadFromFile("Fonts/ThanksBunnyFree.ttf");
+        String sTurn = " Player 1's turn ";
+        Text textTurn(sTurn,font,36);
+        textTurn.setColor(Color::Blue);
+        textTurn.setPosition(550.f,565.f);
+
+        String sP1Score = "P1 ";
+        Text textP1Score(sP1Score,font,36);
+        textP1Score.setColor(Color::Blue);
+        textP1Score.setPosition(275.f,565.f);
+
+        String sP2Score = "P2 ";
+        Text textP2Score(sP2Score,font,36);
+        textP2Score.setColor(Color::Red);
+        textP2Score.setPosition(375.f,565.f);
+
 
         // VARIABLES
         bool selected = false;
@@ -335,19 +385,32 @@ int BPGame(String Splayers, String Sgoal)
         Vector2i T2mousePos;
         int counterM = 0;
         bool wall = false;
+        int turn = 1;
 
-
-        FBall fball;
+        int P1Score = 0;
+        int P2Score = 0;
+        bool BackT = false;
+        string messageR;
+        int path[50];
 
         // Main loop, while the window is open
         while (window.isOpen())
         {
+            sP1Score = "P1 "+to_string(P1Score);
+            textP1Score.setString(sP1Score);
+
+            sP2Score = "P2 "+to_string(P2Score);
+            textP2Score.setString(sP2Score);
+
+
             Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
 
             // Event loop
             Event event;
             while (window.pollEvent(event))
             {
+
+
                 //window.setKeyRepeatEnabled(false);
                 switch (event.type)
                 {
@@ -361,6 +424,7 @@ int BPGame(String Splayers, String Sgoal)
                     break;
 
                 case Event::MouseButtonPressed:
+                    cout << turn << endl;
                     cout << 1 << endl;
                     time = clock.getElapsedTime();
                     cout << time.asSeconds() << endl;
@@ -376,6 +440,7 @@ int BPGame(String Splayers, String Sgoal)
 
                     auto translated_pos = window.mapPixelToCoords(mousePos); // Mouse position translated into world coordinates
                     if (selected==true){
+                        BackT = false;
                         switch((int)arrow.getRotation()){
                             case 0:
                                 selected = false;
@@ -419,37 +484,94 @@ int BPGame(String Splayers, String Sgoal)
                                 moving = 1;
                                 break;
                         }
+
+                    } else if(mousePos.x > 43 && mousePos.x < 83 && mousePos.y > 574 && mousePos.y < 608){
+                        strengthBar.set_Value(1);
+                        force.setTexture(&forceTexture);
+                    } else if(mousePos.x > 83 && mousePos.x < 123 && mousePos.y > 574 && mousePos.y < 608){
+                        strengthBar.set_Value(2);
+                        force.setTexture(&forceTexture2);
+                    } else if(mousePos.x > 123 && mousePos.x < 168 && mousePos.y > 574 && mousePos.y < 608){
+                        strengthBar.set_Value(3);
+                        force.setTexture(&forceTexture3);
+
                     } else if(teamPlayer.getGlobalBounds().contains(translated_pos)){
 
+                        if (turn%2 == 1){
+
+                            fball.set_Position((float)teamPlayer.getPosition().x+9,(float)teamPlayer.getPosition().y+9); // 9 = 34 - 25
+
+                            Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
+
+
+                            arrow.setPosition((float)teamPlayer.getPosition().x+34,(float)teamPlayer.getPosition().y+34);
+
+                            selected = true;
+                            //arrow.rotate(45.f);
 
 
 
-                        fball.set_Position((float)teamPlayer.getPosition().x+9,(float)teamPlayer.getPosition().y+9); // 9 = 34 - 25
-
-                        Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
-
-                        arrow.setPosition((float)teamPlayer.getPosition().x+34,(float)teamPlayer.getPosition().y+34);
-
-                        selected = true;
-                        //arrow.rotate(45.f);
-
-
-
-                        ///////////////////////////////////////////// COMENTAR ESTO TAMBIEN PARA NO EJECUTAR LA CONEXION
-                        //getline(cin, text);
-                        text = "mensaje";
-                        socket.send(text.c_str(), text.length() + 1);
-                        mode = "r";
-                        if(mode=="r") {
-                            socket.receive(buffer, sizeof(buffer), received);
-                            if (received>0){
-                                cout << "Received: " << buffer << endl;
-                                mode = "s";
+                            ///////////////////////////////////////////// COMENTAR ESTO TAMBIEN PARA NO EJECUTAR LA CONEXION
+                            //getline(cin, text);
+                            text = "mensaje";
+                            socket.send(text.c_str(), text.length() + 1);
+                            mode = "r";
+                            if(mode=="r") {
+                                socket.receive(buffer, sizeof(buffer), received);
+                                if (received>0){
+                                    cout << "Received: " << buffer << endl;
+                                    mode = "s";
+                                }
                             }
+                            /////////////////////////////////////////////////////////////////////////////////////////////////
+
+                        } else {
+                            fball.set_Position((float)teamPlayer.getPosition().x+9,(float)teamPlayer.getPosition().y+9); // 9 = 34 - 25
+                            Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
+                            arrow.setPosition((float)teamPlayer.getPosition().x+34,(float)teamPlayer.getPosition().y+34);
+
+                            int rc = 0;
+
+                            for (int r = 0;r<8;r++){
+                                cout << "QUE SUCEDE " << endl;
+                                for (int c = 0;c<11;c++){
+                                    cout << c << endl;
+                                    if (teamPlayer.getPosition() == rects[rc].getPosition()){
+                                        cout << r << " es r y " << c << " es c " << endl;
+                                        text = "2."+to_string(r)+"."+to_string(c)+".";
+                                    }
+
+                                    rc+=1;
+                                }
+
+                            }
+
+
+
+                            socket.send(text.c_str(), text.length() + 1);
+                            mode = "r";
+                            if(mode=="r") {
+                                socket.receive(buffer, sizeof(buffer), received);
+                                messageR = buffer;
+                                if (received>0 and messageR != "Connected to: Server"){
+                                    cout << "Received: " << buffer << endl;
+                                    BackT = true;
+
+                                    mode = "s";
+                                } else {
+                                    while(messageR == "Connected to: Server"){
+                                        socket.receive(buffer, sizeof(buffer), received);
+                                        messageR = buffer;
+                                        BackT = true;
+
+                                        mode = "s";
+                                    }
+                                }
+                            }
+
+
+
                         }
-                        /////////////////////////////////////////////////////////////////////////////////////////////////
-
-
                     }
 
 
@@ -465,10 +587,26 @@ int BPGame(String Splayers, String Sgoal)
 
             }
 
+
+
+            switch (strengthBar.get_Value()) {
+            case 1:
+                strengthBar.set_Pxls(150);
+
+                break;
+            case 2:
+                strengthBar.set_Pxls(300);
+                break;
+            case 3:
+                strengthBar.set_Pxls(450);
+                break;
+            }
+
             if (selected == true){
                 Vector2i TmousePos = Mouse::getPosition(window);
                 if (TmousePos.x > arrow.getPosition().x-34 && TmousePos.x < arrow.getPosition().x+34 && TmousePos.y > arrow.getPosition().y){
                     arrow.setRotation(0);
+
                 }else if(TmousePos.x > arrow.getPosition().x-34 && TmousePos.x < arrow.getPosition().x+34 && TmousePos.y < arrow.getPosition().y){
                     arrow.setRotation(180);
                 }else if(TmousePos.y > arrow.getPosition().y-34 && TmousePos.y < arrow.getPosition().y+34 && TmousePos.x < arrow.getPosition().x){
@@ -486,9 +624,85 @@ int BPGame(String Splayers, String Sgoal)
                 }
 
             }
-            //cout << moving << endl;
+            //cout << turn << endl;
             //cout << wall << endl;
             /////////////////////////////// MOVIMIENTO DE LA BOLA //////////////////////////////////////////
+
+
+            if (moving == 0 && turn%2==0){  // CAMBIAR EQUIPOOOO
+                for (int f=0;f<players;f++){
+                    if (fball.get_PositionX()>=totalPlayers[f].get_PositionX()-68-32 && fball.get_PositionX()<totalPlayers[f].get_PositionX()+68+32 && fball.get_PositionY()>=totalPlayers[f].get_PositionY()-68-32 && fball.get_PositionY()<totalPlayers[f].get_PositionY()+68+32 && totalPlayers[f].get_Team() == 2){
+                        fball.set_Position(totalPlayers[f].get_PositionX()+9,totalPlayers[f].get_PositionY()+9);
+                        teamPlayer.setPosition(totalPlayers[f].get_PositionX(),totalPlayers[f].get_PositionY());
+                        teamPlayer.setTexture(&team2Texture);
+
+                        sTurn = "Player 2's turn";
+                        textTurn.setString(sTurn);
+                        textTurn.setColor(Color::Red);
+
+                    }
+
+                }
+                //turn+=1;
+            }
+
+            if (moving == 0 && turn%2==1){  // CAMBIAR EQUIPOOOO
+                for (int f=0;f<players;f++){
+                    if (fball.get_PositionX()>=totalPlayers[f].get_PositionX()-68-32 && fball.get_PositionX()<totalPlayers[f].get_PositionX()+68+32 && fball.get_PositionY()>=totalPlayers[f].get_PositionY()-68-32 && fball.get_PositionY()<totalPlayers[f].get_PositionY()+68+32 && totalPlayers[f].get_Team() == 1){
+                        fball.set_Position(totalPlayers[f].get_PositionX()+9,totalPlayers[f].get_PositionY()+9);
+                        teamPlayer.setPosition(totalPlayers[f].get_PositionX(),totalPlayers[f].get_PositionY());
+                        teamPlayer.setTexture(&team1Texture);
+
+                        sTurn = "Player 1's turn";
+                        textTurn.setString(sTurn);
+                        textTurn.setColor(Color::Blue);
+                    }
+
+                }
+                //turn+=1;
+            }
+            //cout << moving << endl;
+            /*
+            if (fball.get_PositionY()>211 && fball.get_PositionY()<347 && fball.get_PositionX()<27){
+                turn = 2;
+                P2Score+=1;
+                moving = 0;
+                /*
+                for (int z=0;z<players;z++){
+                    if (totalPlayers[z].get_Team() == 1){
+                        fball.set_Position(totalPlayers[z].get_PositionX()+9,totalPlayers[z].get_PositionY()+9);
+                        teamPlayer.setPosition(totalPlayers[z].get_PositionX(),totalPlayers[z].get_PositionY());
+                        //teamPlayer.setTexture(&team2Texture);
+                        //turn+=1;
+                        //moving = 15;
+                        break;
+
+                    }
+
+                }
+
+            }
+            if (fball.get_PositionY()>211 && fball.get_PositionY()<347 && fball.get_PositionX()>726){
+                turn = 1;
+                P1Score+=1;
+                moving = 0;
+
+
+                for (int z=0;z<players;z++){
+                    if (totalPlayers[z].get_Team() == 2){
+                        fball.set_Position(totalPlayers[z].get_PositionX()+9,totalPlayers[z].get_PositionY()+9);
+                        teamPlayer.setPosition(totalPlayers[z].get_PositionX(),totalPlayers[z].get_PositionY());
+                        //teamPlayer.setTexture(&team2Texture);
+                        //turn+=1;
+                        //moving = 15;
+                        break;
+
+                    }
+
+                }
+            }*/
+
+
             if (wall == true && moving<5){
 
                 if (moving == 2){
@@ -531,7 +745,18 @@ int BPGame(String Splayers, String Sgoal)
                 wall = false;
 
             } else if (moving% 90 == 0 && moving != 0){
-                if (counterM!=600){
+                for (int a = 0; a<players; a++){
+
+                    if (fball.get_PositionX()+34>=circles[a].getPosition().x && fball.get_PositionX()+34<circles[a].getPosition().x+67 && fball.get_PositionY()+34>=circles[a].getPosition().y && fball.get_PositionY()+34<circles[a].getPosition().y+67 && counterM>80){
+                        cout << "COLISION" << endl;
+                        moving = 0;
+                        counterM = 0;
+                        turn+=1;
+
+                    }
+
+                }
+                if (counterM!=strengthBar.get_Pxls()-50){
                     if (wall==true){
                         if (moving == 180){
                             fball.moveHV(360);
@@ -557,10 +782,22 @@ int BPGame(String Splayers, String Sgoal)
                     moving = 0;
                     counterM=0;
                     wall = false;
+                    turn+=1;
                 }
             //// CUARTO
             } else if (moving == 4){
-                if (counterM!=600){
+
+                if (counterM!=strengthBar.get_Pxls()+50){
+                    for (int a = 0; a<players; a++){
+                        if (fball.get_PositionX()+34>=circles[a].getPosition().x && fball.get_PositionX()+34<circles[a].getPosition().x+67 && fball.get_PositionY()+34>=circles[a].getPosition().y && fball.get_PositionY()+34<circles[a].getPosition().y+67 && counterM>120){
+                            cout << "COLISION" << endl;
+                            moving = 0;
+                            counterM = 0;
+                            turn+=1;
+
+                        }
+
+                    }
                     if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
 
                         wall = true;
@@ -571,12 +808,23 @@ int BPGame(String Splayers, String Sgoal)
                 } else {
                     moving = 0;
                     counterM=0;
+                    turn+=1;
 
 
                 }
             //// TERCER
             } else if (moving == 3){
-                if (counterM!=600){
+                if (counterM!=strengthBar.get_Pxls()+50){
+                    for (int a = 0; a<players; a++){
+                        if (fball.get_PositionX()+34>=circles[a].getPosition().x && fball.get_PositionX()+34<circles[a].getPosition().x+67 && fball.get_PositionY()+34>=circles[a].getPosition().y && fball.get_PositionY()+34<circles[a].getPosition().y+67 && counterM>120){
+                            cout << "COLISION" << endl;
+                            moving = 0;
+                            counterM = 0;
+                            turn+=1;
+
+                        }
+
+                    }
                     if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
 
                         wall = true;
@@ -587,11 +835,23 @@ int BPGame(String Splayers, String Sgoal)
                 } else {
                     moving = 0;
                     counterM=0;
+                    turn+=1;
 
                 }
             //// SEGUNDO
             } else if (moving == 2){
-                if (counterM!=600){
+                if (counterM!=strengthBar.get_Pxls()+50){
+                    for (int a = 0; a<players; a++){
+                        if (fball.get_PositionX()+34>=circles[a].getPosition().x && fball.get_PositionX()+34<circles[a].getPosition().x+67 && fball.get_PositionY()+34>=circles[a].getPosition().y && fball.get_PositionY()+34<circles[a].getPosition().y+67 && counterM>120){
+                            cout << "COLISION" << endl;
+                            moving = 0;
+                            counterM = 0;
+                            turn+=1;
+
+                        }
+
+                    }
+
                     if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
                         wall = true;
                     } else {
@@ -601,11 +861,23 @@ int BPGame(String Splayers, String Sgoal)
                 } else {
                     moving = 0;
                     counterM=0;
+                    turn+=1;
 
                 }
             //// PRIMER
             } else if (moving == 1){
-                if (counterM!=600){
+                if (counterM!=strengthBar.get_Pxls()+50){
+                    for (int a = 0; a<players; a++){
+
+                        if (fball.get_PositionX()+34>=circles[a].getPosition().x && fball.get_PositionX()+34<circles[a].getPosition().x+67 && fball.get_PositionY()+34>=circles[a].getPosition().y && fball.get_PositionY()+34<circles[a].getPosition().y+67 && counterM>120){
+                            cout << "COLISION" << endl;
+                            moving = 0;
+                            counterM = 0;
+                            turn+=1;
+
+                        }
+
+                    }
                     if (fball.get_PositionY()<=4.f || fball.get_PositionY()>=505.f || fball.get_PositionX()<=25.f || fball.get_PositionX()>=727.f){
 
                         wall = true;
@@ -616,6 +888,7 @@ int BPGame(String Splayers, String Sgoal)
                 } else {
                     moving = 0;
                     counterM=0;
+                    turn+=1;
 
                 }
             }
@@ -685,8 +958,53 @@ int BPGame(String Splayers, String Sgoal)
             window.draw(backg);
 
             for (l=0;l<sizeof(rects) / sizeof(rects[0]);l++){
-                window.draw(rects[l]);
+                //rects[l].setFillColor(colorArray[rand()%9]);
+                //if (rects[l].getPosition().y != 211 && rects[l].getPosition().x != 26 && rects[l].getPosition().y != 279){
+                //window.draw(rects[l]);
+                //}
             }
+
+            if (BackT == true){
+                int cont2 = 0;
+                string part;
+                /// GENERA LISTA DE OBSTACULOS
+                for (int q = 0; q < messageR.length() ; q++){
+                    //cout << msg2[i] << endl;
+                    if (messageR[q]!='.'){
+                        part+=messageR[q];
+                        //cout << "No punto" << endl;
+                    } else {
+                        //cout << "QUE PASAAA " << endl;
+                        //this->obstacles[0] = 1;
+                        path[cont2] = atoi(part.c_str());
+                        //cout << this->obstacles[cont2] << endl;
+                        part="";
+                        cont2 += 1;
+                    }
+
+                }
+                for (int y = 0;y<50;y++){
+                    for (int u = 0; u<88; u++){
+                        if (path[y] != 0 && path[y]==u){
+                            rects[u].setFillColor(Color::Black);
+                            window.draw(rects[u]);
+                        }
+                    }
+
+                }
+                if (fball.get_PositionY()>211 && fball.get_PositionY()<347){
+                    arrow.setRotation(90);
+                    selected = true;
+                } else if (fball.get_PositionY()<211){
+                    arrow.setRotation(45);
+                    selected = true;
+                } else if (fball.get_PositionY()>347){
+                    arrow.setRotation(135);
+                    selected = true;
+                }
+
+            }
+
 
 
             for (int k = 0; k<players; k++)
@@ -703,6 +1021,9 @@ int BPGame(String Splayers, String Sgoal)
             window.draw(Ball);
             //window.draw(mySprite);
             window.draw(force);
+            window.draw(textTurn);
+            window.draw(textP1Score);
+            window.draw(textP2Score);
             window.display();
         }
 
@@ -716,7 +1037,7 @@ int BPGame(String Splayers, String Sgoal)
 /**
  * @brief BPselectionMenu Metodo que crea el menu de seleccion
  */
-int BPselectionMenu(){
+int BPselectionMenu(int Mode){
 
     RectangleShape menuBackg(Vector2f(500.f,400.f));
 
@@ -800,7 +1121,7 @@ int BPselectionMenu(){
                     write2 = true;
                     write1 = false;
                     mainMenu.close();
-                    return BPGame(players, goal);
+                    return BPGame(players, goal, 1);
 
                 } else {
                     write1 = false;
@@ -856,7 +1177,7 @@ int main(){
                 //cout << mousePos.x << " " << mousePos.y << endl;
                 if (mousePos.x > 372 &&  mousePos.x < 500 && mousePos.y > 90 && mousePos.y < 170){
                     mainMenu.close();
-                    return BPselectionMenu();
+                    return BPselectionMenu(1);
                 }
             }
         }
