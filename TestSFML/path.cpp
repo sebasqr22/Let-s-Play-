@@ -15,11 +15,17 @@ private:
     int i_final = 4;
     int j_final = 10;
 
-    int i_actual = 0;
+    int i_pasado = 0;
+    int j_pasado = 0;
+    int pasado = 0;
+
+    int i_actual = 2;
     int j_actual = 0;
 
     int hTemp = 0;
     bool calcH = true;
+
+    int movimientoEspe;
 
     int i_h = 0;
     int j_h = 0;
@@ -74,20 +80,6 @@ private:
                 else{
                     cout << "Heu 4" << endl;
                     j_h ++;
-                    /*
-                    bool limpio = false;
-                    int veces = 0;
-                    while(limpio == false){
-                        if(matriz[i_h][j_h+1] == 0){
-                            veces ++;
-                            limpio = true;
-                            j_h += veces;
-                        }
-                        else{
-                            j_h ++;
-                        }
-                    }
-                    */
                     heu += 15;
                 }   
             }
@@ -172,6 +164,29 @@ private:
         }
     }
 
+    bool verificacion(int menor){
+        if(menor == h1 && h1 != 0){
+            return false;
+        }
+        else if(menor == h2 && h2 != 0){
+            if(pasado == 3){
+                return true;
+                movimientoEspe = 2;
+            }
+            else{
+                return false;
+            }
+        }
+        else if(menor == h3 && h3 != 0){
+            if(pasado == 2){
+                return true;
+                movimientoEspe = 3;
+            }
+            else{
+                return false;
+            }
+        }
+    }
     int determinarMenor(int type){
         int menor;
         if(type == 1){
@@ -209,7 +224,16 @@ private:
             return -1;
         }*/
         if(menor != 0){
-            return menor;
+            if(menor == h1){
+                return menor;
+            }
+            else if(verificacion(menor) == true){
+                return -1;
+            }
+            else{
+                return menor;
+            }
+            
         }
         else{
             return determinarMenor(type + 1);
@@ -246,18 +270,107 @@ public:
             }
             else{
                 if(i_actual == 3 && j_actual == 10){
-                i_actual ++;
+                    i_pasado = i_actual;
+                    j_pasado = j_actual;
+                    pasado = 3;
+                    i_actual ++;
                 }
                 else if (i_actual == 5 && j_actual == 10){
+                    i_pasado = i_actual;
+                    j_pasado = j_actual;
                     i_actual --;
+                    pasado = 2;
                 }
                 else if(i_actual == 4 && j_actual == 9){
+                    i_pasado = i_actual;
+                    j_pasado = j_actual;
                     j_actual ++;
+                    pasado = 1;
+                }
+                else if(menor == -1){
+                    if(movimientoEspe == 2){
+                        int temp = calcularHespe(1);
+                        int temp2 = calcularHespe(3);
+                        if(temp < temp2 && temp != 0){
+                            if(matriz[i_actual][j_actual+1] == 0){
+                                j_actual ++;
+                                pasado = 1;
+                            }
+                            else if(matriz[i_actual+1][j_actual] == 0){
+                                i_actual ++;
+                                pasado = 3;
+                            }
+                            else{
+                                resultados = "NO";
+                                break;
+                            }
+                        }
+                        else if(temp2 < temp && temp2 != 0){
+                            if(matriz[i_actual+1][j_actual] == 0){
+                                i_actual ++;
+                                pasado = 3;
+                            }
+                            else if(matriz[i_actual][j_actual+1] == 0){
+                                j_actual ++;
+                                pasado = 1;
+                            }
+                            else{
+                                resultados = "NO";
+                                break;
+                            }
+                        }
+                        else{
+                            resultados = "NO";
+                            break;
+                        }
+
+                    }
+                    else{
+                        int temp = calcularHespe(1);
+                        int temp2 = calcularHespe(2);
+
+                        if(temp < temp2 && temp != 0){
+                            if(matriz[i_actual][j_actual+1] == 0){
+                                j_actual ++;
+                                pasado = 1;
+                            }
+                            else if(matriz[i_actual-1][j_actual] == 0){
+                                i_actual --;
+                                pasado = 2;
+                            }
+                            else{
+                                resultados = "NO";
+                                break;
+                            }
+                        }
+                        else if(temp2 < temp && temp2 != 0){
+                            if(matriz[i_actual-1][j_actual] == 0){
+                                i_actual --;
+                                pasado = 2;
+                            }
+                            else if(matriz[i_actual][j_actual+1] == 0){
+                                j_actual ++;
+                                pasado = 1;
+                            }
+                            else{
+                                resultados = "NO";
+                                break;
+                            }
+                        }
+                        else{
+                            resultados = "NO";
+                            break;
+                        }
+                        
+                    }
                 }
                 else{
                     if (menor == h1){ //h1 menor
                         if(matriz[i_actual][j_actual+1] == 0){
+                            i_pasado = i_actual;
+                            j_pasado = j_actual;
                             j_actual ++;
+                            pasado = 1;
                         }
                         else{
                             int temp = calcularHespe(2);
@@ -266,10 +379,16 @@ public:
                             if(temp != 0 && temp2 !=0){
                                 if(temp < temp2){
                                     if(matriz[i_actual-1][j_actual] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         i_actual --;
+                                        pasado = 2;
                                     }
                                     else if(matriz[i_actual+1][j_actual] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         i_actual ++;
+                                        pasado = 3;
                                     }
                                     else{
                                         resultados = "NO";
@@ -278,10 +397,16 @@ public:
                                 }
                                 else{
                                     if(matriz[i_actual+1][j_actual] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         i_actual ++;
+                                        pasado = 3;
                                     }
                                     else if(matriz[i_actual-1][j_actual] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         i_actual --;
+                                        pasado = 2;
                                     }
                                     else{
                                         resultados = "NO";
@@ -291,7 +416,10 @@ public:
                             }
                             else if(temp != 0){
                                 if(matriz[i_actual-1][j_actual] == 0){
+                                    i_pasado = i_actual;
+                                    j_pasado = j_actual;
                                     i_actual --;
+                                    pasado = 2;
                                 }
                                 else{
                                     resultados = "NO";
@@ -301,7 +429,10 @@ public:
                             else if(temp2 != 0){
                                 cout << "POS: " << i_actual << "|" << j_actual << "|" << matriz[i_actual+1][j_actual] << endl;
                                 if(matriz[i_actual+1][j_actual] == 0){
+                                    i_pasado = i_actual;
+                                    j_pasado = j_actual;
                                     i_actual ++;
+                                    pasado = 3;
                                 }
                                 else{
                                     resultados = "NO";
@@ -317,6 +448,9 @@ public:
                     }
                     else if(menor == h2 and i_actual != 3){ //h2 menor
                         if(matriz[i_actual-1][j_actual] == 0){
+                            i_pasado = i_actual;
+                            j_pasado = j_actual;
+                            pasado = 2;
                             i_actual --;
                         }
                         else{
@@ -326,10 +460,16 @@ public:
                             if(temp != 0 && temp2 != 0){
                                 if(temp < temp2){
                                     if(matriz[i_actual][j_actual+1] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         j_actual ++;
+                                        pasado = 1;
                                     }
                                     else if(matriz[i_actual + 1][j_actual] == 0){
-                                        i_actual ++;   
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
+                                        i_actual ++;  
+                                        pasado = 3; 
                                     }
                                     else{
                                         resultados = "NO";
@@ -338,10 +478,16 @@ public:
                                 }
                                 else{
                                     if(matriz[i_actual + 1][j_actual] == 0){
-                                        i_actual ++;   
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
+                                        i_actual ++; 
+                                        pasado = 3;  
                                     }
                                     else if(matriz[i_actual][j_actual+1] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         j_actual ++;
+                                        pasado = 1;
                                     }
                                     else{
                                         resultados = "NO";
@@ -351,7 +497,10 @@ public:
                             }
                             else if(temp != 0){
                                 if(matriz[i_actual + 1][j_actual] == 0){
-                                    i_actual ++;   
+                                    i_pasado = i_actual;
+                                    j_pasado = j_actual;
+                                    i_actual ++;  
+                                    pasado = 3; 
                                 }
                                 else{
                                     resultados = "NO";
@@ -360,7 +509,10 @@ public:
                             }
                             else if(temp2 != 0){
                                 if(matriz[i_actual][j_actual+1] == 0){
+                                    i_pasado = i_actual;
+                                    j_pasado = j_actual;
                                     j_actual ++;
+                                    pasado = 1;
                                 }
                                 else{
                                     resultados = "NO";
@@ -376,7 +528,10 @@ public:
                     }
                     else{ //h3 menor
                         if(matriz[i_actual + 1][j_actual] == 0){
+                            i_pasado = i_actual;
+                            j_pasado = j_actual;
                             i_actual ++;
+                            pasado = 3;
                         }
                         else{
                             int temp = calcularHespe(1);
@@ -385,10 +540,16 @@ public:
                             if(temp !=0 && temp2 != 0){
                                 if(temp < temp2){
                                     if(matriz[i_actual][j_actual+1] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         j_actual ++;
+                                        pasado = 1;
                                     }
                                     else if(matriz[i_actual-1][j_actual]==0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         i_actual --;
+                                        pasado = 2;
                                     }
                                     else{
                                         resultados = "NO";
@@ -397,10 +558,16 @@ public:
                                 }
                                 else{
                                     if(matriz[i_actual-1][j_actual]==0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         i_actual --;
+                                        pasado = 2;
                                     }
                                     else if(matriz[i_actual][j_actual+1] == 0){
+                                        i_pasado = i_actual;
+                                        j_pasado = j_actual;
                                         j_actual ++;
+                                        pasado = 1;
                                     }
                                     else{
                                         resultados = "NO";
@@ -410,7 +577,10 @@ public:
                             }
                             else if(temp != 0){
                                 if(matriz[i_actual][j_actual+1] == 0){
+                                    i_pasado = i_actual;
+                                    j_pasado = j_actual;
                                     j_actual ++;
+                                    pasado = 1;
                                 }
                                 else{
                                     resultados = "NO";
@@ -419,7 +589,10 @@ public:
                             }
                             else if(temp2 != 0){
                                 if(matriz[i_actual-1][j_actual]==0){
+                                    i_pasado = i_actual;
+                                    j_pasado = j_actual;
                                     i_actual --;
+                                    pasado = 2;
                                 }
                                 else{
                                     resultados = "NO";
