@@ -116,6 +116,18 @@ private:
         calcH = true;
         return heu;
     }
+    void reiniciar(int tipo){ //tipo 1 es matriz normal y tipo 2 es la de envio la binaria
+        for(int i = 0; i < 8; i++){
+            for(int j=0; j < 11; j++){
+                if(tipo == 1){
+                    matriz[i][j] = 0;
+                }
+                else{
+                    matrizEnvio[i][j] = 0;
+                }
+            }
+        }
+    }
     void calcularH(){
         if(j_actual != 10){ //hacia la derecha
             i_h = i_actual;
@@ -254,6 +266,7 @@ private:
         cout << "ACTUAL: " + to_string(i_actual) + "," + to_string(j_actual) << endl;
 
     }
+    
 public: 
     void calcular(){
         int contador;
@@ -302,6 +315,7 @@ public:
                             }
                             else{
                                 resultados = "NO";
+                                reiniciar(2);
                                 break;
                             }
                         }
@@ -316,11 +330,13 @@ public:
                             }
                             else{
                                 resultados = "NO";
+                                reiniciar(2);
                                 break;
                             }
                         }
                         else{
                             resultados = "NO";
+                            reiniciar(2);
                             break;
                         }
 
@@ -340,6 +356,7 @@ public:
                             }
                             else{
                                 resultados = "NO";
+                                reiniciar(2);
                                 break;
                             }
                         }
@@ -354,11 +371,13 @@ public:
                             }
                             else{
                                 resultados = "NO";
+                                reiniciar(2);
                                 break;
                             }
                         }
                         else{
                             resultados = "NO";
+                            reiniciar(2);
                             break;
                         }
                         
@@ -392,6 +411,7 @@ public:
                                     }
                                     else{
                                         resultados = "NO";
+                                        reiniciar(2);
                                         break;
                                     }
                                 }
@@ -410,6 +430,7 @@ public:
                                     }
                                     else{
                                         resultados = "NO";
+                                        reiniciar(2);
                                         break;
                                     }
                                 }
@@ -423,6 +444,7 @@ public:
                                 }
                                 else{
                                     resultados = "NO";
+                                    reiniciar(2);
                                     break;
                                 }
                             }
@@ -437,11 +459,13 @@ public:
                                 else{
                                     resultados = "NO";
                                     cout << "ENTRO AQUI H1" << endl;
+                                    reiniciar(2);
                                     break;
                                 }
                             }
                             else{
                                 resultados = "NO";
+                                reiniciar(2);
                                 break;
                             }
                         }
@@ -473,6 +497,7 @@ public:
                                     }
                                     else{
                                         resultados = "NO";
+                                        reiniciar(2);
                                         break;
                                     }
                                 }
@@ -491,6 +516,7 @@ public:
                                     }
                                     else{
                                         resultados = "NO";
+                                        reiniciar(2);
                                         break;
                                     }
                                 }
@@ -504,6 +530,7 @@ public:
                                 }
                                 else{
                                     resultados = "NO";
+                                    reiniciar(2);
                                     break;
                                 }
                             }
@@ -516,11 +543,13 @@ public:
                                 }
                                 else{
                                     resultados = "NO";
+                                    reiniciar(2);
                                     break;
                                 }
                             }
                             else{
                                 resultados = "NO";
+                                reiniciar(2);
                                 break;
                             }
                         }
@@ -553,6 +582,7 @@ public:
                                     }
                                     else{
                                         resultados = "NO";
+                                        reiniciar(2);
                                         break;
                                     }
                                 }
@@ -571,6 +601,7 @@ public:
                                     }
                                     else{
                                         resultados = "NO";
+                                        reiniciar(2);
                                         break;
                                     }
                                 }
@@ -584,6 +615,7 @@ public:
                                 }
                                 else{
                                     resultados = "NO";
+                                    reiniciar(2);
                                     break;
                                 }
                             }
@@ -596,11 +628,13 @@ public:
                                 }
                                 else{
                                     resultados = "NO";
+                                    reiniciar(2);
                                     break;
                                 }
                             }
                             else{
                                 resultados = "NO";
+                                reiniciar(2);
                                 break;
                             }
                         }
@@ -622,8 +656,9 @@ public:
     }
 
 
-    void setOcupados(int ocu[10]){
-       
+    void setInicial(int i, int j){
+        this->i_actual = i;
+        this->j_actual = j;
     }
     int getH(int type){
         switch(type){
@@ -645,7 +680,7 @@ public:
         //return matriz[i_actual][j_actual+1];
         return i_actual;
     }
-    string get(){
+    string getMatriz(){
         string resultado;
         int contador = 0;
         for(int p = 0; p<8; p++){
@@ -656,10 +691,45 @@ public:
                 contador ++;
             }
         }
+        reiniciar(2);
         return resultado;
     }
-    int getMatriz(int i, int j){
-        return matrizEnvio[i][j];
+    void transformarPos(int tmp){
+        int contador = 0;
+        for(int i = 0; i<8; i++){
+            for(int j = 0; j<11; j++){
+                if(contador == tmp){
+                    cout << "Se transforma i=" << i << " y j=" << j << endl;
+                    matriz[i][j] = 1;
+                }
+                contador ++;
+            }
+        }
+    }
+    void imprimirMatriz(){
+        for(int i=0; i<8; i++){
+            for(int j=0; j<11; j++){
+                cout << matriz[i][j];
+            }
+            cout << "\n";
+        }
+    }
+    void setObstaculos(string obstaculos){
+        reiniciar(1);
+        string aux;
+        int tmp;
+
+        for(int x = 0; x < obstaculos.length(); x++){
+            if(obstaculos[x] != '.'){
+                aux += obstaculos[x];
+            }
+            else{
+                tmp = stoi(aux.c_str());
+                cout << tmp << endl;
+                transformarPos(tmp);
+                aux = "";
+            }
+        }
     }
 };
 
