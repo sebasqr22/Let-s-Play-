@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     player.cpp \
     strength.cpp \
     genetica.cpp \
-    imagen.cpp
+    imagen.cpp \
+    path.cpp
 LIBS += -lsfml-audio
 LIBS += -lsfml-graphics
 LIBS += -lsfml-network

@@ -13,6 +13,7 @@
 #include <imagen.h>
 #include <genetica.h>
 #include <strength.h>
+#include <SFML/Audio.hpp>
 
 using namespace std;
 using namespace sf;
@@ -319,8 +320,8 @@ int BPGame(String Splayers, String Sgoal, int Mode)
         force.setRotation(90);
         Strength strengthBar;
         strengthBar.set_Value(3);
-
-
+        RectangleShape WinScreen(Vector2f(400,400));
+        WinScreen.setPosition(200.f,100.f);
 
         arrow.setPosition(100.f,100.f);
         //arrow.rotate(-90.f);
@@ -339,7 +340,9 @@ int BPGame(String Splayers, String Sgoal, int Mode)
         arrowTexture.loadFromFile("Imags/flecha.png");
 
         Texture Background;
-        Background.loadFromFile("Imags/Campo.png");
+        if (Background.loadFromFile("/home/bryang2303/Lets PLay V100/Let-s-Play-/TestSFML/Imags/Campo2.png")){
+            cout << "seee" << endl;
+        }
 
         Texture ballTexture;
         ballTexture.loadFromFile("Imags/bola.png");
@@ -352,6 +355,10 @@ int BPGame(String Splayers, String Sgoal, int Mode)
         forceTexture3.loadFromFile("Imags/fuerza.png");
 
 
+        Texture P1WTexture;
+        P1WTexture.loadFromFile("/home/bryang2303/Lets PLay V100/Let-s-Play-/TestSFML/Imags/P1Wins.png");
+        Texture P2WTexture;
+        P2WTexture.loadFromFile("/home/bryang2303/Lets PLay V100/Let-s-Play-/TestSFML/Imags/P2Wins.png");
 
         player.setTexture(&playerTexture);
         backg.setTexture(&Background);
@@ -378,6 +385,23 @@ int BPGame(String Splayers, String Sgoal, int Mode)
         textP2Score.setColor(Color::Red);
         textP2Score.setPosition(375.f,565.f);
 
+        sf::SoundBuffer buffer1;
+        buffer1.loadFromFile("/home/bryang2303/Lets PLay V100/Let-s-Play-/TestSFML/Sounds/arbitro-futbol-.wav");
+        // load something into the sound buffer...
+
+        sf::Sound sound1;
+        sound1.setBuffer(buffer1);
+        sound1.setVolume(100);
+
+
+        sf::SoundBuffer buffer2;
+        buffer2.loadFromFile("/home/bryang2303/Lets PLay V100/Let-s-Play-/TestSFML/Sounds/football52.wav");
+        // load something into the sound buffer...
+
+        sf::Sound sound2;
+        sound2.setBuffer(buffer2);
+        sound2.setVolume(100);
+        //sound2.play();
 
         // VARIABLES
         bool selected = false;
@@ -390,17 +414,22 @@ int BPGame(String Splayers, String Sgoal, int Mode)
         int P1Score = 0;
         int P2Score = 0;
         bool BackT = false;
+        bool PathA = false;
         string messageR;
         int path[50];
 
+        sound1.play();
         // Main loop, while the window is open
         while (window.isOpen())
         {
+            //cout << "GOAL " << goal << endl;
+            //cout << "P2Score " << P2Score << endl;
             sP1Score = "P1 "+to_string(P1Score);
             textP1Score.setString(sP1Score);
 
             sP2Score = "P2 "+to_string(P2Score);
             textP2Score.setString(sP2Score);
+
 
 
             Ball.setPosition(fball.get_PositionX(),fball.get_PositionY());
@@ -440,7 +469,12 @@ int BPGame(String Splayers, String Sgoal, int Mode)
 
                     auto translated_pos = window.mapPixelToCoords(mousePos); // Mouse position translated into world coordinates
                     if (selected==true){
+                        sound2.play();
                         BackT = false;
+                        PathA = false;
+                        for (int e = 0;e<50;e++){
+                            path[e] = 0;
+                        }
                         switch((int)arrow.getRotation()){
                             case 0:
                                 selected = false;
@@ -513,6 +547,7 @@ int BPGame(String Splayers, String Sgoal, int Mode)
 
                             ///////////////////////////////////////////// COMENTAR ESTO TAMBIEN PARA NO EJECUTAR LA CONEXION
                             //getline(cin, text);
+                            /*
                             text = "mensaje";
                             socket.send(text.c_str(), text.length() + 1);
                             mode = "r";
@@ -521,6 +556,44 @@ int BPGame(String Splayers, String Sgoal, int Mode)
                                 if (received>0){
                                     cout << "Received: " << buffer << endl;
                                     mode = "s";
+                                }
+                            }*/
+                            int rc = 0;
+
+                            for (int r = 0;r<8;r++){
+                                //cout << "QUE SUCEDE " << endl;
+                                for (int c = 0;c<11;c++){
+                                    cout << c << endl;
+                                    if (teamPlayer.getPosition() == rects[rc].getPosition()){
+                                        cout << r << " es r y " << c << " es c " << endl;
+                                        text = "1."+to_string(r)+"."+to_string(c)+".";
+                                    }
+
+                                    rc+=1;
+                                }
+
+                            }
+
+
+
+                            socket.send(text.c_str(), text.length() + 1);
+                            mode = "r";
+                            if(mode=="r") {
+                                socket.receive(buffer, sizeof(buffer), received);
+                                messageR = buffer;
+                                if (received>0 and messageR != "Connected to: Server"){
+                                    cout << "Received: " << buffer << endl;
+                                    PathA = true;
+
+                                    mode = "s";
+                                } else {
+                                    while(messageR == "Connected to: Server"){
+                                        socket.receive(buffer, sizeof(buffer), received);
+                                        messageR = buffer;
+                                        PathA = true;
+
+                                        mode = "s";
+                                    }
                                 }
                             }
                             /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -662,12 +735,13 @@ int BPGame(String Splayers, String Sgoal, int Mode)
                 //turn+=1;
             }
             //cout << moving << endl;
-            /*
+
             if (fball.get_PositionY()>211 && fball.get_PositionY()<347 && fball.get_PositionX()<27){
                 turn = 2;
                 P2Score+=1;
-                moving = 0;
-                /*
+                //moving = 0;
+                sound1.play();
+
                 for (int z=0;z<players;z++){
                     if (totalPlayers[z].get_Team() == 1){
                         fball.set_Position(totalPlayers[z].get_PositionX()+9,totalPlayers[z].get_PositionY()+9);
@@ -685,8 +759,8 @@ int BPGame(String Splayers, String Sgoal, int Mode)
             if (fball.get_PositionY()>211 && fball.get_PositionY()<347 && fball.get_PositionX()>726){
                 turn = 1;
                 P1Score+=1;
-                moving = 0;
-
+                //moving = 0;
+                sound1.play();
 
                 for (int z=0;z<players;z++){
                     if (totalPlayers[z].get_Team() == 2){
@@ -700,7 +774,7 @@ int BPGame(String Splayers, String Sgoal, int Mode)
                     }
 
                 }
-            }*/
+            }
 
 
             if (wall == true && moving<5){
@@ -963,7 +1037,35 @@ int BPGame(String Splayers, String Sgoal, int Mode)
                 //window.draw(rects[l]);
                 //}
             }
+            if (PathA == true){
+                int cont2 = 0;
+                string part;
+                /// GENERA LISTA DE OBSTACULOS
+                for (int q = 0; q < messageR.length() ; q++){
+                    //cout << msg2[i] << endl;
+                    if (messageR[q]!='.'){
+                        part+=messageR[q];
+                        //cout << "No punto" << endl;
+                    } else {
+                        //cout << "QUE PASAAA " << endl;
+                        //this->obstacles[0] = 1;
+                        path[cont2] = atoi(part.c_str());
+                        //cout << this->obstacles[cont2] << endl;
+                        part="";
+                        cont2 += 1;
+                    }
 
+                }
+                for (int y = 0;y<50;y++){
+                    for (int u = 0; u<88; u++){
+                        if (path[y] != 0 && path[y]==u){
+                            rects[u].setFillColor(Color::Black);
+                            window.draw(rects[u]);
+                        }
+                    }
+
+                }
+            }
             if (BackT == true){
                 int cont2 = 0;
                 string part;
@@ -1007,6 +1109,7 @@ int BPGame(String Splayers, String Sgoal, int Mode)
 
 
 
+
             for (int k = 0; k<players; k++)
             {
                window.draw(circles[k]);
@@ -1024,6 +1127,16 @@ int BPGame(String Splayers, String Sgoal, int Mode)
             window.draw(textTurn);
             window.draw(textP1Score);
             window.draw(textP2Score);
+
+            if (P1Score == goal){
+                WinScreen.setTexture(&P1WTexture);
+                window.draw(WinScreen);
+            }
+            if (P2Score == goal){
+                WinScreen.setTexture(&P2WTexture);
+                window.draw(WinScreen);
+            }
+
             window.display();
         }
 
@@ -1181,6 +1294,7 @@ int main(){
                 }
             }
         }
+
 
         mainMenu.clear();
         mainMenu.draw(menuBackg);

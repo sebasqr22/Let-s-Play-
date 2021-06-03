@@ -6,6 +6,7 @@
 #include "socketTCP.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <path.cpp>
 using namespace std;
 
 int filas = 8;
@@ -181,6 +182,7 @@ SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88], int Mode)
 
         bool done = false;
         int cont = 0;
+
         cont2 = 0;
         /// GENERA LISTA DE OBSTACULOS
         for (int q = 0; q < msgR.length() ; q++){
@@ -198,6 +200,8 @@ SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88], int Mode)
             }
 
         }
+        path Pathfinding;
+        Pathfinding.setObstaculos(msgR);
 
 
         k = 0;
@@ -233,10 +237,10 @@ SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88], int Mode)
 
                 if(1 == 1){                   //// CORREGIR AQUI
                     //getline(cin, text);
-                    cout << " HE AHI EL ERROR " << endl;
+                    //cout << " HE AHI EL ERROR " << endl;
                     if (this->Algoriythm==2){
                         text = "";
-                        cout << "FALLO 2 " << cont3 << " Y " << cont4 << endl;
+                        //cout << "FALLO 2 " << cont3 << " Y " << cont4 << endl;
                         cout << this->posBacktracking.x << " A VER  " << this->posBacktracking.y;
                         executeBacktracking(cont3,cont4);
                         int v = 0;
@@ -248,6 +252,13 @@ SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88], int Mode)
                                 v+=1;
                             }
                         }
+
+                    } else if (this->Algoriythm == 1){
+                        Pathfinding.setInicial(this->posBacktracking.x,this->posBacktracking.y);
+                        Pathfinding.calcular();
+                        text = Pathfinding.getMatriz();
+                        //cout << "EL TEXTO ES " << text << endl;
+
 
                     }
 
@@ -313,7 +324,16 @@ SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88], int Mode)
                                     cout << "EL TEXTO ES " << text << endl;
                                     this->socket.send(text.c_str(), text.length() + 1);
                                     mode = "r";
+
+                                } else if (mode=="s" && this->Algoriythm == 1){
+                                    Pathfinding.setInicial(this->posBacktracking.x,this->posBacktracking.y);
+                                    Pathfinding.calcular();
+                                    text = Pathfinding.getMatriz();
+                                    cout << "EL TEXTO ES " << text << endl;
+                                    this->socket.send(text.c_str(), text.length() + 1);
+                                    mode = "r";
                                 }
+
                                 break;
                             }
                             //cout << "QUE PASAAA " << endl;
