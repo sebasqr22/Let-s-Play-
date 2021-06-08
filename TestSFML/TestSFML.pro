@@ -16,9 +16,9 @@ SOURCES += main.cpp \
     mainmenu.cpp \
     player.cpp \
     strength.cpp \
-    genetica.cpp \
     imagen.cpp \
-    path.cpp
+    path.cpp \
+    algen.cpp
 LIBS += -lsfml-audio
 LIBS += -lsfml-graphics
 LIBS += -lsfml-network
@@ -44,4 +44,4 @@ HEADERS += \
     player.h \
     strength.h \
     imagen.h \
-    genetica.h
+    algen.h

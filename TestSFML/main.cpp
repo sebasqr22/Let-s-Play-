@@ -11,35 +11,33 @@
 #include <fball.h>
 #include <player.h>
 #include <imagen.h>
-#include <genetica.h>
+#include <algen.h>
 #include <strength.h>
 #include <SFML/Audio.hpp>
 
 using namespace std;
 using namespace sf;
 
-int GenericPuzzle(){
-
+int GeneticPuzzle(){
     // Creación de la ventana
     RectangleShape GPBackG(Vector2f(850.f,650.f));
 
     Texture GPBackground;
-    GPBackground.loadFromFile("Imags/Genetic.png");
+    GPBackground.loadFromFile("/home/rachel10/GenericPuzzle/Imagenes/Genetic.png");
 
     GPBackG.setTexture(&GPBackground);
 
-    RenderWindow Window(sf::VideoMode(850, 650), "Genetic Puzzle ");
-
-    Window.setKeyRepeatEnabled(false);
 
 
+    Font font;
+        if (font.loadFromFile("Fonts/ThanksBunnyFree.ttf")){
+
+        }
 
     String nameI;
-    Text textimage;
-    textimage.setString(nameI);
-    textimage.setCharacterSize(20);
+    Text textimage(nameI,font,18);
     textimage.setColor(Color::Black);
-    textimage.setPosition(445.f,138.f);
+    textimage.setPosition(445.f,125.f);
 
     //Variable de Escritura
     bool writeNameI = true;
@@ -47,88 +45,390 @@ int GenericPuzzle(){
     //Object Imagen
 
     Imagen imag ;
+    QList<Sprite> ListaPuzzle;
+    Sprite S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14,S15,S16;
+    Texture Part1,Part2,Part3,Part4,Part5,Part6,Part7,Part8,Part9,Part10,Part11,Part12,Part13,Part14,Part15,Part16;
+    int ListA[]={7,10,6,2,5,8,11,1,3,4,9,0};
+    int ListB[]={7,3,5,0,4,1,6,2};
+    int ListC[]={5,13,8,7,9,3,15,1,4,11,0,14,2,10,6,12};
+    int cantidadPiezas;
+    string cpiezas;
+    string messageR;
 
-    // Main loop, while the window is open
-    while (Window.isOpen())
+
+    string mode;
+
+
+    bool runMode = 0;
+    RectangleShape fake[88];
+    if (runMode==1)
     {
-        // Event loop
-        Event event;
-        while (Window.pollEvent(event))
-        {
-            switch (event.type)
-            {
-            case Event::TextEntered:
-                if (writeNameI == true)
-                {
-                    if (event.text.unicode >= 32 && event.text.unicode <=126){
-                    nameI += (char)event.text.unicode;
-                }
-                    else if (event.text.unicode == 8 && nameI.getSize() > 0)
-                    {
-                    nameI.erase(nameI.getSize() - 1, nameI.getSize());
-                    }
-                textimage.setString(nameI);
-                break;
-                }
-            case Event::Closed:
-                Window.close();
-                break;
-            case Event::MouseButtonPressed:
-                cout << 1 << endl;
-                Vector2i mousePos = Mouse::getPosition(Window);
-                cout << mousePos.x << " " << mousePos.y << endl;
-                if (mousePos.x > 441 &&  mousePos.x < 850 && mousePos.y > 121 && mousePos.y < 151)
-                {
-                    writeNameI = true;
-                }
-                else if (mousePos.x > 550 &&  mousePos.x < 742 && mousePos.y > 170  && mousePos.y < 205)
-                {
-                    writeNameI = false;
-                    nameI = "/home/rachel10/GenericPuzzle/Imagen.jpg";
-                    imag.ObtenerImagen(nameI);
-                    //Cargar la imagen
-                }
-                else if (mousePos.x > 595 &&  mousePos.x < 681 && mousePos.y > 288 && mousePos.y < 334)
-                {
-                    writeNameI = false;
-                    NULL;//Divivdir 4x4
-                }
-                else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 272 && mousePos.y < 308)
-                {
-                    writeNameI = false;
-                    NULL;//Divivdir 4x2
-                }
-                else if (mousePos.x > 206 &&  mousePos.x < 293 && mousePos.y > 272 && mousePos.y < 308)
-                {
-                    writeNameI = false;
-                    NULL;//Divivdir 4x6
-                }
-                else if (mousePos.x > 549 &&  mousePos.x < 739 && mousePos.y > 371 && mousePos.y < 411)
-                {
-                    writeNameI = false;
-                    NULL;//Llamar al algoritmo
-                }
-                else
-                {
-                    writeNameI = false;
-                    break;
-                }
-              }
-        }
 
+        SocketTCP sokket(runMode, fake, 1);
 
-        Window.clear();
-        Window.draw(GPBackG);
-        Window.draw(textimage);
-        Sprite imagen;
-        imagen = imag.DibujarImagen();
-        Window.draw(imagen);
-        Window.display();
     }
+    else
+    {
+        TcpSocket socket;
+        IpAddress ip = IpAddress::getLocalAddress();
+        char buffer[2000];
+        size_t received;
+
+        string text;// = "Connected to: ";
+        //string mode;
+        socket.connect(ip,8080);
+        //text += "Client";
+        mode = "r";
+
+        RenderWindow Window(sf::VideoMode(850, 650), "Genetic Puzzle ");
+
+        Window.setKeyRepeatEnabled(false);
+
+
+        // Main loop, while the window is open
+        while (Window.isOpen())
+        {
+            // Event loop
+            Event event;
+            while (Window.pollEvent(event))
+            {
+                switch (event.type)
+                {
+                case Event::TextEntered:
+                    if (writeNameI == true)
+                    {
+                        if (event.text.unicode >= 32 && event.text.unicode <=126){
+                        nameI += (char)event.text.unicode;
+                    }
+                        else if (event.text.unicode == 8 && nameI.getSize() > 0)
+                        {
+                        nameI.erase(nameI.getSize() - 1, nameI.getSize());
+                        }
+                    textimage.setString(nameI);
+                    break;
+                    }
+                case Event::Closed:
+                    Window.close();
+                    break;
+                case Event::MouseButtonPressed:
+                    cout << 1 << endl;
+                    Vector2i mousePos = Mouse::getPosition(Window);
+                    //cout << mousePos.x << " " << mousePos.y << endl;
+                    if (mousePos.x > 441 &&  mousePos.x < 850 && mousePos.y > 121 && mousePos.y < 151)
+                    {
+                        writeNameI = true;
+                    }
+                    else if (mousePos.x > 550 &&  mousePos.x < 742 && mousePos.y > 170  && mousePos.y < 205)
+                    {
+                        writeNameI = false;
+                        nameI = "/home/rachel10/GenericPuzzle/Imagen.jpg";
+                        imag.ObtenerImagen(nameI);
+                        //Cargar la imagen
+                    }
+                    else if (mousePos.x > 595 &&  mousePos.x < 681 && mousePos.y > 288 && mousePos.y < 334)
+                    {
+                        writeNameI = false;
+                        cantidadPiezas = 12;
+                        cpiezas = "2";
+                        ListaPuzzle.clear();
+
+                        Part1.loadFromFile(nameI,IntRect(0,0,100,200));
+                        Part2.loadFromFile(nameI,IntRect(100,0,100,200));
+                        Part3.loadFromFile(nameI,IntRect(200,0,100,200));
+                        Part4.loadFromFile(nameI,IntRect(300,0,100,200));
+                        Part5.loadFromFile(nameI,IntRect(0,200,100,200));
+                        Part6.loadFromFile(nameI,IntRect(100,200,100,200));
+                        Part7.loadFromFile(nameI,IntRect(200,200,100,200));
+                        Part8.loadFromFile(nameI,IntRect(300,200,100,200));
+                        Part9.loadFromFile(nameI,IntRect(0,400,100,200));
+                        Part10.loadFromFile(nameI,IntRect(100,400,100,200));
+                        Part11.loadFromFile(nameI,IntRect(200,400,100,200));
+                        Part12.loadFromFile(nameI,IntRect(300,400,100,200));
+
+
+                        S1.setTexture(Part1);
+                        S2.setTexture(Part2);
+                        S3.setTexture(Part3);
+                        S4.setTexture(Part4);
+                        S5.setTexture(Part5);
+                        S6.setTexture(Part6);
+                        S7.setTexture(Part7);
+                        S8.setTexture(Part8);
+                        S9.setTexture(Part9);
+                        S10.setTexture(Part10);
+                        S11.setTexture(Part11);
+                        S12.setTexture(Part12);
+
+
+
+                        Vector2i posiciones[12];
+                        int Posx= 25;
+                        int Posy= 25;
+                        int counter= 0;
+                        for(int i =0;i<3;i++)
+                        {
+                            for(int k=0; k<4; k++)
+                            {
+                                posiciones[counter].x= Posx;
+                                posiciones[counter].y= Posy;
+                                Posx+=100;
+                                counter++;
+                            }
+                            Posy+=200;
+                            Posx =25;
+                        }
+
+                        S1.setPosition(posiciones[ListA[0]].x,posiciones[ListA[0]].y);
+                        S2.setPosition(posiciones[ListA[1]].x,posiciones[ListA[1]].y);
+                        S3.setPosition(posiciones[ListA[2]].x,posiciones[ListA[2]].y);
+                        S4.setPosition(posiciones[ListA[3]].x,posiciones[ListA[3]].y);
+                        S5.setPosition(posiciones[ListA[4]].x,posiciones[ListA[4]].y);
+                        S6.setPosition(posiciones[ListA[5]].x,posiciones[ListA[5]].y);
+                        S7.setPosition(posiciones[ListA[6]].x,posiciones[ListA[6]].y);
+                        S8.setPosition(posiciones[ListA[7]].x,posiciones[ListA[7]].y);
+                        S9.setPosition(posiciones[ListA[8]].x,posiciones[ListA[8]].y);
+                        S10.setPosition(posiciones[ListA[9]].x,posiciones[ListA[9]].y);
+                        S11.setPosition(posiciones[ListA[10]].x,posiciones[ListA[10]].y);
+                        S12.setPosition(posiciones[ListA[11]].x,posiciones[ListA[11]].y);
+
+
+                        ListaPuzzle.append(S1);
+                        ListaPuzzle.append(S2);
+                        ListaPuzzle.append(S3);
+                        ListaPuzzle.append(S5);
+                        ListaPuzzle.append(S4);
+                        ListaPuzzle.append(S6);
+                        ListaPuzzle.append(S7);
+                        ListaPuzzle.append(S8);
+                        ListaPuzzle.append(S9);
+                        ListaPuzzle.append(S10);
+                        ListaPuzzle.append(S11);
+                        ListaPuzzle.append(S12);
+
+
+
+
+                        //Divivdir 4x3
+                    }
+                    else if (mousePos.x > 455 &&  mousePos.x < 539 && mousePos.y > 268 && mousePos.y < 308)
+                    {
+                        writeNameI = false;
+
+                        cantidadPiezas=8;
+                        cpiezas = "1";
+                        ListaPuzzle.clear();
+
+                        Part1.loadFromFile(nameI,IntRect(0,0,100,300));
+                        Part2.loadFromFile(nameI,IntRect(100,0,100,300));
+                        Part3.loadFromFile(nameI,IntRect(200,0,100,300));
+                        Part4.loadFromFile(nameI,IntRect(300,0,100,300));
+                        Part5.loadFromFile(nameI,IntRect(0,300,100,300));
+                        Part6.loadFromFile(nameI,IntRect(100,300,100,300));
+                        Part7.loadFromFile(nameI,IntRect(200,300,100,300));
+                        Part8.loadFromFile(nameI,IntRect(300,300,100,300));
+
+                        S1.setTexture(Part1);
+                        S2.setTexture(Part2);
+                        S3.setTexture(Part3);
+                        S4.setTexture(Part4);
+                        S5.setTexture(Part5);
+                        S6.setTexture(Part6);
+                        S7.setTexture(Part7);
+                        S8.setTexture(Part8);
+
+
+                        Vector2i posiciones[8];
+                        int Posx= 25;
+                        int Posy= 25;
+                        int counter= 0;
+                        for(int i =0;i<2;i++)
+                        {
+                            for(int k=0; k<4; k++)
+                            {
+                                posiciones[counter].x= Posx;
+                                posiciones[counter].y= Posy;
+                                Posx+=100;
+                                counter++;
+                            }
+                            Posy+=300;
+                            Posx =25;
+                        }
+
+
+                        S1.setPosition(posiciones[ListB[0]].x,posiciones[ListB[0]].y);
+                        S2.setPosition(posiciones[ListB[1]].x,posiciones[ListB[1]].y);
+                        S3.setPosition(posiciones[ListB[2]].x,posiciones[ListB[2]].y);
+                        S4.setPosition(posiciones[ListB[3]].x,posiciones[ListB[3]].y);
+                        S5.setPosition(posiciones[ListB[4]].x,posiciones[ListB[4]].y);
+                        S6.setPosition(posiciones[ListB[5]].x,posiciones[ListB[5]].y);
+                        S7.setPosition(posiciones[ListB[6]].x,posiciones[ListB[6]].y);
+                        S8.setPosition(posiciones[ListB[7]].x,posiciones[ListB[7]].y);
+
+
+                        ListaPuzzle.append(S1);
+                        ListaPuzzle.append(S2);
+                        ListaPuzzle.append(S3);
+                        ListaPuzzle.append(S4);
+                        ListaPuzzle.append(S5);
+                        ListaPuzzle.append(S6);
+                        ListaPuzzle.append(S7);
+                        ListaPuzzle.append(S8);
+
+                        NULL;//Divivdir 4x2
+                    }
+                    else if (mousePos.x > 739 &&  mousePos.x < 822 && mousePos.y > 268 && mousePos.y < 308)
+                    {
+                        writeNameI = false;
+                        cantidadPiezas=16;
+                        cpiezas = "3";
+                        ListaPuzzle.clear();
+
+                        Part1.loadFromFile(nameI,IntRect(0,0,100,150));
+                        Part2.loadFromFile(nameI,IntRect(100,0,100,150));
+                        Part3.loadFromFile(nameI,IntRect(200,0,100,150));
+                        Part4.loadFromFile(nameI,IntRect(300,0,100,150));
+                        Part5.loadFromFile(nameI,IntRect(0,150,100,150));
+                        Part6.loadFromFile(nameI,IntRect(100,150,100,150));
+                        Part7.loadFromFile(nameI,IntRect(200,150,100,150));
+                        Part8.loadFromFile(nameI,IntRect(300,150,100,150));
+                        Part9.loadFromFile(nameI,IntRect(0,300,100,150));
+                        Part10.loadFromFile(nameI,IntRect(100,300,100,150));
+                        Part11.loadFromFile(nameI,IntRect(200,300,100,150));
+                        Part12.loadFromFile(nameI,IntRect(300,300,100,150));
+                        Part13.loadFromFile(nameI,IntRect(0,450,100,150));
+                        Part14.loadFromFile(nameI,IntRect(100,450,100,150));
+                        Part15.loadFromFile(nameI,IntRect(200,450,100,150));
+                        Part16.loadFromFile(nameI,IntRect(300,450,100,150));
+
+
+                        S1.setTexture(Part1);
+                        S2.setTexture(Part2);
+                        S3.setTexture(Part3);
+                        S4.setTexture(Part4);
+                        S5.setTexture(Part5);
+                        S6.setTexture(Part6);
+                        S7.setTexture(Part7);
+                        S8.setTexture(Part8);
+                        S9.setTexture(Part9);
+                        S10.setTexture(Part10);
+                        S11.setTexture(Part11);
+                        S12.setTexture(Part12);
+                        S13.setTexture(Part13);
+                        S14.setTexture(Part14);
+                        S15.setTexture(Part15);
+                        S16.setTexture(Part16);
+
+
+
+                        Vector2i posiciones[12];
+                        int Posx= 25;
+                        int Posy= 25;
+                        int counter= 0;
+                        for(int i =0;i<4;i++)
+                        {
+                            for(int k=0; k<4; k++)
+                            {
+                                posiciones[counter].x= Posx;
+                                posiciones[counter].y= Posy;
+                                Posx+=100;
+                                counter++;
+                            }
+                            Posy+=150;
+                            Posx =25;
+                        }
+
+                        S1.setPosition(posiciones[ListC[0]].x,posiciones[ListC[0]].y);
+                        S2.setPosition(posiciones[ListC[1]].x,posiciones[ListC[1]].y);
+                        S3.setPosition(posiciones[ListC[2]].x,posiciones[ListC[2]].y);
+                        S4.setPosition(posiciones[ListC[3]].x,posiciones[ListC[3]].y);
+                        S5.setPosition(posiciones[ListC[4]].x,posiciones[ListC[4]].y);
+                        S6.setPosition(posiciones[ListC[5]].x,posiciones[ListC[5]].y);
+                        S7.setPosition(posiciones[ListC[6]].x,posiciones[ListC[6]].y);
+                        S8.setPosition(posiciones[ListC[7]].x,posiciones[ListC[7]].y);
+                        S9.setPosition(posiciones[ListC[8]].x,posiciones[ListC[8]].y);
+                        S10.setPosition(posiciones[ListC[9]].x,posiciones[ListC[9]].y);
+                        S11.setPosition(posiciones[ListC[10]].x,posiciones[ListC[10]].y);
+                        S12.setPosition(posiciones[ListC[11]].x,posiciones[ListC[11]].y);
+                        S13.setPosition(posiciones[ListC[12]].x,posiciones[ListC[12]].y);
+                        S14.setPosition(posiciones[ListC[13]].x,posiciones[ListC[13]].y);
+                        S15.setPosition(posiciones[ListC[14]].x,posiciones[ListC[14]].y);
+                        S16.setPosition(posiciones[ListC[15]].x,posiciones[ListC[15]].y);
+
+                        ListaPuzzle.append(S1);
+                        ListaPuzzle.append(S2);
+                        ListaPuzzle.append(S3);
+                        ListaPuzzle.append(S11);
+                        ListaPuzzle.append(S12);
+                        ListaPuzzle.append(S13);
+                        ListaPuzzle.append(S14);
+                        ListaPuzzle.append(S15);
+                        ListaPuzzle.append(S16);
+                        ListaPuzzle.append(S5);
+                        ListaPuzzle.append(S4);
+                        ListaPuzzle.append(S6);
+                        ListaPuzzle.append(S7);
+                        ListaPuzzle.append(S8);
+                        ListaPuzzle.append(S9);
+                        ListaPuzzle.append(S10);
+
+
+                        NULL;//Divivdir 2x2
+                    }
+                    else if (mousePos.x > 549 &&  mousePos.x < 741 && mousePos.y > 369 && mousePos.y < 411)
+                    {
+                        writeNameI = false;
+
+                        string text;
+                        text= "G"+ cpiezas + ".";
+                        for(int a= 0; a<8; a++){
+                            text+= to_string(ListB[a]) + ".";
+                        }
+
+                        socket.send(text.c_str(), text.length() + 1);
+                        mode = "r";
+                        if(mode=="r") {
+                            socket.receive(buffer, sizeof(buffer), received);
+                            messageR = buffer;
+                            if (received>0 and messageR != "Connected to: Server"){
+                                cout << "Received: " << buffer << endl;
+
+                                mode = "s";
+                            } else {
+                                while(messageR == "Connected to: Server"){
+                                    socket.receive(buffer, sizeof(buffer), received);
+                                    messageR = buffer;
+                                    mode = "s";
+                                }
+                            }
+                        }
+                        if (messageR == "Listo"){
+                            cout << "Ordenado " << endl;
+                        }
+
+
+                        NULL;//Llamar al algoritmo
+                    }
+                    else
+                    {
+                        writeNameI = false;
+                        break;
+                    }
+                  }
+            }
+            Window.clear();
+            Window.draw(GPBackG);
+            Window.draw(textimage);
+            if (ListaPuzzle.size()!=0){
+                for(int i =0; i<cantidadPiezas; i++){
+                    Window.draw(ListaPuzzle[i]);
+                }
+            }
+            Window.display();
+
+        }
     // End of application
     return 0;
-
-
+    }
 }
 
 /**
@@ -1291,7 +1591,12 @@ int main(){
                 if (mousePos.x > 372 &&  mousePos.x < 500 && mousePos.y > 90 && mousePos.y < 170){
                     mainMenu.close();
                     return BPselectionMenu(1);
+                }else if (mousePos.x > 372 &&  mousePos.x < 500 && mousePos.y > 212 && mousePos.y < 288){
+                    mainMenu.close();
+                    return GeneticPuzzle();
                 }
+
+
             }
         }
 

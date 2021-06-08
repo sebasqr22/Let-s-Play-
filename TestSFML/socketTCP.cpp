@@ -7,6 +7,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <path.cpp>
+#include "algen.h"
 using namespace std;
 
 int filas = 8;
@@ -184,21 +185,35 @@ SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88], int Mode)
         int cont = 0;
 
         cont2 = 0;
-        /// GENERA LISTA DE OBSTACULOS
-        for (int q = 0; q < msgR.length() ; q++){
-            //cout << msg2[i] << endl;
-            if (msgR[q]!='.'){
-                part+=msgR[q];
-                //cout << "No punto" << endl;
-            } else {
-                //cout << "QUE PASAAA " << endl;
-                //this->obstacles[0] = 1;
-                this->obstacles[cont2] = atoi(part.c_str());
-                //cout << this->obstacles[cont2] << endl;
-                part="";
-                cont2 += 1;
-            }
+        if (msgR[0] == 'G'){
+           alGen AlgoritmoG;
+           cout << "Genetico" << endl;
+           if (msgR[1] == '1'){
+               AlgoritmoG.Principal(8);
+           }else if (msgR[1] == '2'){
+               AlgoritmoG.Principal(12);
+           }else if (msgR[1] == '3'){
+               AlgoritmoG.Principal(16);
+           }
+        }
+        else
+        {
+            /// GENERA LISTA DE OBSTACULOS
+            for (int q = 0; q < msgR.length() ; q++){
+                //cout << msg2[i] << endl;
+                if (msgR[q]!='.'){
+                    part+=msgR[q];
+                    //cout << "No punto" << endl;
+                } else {
+                    //cout << "QUE PASAAA " << endl;
+                    //this->obstacles[0] = 1;
+                    this->obstacles[cont2] = atoi(part.c_str());
+                    //cout << this->obstacles[cont2] << endl;
+                    part="";
+                    cont2 += 1;
+                }
 
+            }
         }
         path Pathfinding;
         Pathfinding.setObstaculos(msgR);
