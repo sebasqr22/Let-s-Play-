@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_XML_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -std=gnu++14 -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I../../Qt5.9.1/5.9.1/gcc_64/include -I../../Qt5.9.1/5.9.1/gcc_64/include/QtCore -I. -I../../Qt5.9.1/5.9.1/gcc_64/mkspecs/linux-g++
+INCPATH       = -I. -I../../Qt5.9.1/5.9.1/gcc_64/include -I../../Qt5.9.1/5.9.1/gcc_64/include/QtXml -I../../Qt5.9.1/5.9.1/gcc_64/include/QtCore -I. -I../../Qt5.9.1/5.9.1/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/rachel10/Qt5.9.1/5.9.1/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -38,7 +38,7 @@ DISTNAME      = TestSFML1.0.0
 DISTDIR = /home/rachel10/Let-s-Play-/TestSFML/.tmp/TestSFML1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/home/rachel10/Qt5.9.1/5.9.1/gcc_64/lib
-LIBS          = $(SUBLIBS) -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system -L/home/rachel10/Qt5.9.1/5.9.1/gcc_64/lib -lQt5Core -lpthread 
+LIBS          = $(SUBLIBS) -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-window -lsfml-system -L/home/rachel10/Qt5.9.1/5.9.1/gcc_64/lib -lQt5Xml -lQt5Core -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -449,6 +449,7 @@ Makefile: TestSFML.pro ../../Qt5.9.1/5.9.1/gcc_64/mkspecs/linux-g++/qmake.conf .
 		../../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/yacc.prf \
 		../../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/lex.prf \
 		TestSFML.pro \
+		../../Qt5.9.1/5.9.1/gcc_64/lib/libQt5Xml.prl \
 		../../Qt5.9.1/5.9.1/gcc_64/lib/libQt5Core.prl
 	$(QMAKE) -o Makefile TestSFML.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 ../../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/spec_pre.prf:
@@ -629,6 +630,7 @@ Makefile: TestSFML.pro ../../Qt5.9.1/5.9.1/gcc_64/mkspecs/linux-g++/qmake.conf .
 ../../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/yacc.prf:
 ../../Qt5.9.1/5.9.1/gcc_64/mkspecs/features/lex.prf:
 TestSFML.pro:
+../../Qt5.9.1/5.9.1/gcc_64/lib/libQt5Xml.prl:
 ../../Qt5.9.1/5.9.1/gcc_64/lib/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile TestSFML.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -745,7 +747,49 @@ cuadro.o: cuadro.cpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cuadro.o cuadro.cpp
 
 socketTCP.o: socketTCP.cpp socketTCP.h \
-		path.cpp
+		path.cpp \
+		algen.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QList \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qlist.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qglobal.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qconfig.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qlogging.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qflags.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qatomic.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qatomic_msvc.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmutex.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qnumeric.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qiterator.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qrefcount.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qarraydata.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qchar.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpair.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qbytearray.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qnamespace.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstring.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstringlist.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qregexp.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QVector \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qvector.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpoint.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o socketTCP.o socketTCP.cpp
 
 fball.o: fball.cpp fball.h
@@ -804,7 +848,165 @@ algen.o: algen.cpp algen.h \
 		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstringmatcher.h \
 		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QVector \
 		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qvector.h \
-		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpoint.h
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpoint.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QDebug \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qdebug.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qhash.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmap.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtextstream.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qiodevice.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qobject.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmetatype.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qlocale.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qvariant.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qshareddata.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qset.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QFile \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfile.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfiledevice.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QIODevice \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QTextStream \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/QDomProcessingInstruction \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/qdom.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/qtxmlglobal.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/qtxml-config.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/QtXml \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/QtXmlDepends \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QtCore \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QtCoreDepends \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qabstractanimation.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qabstracteventdispatcher.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qeventloop.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qabstractproxymodel.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qabstractstate.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qabstracttransition.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qanimationgroup.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qarraydataops.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qbitarray.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qbuffer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qbytearraymatcher.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcache.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcollator.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcommandlineoption.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcommandlineparser.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcoreapplication.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qcryptographichash.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qdatastream.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qdatetime.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qdir.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfileinfo.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qdiriterator.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qeasingcurve.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qendian.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qeventtransition.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qexception.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfactoryinterface.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfileselector.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QObject \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QStringList \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfilesystemwatcher.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfinalstate.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfuture.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfutureinterface.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qrunnable.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qresultstore.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfuturesynchronizer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qfuturewatcher.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qhistorystate.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qidentityproxymodel.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qisenum.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qitemselectionmodel.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qjsonarray.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qjsonvalue.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qjsondocument.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qjsonobject.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qlibrary.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qlibraryinfo.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qversionnumber.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qline.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qlinkedlist.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qlockfile.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qloggingcategory.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmargins.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmath.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmessageauthenticationcode.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmetaobject.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmimedata.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmimedatabase.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qmimetype.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qobjectcleanuphandler.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qoperatingsystemversion.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qparallelanimationgroup.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpauseanimation.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qplugin.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpointer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpluginloader.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qprocess.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qpropertyanimation.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qvariantanimation.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qqueue.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qreadwritelock.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qrect.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsize.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qregularexpression.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qresource.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsavefile.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qscopedvaluerollback.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsemaphore.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsequentialanimationgroup.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsettings.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsharedmemory.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsignalmapper.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsignaltransition.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsocketnotifier.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsortfilterproxymodel.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstack.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstandardpaths.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstate.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstatemachine.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstorageinfo.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qstringlistmodel.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qsystemsemaphore.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtemporarydir.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QScopedPointer \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtemporaryfile.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtextboundaryfinder.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtextcodec.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qthread.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qthreadpool.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qthreadstorage.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtimeline.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtimer.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtimezone.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtranslator.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtypetraits.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qurl.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qurlquery.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/quuid.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qwaitcondition.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qwineventnotifier.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qxmlstream.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/qtcoreversion.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/qxml.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtXml/qtxmlversion.h \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QDir \
+		../../Qt5.9.1/5.9.1/gcc_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o algen.o algen.cpp
 
 ####### Install

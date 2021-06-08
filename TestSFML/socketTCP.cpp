@@ -190,10 +190,13 @@ SocketTCP::SocketTCP(bool connectionType,RectangleShape rects[88], int Mode)
            cout << "Genetico" << endl;
            if (msgR[1] == '1'){
                AlgoritmoG.Principal(8);
+               cout << "FinGenetico8" << endl;
            }else if (msgR[1] == '2'){
                AlgoritmoG.Principal(12);
+               cout << "FInGenetico12" << endl;
            }else if (msgR[1] == '3'){
                AlgoritmoG.Principal(16);
+               cout << "FinGenetico16" << endl;
            }
         }
         else

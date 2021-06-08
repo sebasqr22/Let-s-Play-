@@ -27,6 +27,8 @@ public:
     int obtenerMejor();
     void individuoM();
     int Principal(int cantidad);
+    void CreateXMLFile(int i);
+    void Write(QString gen, QString lista);
 };
 
 #endif // ALGEN_H

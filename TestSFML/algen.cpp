@@ -9,9 +9,23 @@
 #include <stdlib.h>
 #include <time.h>
 #include <QVector>
-#include <qvector.h>
+#include <QDebug>
+#include <vector>
+#include <QFile>
+#include <QIODevice>
+#include <QTextStream>
+#include <QDomProcessingInstruction>
+#include <QtXml>
+#include <QDir>
+#include <QString>
 using namespace std;
 
+struct Generation{
+   QString gen;
+   QString list;
+};
+
+vector <struct Generation > mVec;
 /**
  * @brief GeneticA::GeneticA Costrcutor principal de la clase
  */
@@ -19,14 +33,73 @@ alGen::alGen()
 {
 
 }
+
+void alGen::Write(QString gen, QString lista ){
+    struct Generation Gen;
+    QString myMsg = "Mensaje ,";
+    Gen.gen = gen;
+    Gen.list = lista ;
+    mVec.push_back(Gen);
+
+}
+void alGen::CreateXMLFile(int i){
+
+    string D = "XML" + to_string(i) + ".xml";
+    //cout << D << endl;
+    QString nameD = QString::fromLocal8Bit(D.c_str());
+
+    QFile mfile (nameD);
+    if (!mVec.empty()){
+        //cout << mVec.size() << "  Dates saved" << endl;
+        //Create Documen
+        QDomDocument myDoc;
+        QDomProcessingInstruction pi;
+        pi= myDoc.createProcessingInstruction("xml","version =\"1.0\" encoding=\"utf-8\" ");
+        myDoc.appendChild(pi);
+
+        //Add root node
+        QDomElement root;
+        root = myDoc.createElement("root");
+        myDoc.appendChild(root);
+
+
+        for(auto it = mVec.begin(); it != mVec.end(); it ++)
+        {
+           QDomElement generacion = myDoc.createElement("generacion");
+
+           QDomElement gen = myDoc.createElement("Numerodegeneracion");
+           QDomText tGen = myDoc.createTextNode(it->gen);
+           gen.appendChild(tGen);
+           generacion.appendChild(gen);
+
+           QDomElement list = myDoc.createElement("Lista");
+           QDomText tList = myDoc.createTextNode(it->list);
+           list.appendChild(tList);
+           generacion.appendChild(list);
+
+           root.appendChild(generacion);
+
+        }
+
+        if(mfile.open(QIODevice::WriteOnly | QIODevice::Text)){
+
+            QTextStream out(&mfile);
+            out << myDoc.toString();
+
+            mVec.clear();
+            mfile.flush();
+            mfile.close();
+        }
+    }
+
+}
 // VARIABLES///
 int tam_pob = 20; // número de individuos en la población
 int tam_torneo = 50; // tamaño del torneo
-int generaciones = 500; // cantidad de generaciones
+int generaciones = 1000; // cantidad de generaciones
 double prob_mut = 0.6; // probabilidad de mutacion
 double prob_cruz = 0.9; // probabilidad de cruzamento
 QVector<QVector<int> > poblacion;// poblacion del algoritmo
-
 
 int alGen::Aleatorios(int tam){
     this->ListaNumeros.clear();
@@ -58,11 +131,10 @@ void alGen::Individuo_E(int list[]){
     poblacion.push_back(this->individuodado); //inserta en el vectorpoblación
 }
 
+// Creación de la Población inicial
 /**
  * @brief GeneticA::PoblacionInicial Define la poblacion inicial
  */
-
-// Creación de la Población inicial
 void alGen::PoblacionInicial()
 {
     for(int i = 0; i < tam_pob; i++)
@@ -79,9 +151,7 @@ void alGen::PoblacionInicial()
     }
 }
 
-/**
- * @brief GeneticA::mostrarPoblacion Metodo para mostrar la poblacion del algoritmo
- */
+
 void alGen::mostrarPoblacion()
 {
     for(int i = 0; i < tam_pob; i++)
@@ -91,7 +161,44 @@ void alGen::mostrarPoblacion()
         cout << endl;
     }
 }
+/**
+ * @brief GeneticA::mutacion Metodo para realizar una mutacion
+ * @param individuo Individuo a realizar la mutacion
+ */
+// metodo de mutacion
+void alGen::mutacion(QVector<int>& individuo)
+{
+    //elige dos genes alzar para intercambiarlo
+    int gen1 = rand() % this->tam_genes;
+    int gen2 ;
+    do
+    {
+        gen2 = rand() % this->tam_genes;
+    }
+    while(gen1 == gen2);
+       // modifica el valor del gen escogido
+    int aux = individuo[gen1];
+    individuo[gen1]= individuo[gen2];
+    individuo[gen2]= aux;
+}
 
+// metodo donde se realizan los cruces
+/**
+ * @brief GeneticA::Cruzamiento Metodo para gener un cruzamiento
+ * @param indice_padre1 Padre 1
+ * @param indice_padre2 Padre 2
+ * @param hijo Individuo hijo de Padre 1 y Padre 2
+ */
+void alGen::Cruzamiento(int indice_padre1, int indice_padre2, QVector<int>& hijo)
+{
+    // elige un punto al azar en el rango [0, tam_genes - 1]
+    int punto = rand() % this->tam_genes;
+
+    for(int i = 0; i <= punto; i++)
+        hijo.push_back(poblacion[indice_padre1][i]);
+    for(int i = punto + 1; i < this->tam_genes; i++)
+        hijo.push_back(poblacion[indice_padre2][i]);
+}
 // devuelve la puntuación del individuo
 /**
  * @brief GeneticA::obtenerPuntuacion Mostrar la puntuacion del jugador
@@ -111,53 +218,11 @@ int alGen::obtenerPuntuacion(QVector<int> individuo)
      }
     return suma;
 }
-
-
-// realización de mutacion
-/**
- * @brief GeneticA::mutacion Metodo para realizar una mutacion
- * @param individuo Individuo a realizar la mutacion
- */
-void alGen::mutacion(QVector<int>& individuo)
-{
-    //elige dos genes alzar para intercambiarlo
-    int gen1 = rand() % this->tam_genes;
-    int gen2 ;
-    do
-    {
-        gen2 = rand() % this->tam_genes;
-    }
-    while(gen1 == gen2);
-       // modifica el valor del gen escogido
-    int aux = individuo[gen1];
-    individuo[gen1]= individuo[gen2];
-    individuo[gen2]= aux;
-}
-
-// realización de los cruces
-/**
- * @brief GeneticA::Cruzamiento Metodo para gener un cruzamiento
- * @param indice_padre1 Padre 1
- * @param indice_padre2 Padre 2
- * @param hijo Individuo hijo de Padre 1 y Padre 2
- */
-
-void alGen::Cruzamiento(int indice_padre1, int indice_padre2, QVector<int>& hijo)
-{
-    // elige un punto al azar en el rango [0, tam_genes - 1]
-    int punto = rand() % this->tam_genes;
-
-    for(int i = 0; i <= punto; i++)
-        hijo.push_back(poblacion[indice_padre1][i]);
-    for(int i = punto + 1; i < this->tam_genes; i++)
-        hijo.push_back(poblacion[indice_padre2][i]);
-}
-
-// devuelve el índice del mejor individuo de la población
 /**
  * @brief GeneticA::obtenerMejor Obtiene el indice del mejor individuo de la poblacion
  * @return Individuo con mejor indice de la poblacion
  */
+// devuelve el índice del mejor individuo de la población
 int alGen::obtenerMejor()
 {
     int indice_mejor = 0;
@@ -175,7 +240,6 @@ int alGen::obtenerMejor()
 
     return indice_mejor;
 } // fin obtenerMejot
-
 /**
  * @brief GeneticA::Principal Metodo principal
  */
@@ -252,6 +316,8 @@ int alGen::Principal(int cantidad){
         cout << "Generacion " << generacion << endl;
         cout << "Mejor: ";
 
+        string genX = to_string(i);
+        QString genXM = QString::fromLocal8Bit(genX.c_str());
 
         QVector<int> mejor;
 
@@ -260,21 +326,31 @@ int alGen::Principal(int cantidad){
         mejor=poblacion[indice_mejor];
         int score_mejor = obtenerPuntuacion(mejor);
 
+        string listX;
+
 
         for(int j = 0; j < this->tam_genes; j++)
         {
             cout << mejor[j] << " ";
+            listX += to_string(mejor[j]);
+
         }
+        QString listXM = QString::fromLocal8Bit(listX.c_str());
+        Write(genXM,listXM);
+        CreateXMLFile(generacion);
 
         cout << "\nPuntuación: " << score_mejor << "\n\n";
+
 
 
         //comprueba si encontró la solución global óptima
         if(score_mejor == tam_genes)
             break;
 
+
     }
 
     return 0;
 
 }
+

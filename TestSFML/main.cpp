@@ -23,7 +23,7 @@ int GeneticPuzzle(){
     RectangleShape GPBackG(Vector2f(850.f,650.f));
 
     Texture GPBackground;
-    GPBackground.loadFromFile("/home/rachel10/GenericPuzzle/Imagenes/Genetic.png");
+    GPBackground.loadFromFile("Imags/Genetic.png");
 
     GPBackG.setTexture(&GPBackground);
 
@@ -51,8 +51,14 @@ int GeneticPuzzle(){
     int ListA[]={7,10,6,2,5,8,11,1,3,4,9,0};
     int ListB[]={7,3,5,0,4,1,6,2};
     int ListC[]={5,13,8,7,9,3,15,1,4,11,0,14,2,10,6,12};
+    int ListMA[]={0,1,2,3,4,5,6,7,8,9,10,11};
+    int ListMB[]={0,1,2,3,4,5,6,7};
+    int ListMC[]={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
     int cantidadPiezas;
     string cpiezas;
+    Vector2i posiciones2[12];
+    Vector2i posiciones3[16];
+    Vector2i posiciones[8];
     string messageR;
 
 
@@ -121,11 +127,11 @@ int GeneticPuzzle(){
                     else if (mousePos.x > 550 &&  mousePos.x < 742 && mousePos.y > 170  && mousePos.y < 205)
                     {
                         writeNameI = false;
-                        nameI = "/home/rachel10/GenericPuzzle/Imagen.jpg";
+                        nameI = "Imags/Imagen1.jpg";
                         imag.ObtenerImagen(nameI);
                         //Cargar la imagen
                     }
-                    else if (mousePos.x > 595 &&  mousePos.x < 681 && mousePos.y > 288 && mousePos.y < 334)
+                    else if (mousePos.x > 594 &&  mousePos.x < 682 && mousePos.y > 282 && mousePos.y < 334)
                     {
                         writeNameI = false;
                         cantidadPiezas = 12;
@@ -159,9 +165,6 @@ int GeneticPuzzle(){
                         S11.setTexture(Part11);
                         S12.setTexture(Part12);
 
-
-
-                        Vector2i posiciones[12];
                         int Posx= 25;
                         int Posy= 25;
                         int counter= 0;
@@ -169,8 +172,8 @@ int GeneticPuzzle(){
                         {
                             for(int k=0; k<4; k++)
                             {
-                                posiciones[counter].x= Posx;
-                                posiciones[counter].y= Posy;
+                                posiciones2[counter].x= Posx;
+                                posiciones2[counter].y= Posy;
                                 Posx+=100;
                                 counter++;
                             }
@@ -178,19 +181,18 @@ int GeneticPuzzle(){
                             Posx =25;
                         }
 
-                        S1.setPosition(posiciones[ListA[0]].x,posiciones[ListA[0]].y);
-                        S2.setPosition(posiciones[ListA[1]].x,posiciones[ListA[1]].y);
-                        S3.setPosition(posiciones[ListA[2]].x,posiciones[ListA[2]].y);
-                        S4.setPosition(posiciones[ListA[3]].x,posiciones[ListA[3]].y);
-                        S5.setPosition(posiciones[ListA[4]].x,posiciones[ListA[4]].y);
-                        S6.setPosition(posiciones[ListA[5]].x,posiciones[ListA[5]].y);
-                        S7.setPosition(posiciones[ListA[6]].x,posiciones[ListA[6]].y);
-                        S8.setPosition(posiciones[ListA[7]].x,posiciones[ListA[7]].y);
-                        S9.setPosition(posiciones[ListA[8]].x,posiciones[ListA[8]].y);
-                        S10.setPosition(posiciones[ListA[9]].x,posiciones[ListA[9]].y);
-                        S11.setPosition(posiciones[ListA[10]].x,posiciones[ListA[10]].y);
-                        S12.setPosition(posiciones[ListA[11]].x,posiciones[ListA[11]].y);
-
+                        S1.setPosition(posiciones2[ListA[0]].x,posiciones2[ListA[0]].y);
+                        S2.setPosition(posiciones2[ListA[1]].x,posiciones2[ListA[1]].y);
+                        S3.setPosition(posiciones2[ListA[2]].x,posiciones2[ListA[2]].y);
+                        S4.setPosition(posiciones2[ListA[3]].x,posiciones2[ListA[3]].y);
+                        S5.setPosition(posiciones2[ListA[4]].x,posiciones2[ListA[4]].y);
+                        S6.setPosition(posiciones2[ListA[5]].x,posiciones2[ListA[5]].y);
+                        S7.setPosition(posiciones2[ListA[6]].x,posiciones2[ListA[6]].y);
+                        S8.setPosition(posiciones2[ListA[7]].x,posiciones2[ListA[7]].y);
+                        S9.setPosition(posiciones2[ListA[8]].x,posiciones2[ListA[8]].y);
+                        S10.setPosition(posiciones2[ListA[9]].x,posiciones2[ListA[9]].y);
+                        S11.setPosition(posiciones2[ListA[10]].x,posiciones2[ListA[10]].y);
+                        S12.setPosition(posiciones2[ListA[11]].x,posiciones2[ListA[11]].y);
 
                         ListaPuzzle.append(S1);
                         ListaPuzzle.append(S2);
@@ -210,7 +212,7 @@ int GeneticPuzzle(){
 
                         //Divivdir 4x3
                     }
-                    else if (mousePos.x > 455 &&  mousePos.x < 539 && mousePos.y > 268 && mousePos.y < 308)
+                    else if (mousePos.x > 453 &&  mousePos.x < 542 && mousePos.y > 282 && mousePos.y < 334)
                     {
                         writeNameI = false;
 
@@ -237,7 +239,6 @@ int GeneticPuzzle(){
                         S8.setTexture(Part8);
 
 
-                        Vector2i posiciones[8];
                         int Posx= 25;
                         int Posy= 25;
                         int counter= 0;
@@ -276,7 +277,7 @@ int GeneticPuzzle(){
 
                         NULL;//Divivdir 4x2
                     }
-                    else if (mousePos.x > 739 &&  mousePos.x < 822 && mousePos.y > 268 && mousePos.y < 308)
+                    else if (mousePos.x > 738 &&  mousePos.x < 824 && mousePos.y > 282 && mousePos.y < 334)
                     {
                         writeNameI = false;
                         cantidadPiezas=16;
@@ -318,9 +319,6 @@ int GeneticPuzzle(){
                         S15.setTexture(Part15);
                         S16.setTexture(Part16);
 
-
-
-                        Vector2i posiciones[12];
                         int Posx= 25;
                         int Posy= 25;
                         int counter= 0;
@@ -328,8 +326,8 @@ int GeneticPuzzle(){
                         {
                             for(int k=0; k<4; k++)
                             {
-                                posiciones[counter].x= Posx;
-                                posiciones[counter].y= Posy;
+                                posiciones3[counter].x= Posx;
+                                posiciones3[counter].y= Posy;
                                 Posx+=100;
                                 counter++;
                             }
@@ -337,22 +335,22 @@ int GeneticPuzzle(){
                             Posx =25;
                         }
 
-                        S1.setPosition(posiciones[ListC[0]].x,posiciones[ListC[0]].y);
-                        S2.setPosition(posiciones[ListC[1]].x,posiciones[ListC[1]].y);
-                        S3.setPosition(posiciones[ListC[2]].x,posiciones[ListC[2]].y);
-                        S4.setPosition(posiciones[ListC[3]].x,posiciones[ListC[3]].y);
-                        S5.setPosition(posiciones[ListC[4]].x,posiciones[ListC[4]].y);
-                        S6.setPosition(posiciones[ListC[5]].x,posiciones[ListC[5]].y);
-                        S7.setPosition(posiciones[ListC[6]].x,posiciones[ListC[6]].y);
-                        S8.setPosition(posiciones[ListC[7]].x,posiciones[ListC[7]].y);
-                        S9.setPosition(posiciones[ListC[8]].x,posiciones[ListC[8]].y);
-                        S10.setPosition(posiciones[ListC[9]].x,posiciones[ListC[9]].y);
-                        S11.setPosition(posiciones[ListC[10]].x,posiciones[ListC[10]].y);
-                        S12.setPosition(posiciones[ListC[11]].x,posiciones[ListC[11]].y);
-                        S13.setPosition(posiciones[ListC[12]].x,posiciones[ListC[12]].y);
-                        S14.setPosition(posiciones[ListC[13]].x,posiciones[ListC[13]].y);
-                        S15.setPosition(posiciones[ListC[14]].x,posiciones[ListC[14]].y);
-                        S16.setPosition(posiciones[ListC[15]].x,posiciones[ListC[15]].y);
+                        S1.setPosition(posiciones3[ListC[0]].x,posiciones3[ListC[0]].y);
+                        S2.setPosition(posiciones3[ListC[1]].x,posiciones3[ListC[1]].y);
+                        S3.setPosition(posiciones3[ListC[2]].x,posiciones3[ListC[2]].y);
+                        S4.setPosition(posiciones3[ListC[3]].x,posiciones3[ListC[3]].y);
+                        S5.setPosition(posiciones3[ListC[4]].x,posiciones3[ListC[4]].y);
+                        S6.setPosition(posiciones3[ListC[5]].x,posiciones3[ListC[5]].y);
+                        S7.setPosition(posiciones3[ListC[6]].x,posiciones3[ListC[6]].y);
+                        S8.setPosition(posiciones3[ListC[7]].x,posiciones3[ListC[7]].y);
+                        S9.setPosition(posiciones3[ListC[8]].x,posiciones3[ListC[8]].y);
+                        S10.setPosition(posiciones3[ListC[9]].x,posiciones3[ListC[9]].y);
+                        S11.setPosition(posiciones3[ListC[10]].x,posiciones3[ListC[10]].y);
+                        S12.setPosition(posiciones3[ListC[11]].x,posiciones3[ListC[11]].y);
+                        S13.setPosition(posiciones3[ListC[12]].x,posiciones3[ListC[12]].y);
+                        S14.setPosition(posiciones3[ListC[13]].x,posiciones3[ListC[13]].y);
+                        S15.setPosition(posiciones3[ListC[14]].x,posiciones3[ListC[14]].y);
+                        S16.setPosition(posiciones3[ListC[15]].x,posiciones3[ListC[15]].y);
 
                         ListaPuzzle.append(S1);
                         ListaPuzzle.append(S2);
@@ -372,7 +370,7 @@ int GeneticPuzzle(){
                         ListaPuzzle.append(S10);
 
 
-                        NULL;//Divivdir 2x2
+                        NULL;//Divivdir 4x4
                     }
                     else if (mousePos.x > 549 &&  mousePos.x < 741 && mousePos.y > 369 && mousePos.y < 411)
                     {
@@ -385,7 +383,7 @@ int GeneticPuzzle(){
                         }
 
                         socket.send(text.c_str(), text.length() + 1);
-                        mode = "r";
+                        /*mode = "r";
                         if(mode=="r") {
                             socket.receive(buffer, sizeof(buffer), received);
                             messageR = buffer;
@@ -400,9 +398,96 @@ int GeneticPuzzle(){
                                     mode = "s";
                                 }
                             }
+                        }*/
+                        if(cpiezas=="1"){
+                            ListaPuzzle.clear();
+                            S1.setPosition(posiciones[ListMB[0]].x,posiciones[ListMB[0]].y);
+                            S2.setPosition(posiciones[ListMB[1]].x,posiciones[ListMB[1]].y);
+                            S3.setPosition(posiciones[ListMB[2]].x,posiciones[ListMB[2]].y);
+                            S4.setPosition(posiciones[ListMB[3]].x,posiciones[ListMB[3]].y);
+                            S5.setPosition(posiciones[ListMB[4]].x,posiciones[ListMB[4]].y);
+                            S6.setPosition(posiciones[ListMB[5]].x,posiciones[ListMB[5]].y);
+                            S7.setPosition(posiciones[ListMB[6]].x,posiciones[ListMB[6]].y);
+                            S8.setPosition(posiciones[ListMB[7]].x,posiciones[ListMB[7]].y);
+
+
+                            ListaPuzzle.append(S1);
+                            ListaPuzzle.append(S2);
+                            ListaPuzzle.append(S3);
+                            ListaPuzzle.append(S4);
+                            ListaPuzzle.append(S5);
+                            ListaPuzzle.append(S6);
+                            ListaPuzzle.append(S7);
+                            ListaPuzzle.append(S8);
+
                         }
-                        if (messageR == "Listo"){
-                            cout << "Ordenado " << endl;
+                        else if(cpiezas=="2"){
+
+                            ListaPuzzle.clear();
+                            S1.setPosition(posiciones2[ListMA[0]].x,posiciones2[ListMA[0]].y);
+                            S2.setPosition(posiciones2[ListMA[1]].x,posiciones2[ListMA[1]].y);
+                            S3.setPosition(posiciones2[ListMA[2]].x,posiciones2[ListMA[2]].y);
+                            S4.setPosition(posiciones2[ListMA[3]].x,posiciones2[ListMA[3]].y);
+                            S5.setPosition(posiciones2[ListMA[4]].x,posiciones2[ListMA[4]].y);
+                            S6.setPosition(posiciones2[ListMA[5]].x,posiciones2[ListMA[5]].y);
+                            S7.setPosition(posiciones2[ListMA[6]].x,posiciones2[ListMA[6]].y);
+                            S8.setPosition(posiciones2[ListMA[7]].x,posiciones2[ListMA[7]].y);
+                            S9.setPosition(posiciones2[ListMA[8]].x,posiciones2[ListMA[8]].y);
+                            S10.setPosition(posiciones2[ListMA[9]].x,posiciones2[ListMA[9]].y);
+                            S11.setPosition(posiciones2[ListMA[10]].x,posiciones2[ListMA[10]].y);
+                            S12.setPosition(posiciones2[ListMA[11]].x,posiciones2[ListMA[11]].y);
+
+
+                            ListaPuzzle.append(S1);
+                            ListaPuzzle.append(S2);
+                            ListaPuzzle.append(S3);
+                            ListaPuzzle.append(S5);
+                            ListaPuzzle.append(S4);
+                            ListaPuzzle.append(S6);
+                            ListaPuzzle.append(S7);
+                            ListaPuzzle.append(S8);
+                            ListaPuzzle.append(S9);
+                            ListaPuzzle.append(S10);
+                            ListaPuzzle.append(S11);
+                            ListaPuzzle.append(S12);
+
+                        }
+                        else if(cpiezas=="3"){
+                            ListaPuzzle.clear();
+                            S1.setPosition(posiciones3[ListMC[0]].x,posiciones3[ListMC[0]].y);
+                            S2.setPosition(posiciones3[ListMC[1]].x,posiciones3[ListMC[1]].y);
+                            S3.setPosition(posiciones3[ListMC[2]].x,posiciones3[ListMC[2]].y);
+                            S4.setPosition(posiciones3[ListMC[3]].x,posiciones3[ListMC[3]].y);
+                            S5.setPosition(posiciones3[ListMC[4]].x,posiciones3[ListMC[4]].y);
+                            S6.setPosition(posiciones3[ListMC[5]].x,posiciones3[ListMC[5]].y);
+                            S7.setPosition(posiciones3[ListMC[6]].x,posiciones3[ListMC[6]].y);
+                            S8.setPosition(posiciones3[ListMC[7]].x,posiciones3[ListMC[7]].y);
+                            S9.setPosition(posiciones3[ListMC[8]].x,posiciones3[ListMC[8]].y);
+                            S10.setPosition(posiciones3[ListMC[9]].x,posiciones3[ListMC[9]].y);
+                            S11.setPosition(posiciones3[ListMC[10]].x,posiciones3[ListMC[10]].y);
+                            S12.setPosition(posiciones3[ListMC[11]].x,posiciones3[ListMC[11]].y);
+                            S13.setPosition(posiciones3[ListMC[12]].x,posiciones3[ListMC[12]].y);
+                            S14.setPosition(posiciones3[ListMC[13]].x,posiciones3[ListMC[13]].y);
+                            S15.setPosition(posiciones3[ListMC[14]].x,posiciones3[ListMC[14]].y);
+                            S16.setPosition(posiciones3[ListMC[15]].x,posiciones3[ListC[15]].y);
+
+                            ListaPuzzle.append(S1);
+                            ListaPuzzle.append(S2);
+                            ListaPuzzle.append(S3);
+                            ListaPuzzle.append(S11);
+                            ListaPuzzle.append(S12);
+                            ListaPuzzle.append(S13);
+                            ListaPuzzle.append(S14);
+                            ListaPuzzle.append(S15);
+                            ListaPuzzle.append(S16);
+                            ListaPuzzle.append(S5);
+                            ListaPuzzle.append(S4);
+                            ListaPuzzle.append(S6);
+                            ListaPuzzle.append(S7);
+                            ListaPuzzle.append(S8);
+                            ListaPuzzle.append(S9);
+                            ListaPuzzle.append(S10);
+
                         }
 
 
